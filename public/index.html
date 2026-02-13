@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neil - Creative Full-Stack Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* --- Custom Styles & Fallbacks --- */
+        /* CSS Variables for theming */
+        :root {
+            /* Dark Theme Defaults */
+            --bg-color: #050816;
+            --text-color: #aaa6c3;
+            /* General body text */
+            --main-text-color: #e0e0e0;
+            /* Headings and prominent text */
+            --card-bg: rgba(21, 16, 48, 0.5);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --primary-gradient-start: #915EFF;
+            /* Violet */
+            --primary-gradient-end: #FF57B9;
+            /* Pink */
+            --glow-color-primary: rgba(145, 94, 255, 0.7);
+            --glow-color-secondary: rgba(255, 87, 185, 0.8);
+            --input-bg: rgba(30, 25, 60, 0.7);
+            --input-border: rgba(100, 100, 100, 0.5);
+            --header-bg: rgba(0, 0, 0, 0.8);
+            --header-link-color: #a0aec0;
+            /* Tailwind gray-300 */
+            --header-link-hover-color: #ffffff;
+            /* Tailwind white */
+            --button-text-color: #ffffff;
+            --secondary-button-bg: #4a5568;
+            /* Tailwind gray-700 */
+            --secondary-button-hover-bg: #2d3748;
+            /* Tailwind gray-800 */
+            --footer-text-color: #a0aec0;
+            /* Tailwind gray-400 */
+            --shimmer-color: rgba(255, 255, 255, 0.2);
+            /* White shimmer for dark mode */
+            --neil-name-color: #ffffff;
+            /* Default Neil color for dark mode */
+            --input-focus-glow-dark-primary: rgba(145, 94, 255, 0.7);
+            /* Existing primary glow */
+            --input-focus-glow-dark-secondary: rgba(255, 87, 185, 0.8);
+            /* Existing secondary glow */
+            --hero-shape-color: 0x915EFF;
+            /* Default dark mode shape color */
+            --hero-shape-wireframe-color: 0xffffff;
+            /* Default dark mode wireframe color */
+        }
+
+        body.light-theme {
+            /* Light Theme Overrides */
+            --bg-color: #f0f2f5;
+            /* Lighter background */
+            --text-color: #a2a6ac;
+            /* Darker general text (Tailwind gray-800) for better contrast */
+            --main-text-color: #1a202c;
+            /* Even darker headings (Tailwind gray-900) for better contrast */
+            --card-bg: rgba(255, 255, 255, 0.95);
+            /* Slightly more opaque for better text contrast */
+            --border-color: rgba(0, 0, 0, 0.15);
+            /* Darker border for contrast */
+            --primary-gradient-start: #6a0dad;
+            /* Deeper purple */
+            --primary-gradient-end: #d32f2f;
+            /* Reddish pink */
+            --glow-color-primary: rgba(106, 13, 173, 0.5);
+            --glow-color-secondary: rgba(211, 47, 47, 0.6);
+            --input-bg: #ffffff;
+            /* Pure white input background for clarity */
+            --input-border: #cbd5e0;
+            /* Lighter input border (Tailwind gray-300) */
+            --header-bg: rgba(255, 255, 255, 0.95);
+            /* Lighter, more opaque header background */
+            --header-link-color: #4a5568;
+            /* Darker links for light theme header */
+            --header-link-hover-color: #2d3748;
+            /* Even darker on hover */
+            --button-text-color: #ffffff;
+            /* Buttons still white text */
+            --secondary-button-bg: #cbd5e0;
+            /* Tailwind gray-300 for secondary button */
+            --secondary-button-hover-bg: #a0aec0;
+            /* Tailwind gray-400 on hover */
+            --footer-text-color: #4a5568;
+            /* Darker footer text */
+            --shimmer-color: rgba(0, 0, 0, 0.1);
+            /* Subtle black shimmer for light mode */
+            --hero-title-light-color: #4a5568;
+            /* Specific color for hero title in light mode */
+            --neil-name-color: #000000;
+            /* Black Neil color for light mode */
+            /* Adjusted light mode image glow colors for more prominence */
+            --image-glow-light-primary: rgba(145, 94, 255, 0.6);
+            /* Stronger purple from dark theme primary glow */
+            --image-glow-light-secondary: rgba(255, 87, 185, 0.7);
+            /* Stronger pink from dark theme secondary glow */
+
+            /* New: Specific input focus glow colors for light mode (more prominent whitish) */
+            --input-focus-glow-light-primary: rgba(170, 170, 200, 0.6);
+            /* Light blue-ish grey for primary glow */
+            --input-focus-glow-light-secondary: rgba(200, 200, 220, 0.4);
+            /* Very light grey for secondary glow */
+
+            /* Light mode hero shape color (lighter and slightly transparent) */
+            --hero-shape-color: 0xADD8E6;
+            /* Light Blue */
+            --hero-shape-wireframe-color: 0x6a0dad;
+            /* Deeper purple for wireframe */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            cursor: none;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        /* Ensure interactive elements also hide the default cursor */
+        a,
+        button,
+        .glass-card,
+        input,
+        textarea {
+            cursor: none !important;
+        }
+
+        /* Custom cursor styles (Trail effect) */
+        .cursor-trail {
+            pointer-events: none;
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background-color: var(--glow-color-primary);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(var(--trail-scale, 1));
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, background-color 0.3s ease, box-shadow 0.3s ease, width 0.3s ease, height 0.3s ease, transform 0.3s ease, border 0.3s ease;
+            box-shadow: 0 0 5px var(--glow-color-primary), 0 0 10px rgba(145, 94, 255, 0.3);
+        }
+
+        /* Interactive cursor state for trail particles */
+        .cursor-trail.cursor-interactive {
+            width: 18px;
+            height: 18px;
+            background-color: var(--glow-color-secondary);
+            box-shadow: 0 0 15px var(--glow-color-secondary), 0 0 25px rgba(255, 87, 185, 0.6);
+            transform: translate(-50%, -50%) scale(calc(var(--trail-scale, 1) * 1.1));
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        /* Gradient text */
+        .text-gradient {
+            background: linear-gradient(90deg, var(--primary-gradient-start), var(--primary-gradient-end));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Section title styling */
+        .section-title {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+            color: var(--main-text-color);
+            /* Ensure title color adheres to theme */
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-gradient-start), var(--primary-gradient-end));
+            margin: 1rem auto 0;
+            border-radius: 9999px;
+            box-shadow: 0 0 15px var(--glow-color-primary);
+        }
+
+        /* Base glass effect with glowing border on hover */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.6s ease;
+            /* Ensure shadow transition */
+        }
+
+        /* Inner element for 3D transformations */
+        .glass-card-inner {
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.6s ease;
+            transform-origin: center center;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: inherit;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Glowing effect on hover (remains on the outer card) */
+        .glass-card:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at var(--x) var(--y), var(--glow-color-primary) 0%, transparent 40%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .glass-card:hover:before {
+            opacity: 1;
+        }
+
+        /* Specific 3D hover effects for cards */
+        .glass-card.card-3d-hover:hover .glass-card-inner {
+            transform: rotateY(8deg) rotateX(8deg) translateZ(30px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .glass-card.card-3d-pop:hover .glass-card-inner {
+            transform: scale(1.07) translateZ(40px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .glass-card.card-3d-rotate:hover .glass-card-inner {
+            transform: rotateY(20deg) translateZ(50px);
+            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Hero background canvas */
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-gradient-start);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-gradient-end);
+        }
+
+        /* Animation for elements appearing on scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Futuristic Button Style */
+        .btn-futuristic {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 0 15px var(--glow-color-primary);
+            background-color: var(--primary-gradient-start);
+            /* Ensure button uses theme color */
+            color: var(--button-text-color);
+            /* Use button text color variable */
+        }
+
+        /* New: Two pseudo-elements for shimmer from both sides */
+        .btn-futuristic::before,
+        .btn-futuristic::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 50%;
+            /* Each pseudo-element covers half the button */
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.6s ease;
+            z-index: -1;
+            opacity: 0;
+            /* Hidden by default */
+        }
+
+        .btn-futuristic::before {
+            left: 0;
+            transform: translateX(-100%);
+            /* Start off-screen left */
+            background: linear-gradient(90deg, var(--shimmer-color), transparent);
+            /* Use shimmer color variable */
+        }
+
+        .btn-futuristic::after {
+            right: 0;
+            transform: translateX(100%);
+            /* Start off-screen right */
+            background: linear-gradient(90deg, transparent, var(--shimmer-color));
+            /* Use shimmer color variable */
+        }
+
+        .btn-futuristic:hover::before {
+            transform: translateX(0%);
+            /* Move to cover left half */
+            opacity: 1;
+        }
+
+        .btn-futuristic:hover::after {
+            transform: translateX(0%);
+            /* Move to cover right half */
+            opacity: 1;
+        }
+
+        .btn-futuristic:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 0 25px var(--glow-color-primary), 0 0 35px var(--glow-color-secondary);
+            /* Dual glow on hover */
+            background-color: var(--primary-gradient-end);
+            /* Shift color on hover */
+        }
+
+        /* Secondary button styling (e.g., Download Resume) */
+        .btn-secondary {
+            background-color: var(--secondary-button-bg) !important;
+            /* Override inline/tailwind */
+            color: var(--button-text-color) !important;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2) !important;
+            /* Less intense shadow */
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--secondary-button-hover-bg) !important;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.3) !important;
+        }
+
+
+        /* Input Focus Glow */
+        input:focus,
+        textarea:focus {
+            outline: none;
+            /* Remove default outline */
+            /* Default (Dark mode) glow */
+            box-shadow: 0 0 0 2px var(--input-focus-glow-dark-primary), 0 0 10px var(--input-focus-glow-dark-primary);
+            border-color: var(--primary-gradient-start);
+            transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+            /* Smooth transition */
+        }
+
+        /* Light mode specific input focus glow override */
+        body.light-theme input:focus,
+        body.light-theme textarea:focus {
+            box-shadow: 0 0 0 2px var(--input-focus-glow-light-primary), 0 0 10px var(--input-focus-glow-light-secondary);
+            border-color: var(--primary-gradient-start);
+            /* Still use gradient start for border color */
+        }
+
+        /* Ensure input base styles transition and color is correct */
+        input,
+        textarea {
+            background-color: var(--input-bg);
+            border-color: var(--input-border);
+            color: var(--main-text-color);
+            /* This should make text dark in light mode */
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+            /* Smooth transition for base styles */
+        }
+
+        /* Placeholder text color */
+        input::placeholder,
+        textarea::placeholder {
+            color: var(--text-color);
+            /* Use general text color for placeholders */
+            opacity: 0.7;
+            /* Make them slightly transparent */
+            transition: color 0.3s ease, opacity 0.3s ease;
+        }
+
+        body.dark-theme input::placeholder,
+        body.dark-theme textarea::placeholder {
+            color: #a0aec0;
+            /* Keep light gray in dark mode */
+        }
+
+        body.light-theme input::placeholder,
+        body.light-theme textarea::placeholder {
+            color: #4a5568;
+            /* Make them dark in light mode */
+        }
+
+
+        /* Section Separator Lines */
+        .section-separator {
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-gradient-start), var(--primary-gradient-end), transparent);
+            margin: 80px auto;
+            border-radius: 9999px;
+            opacity: 0.3;
+            box-shadow: 0 0 10px var(--glow-color-primary);
+        }
+
+        /* Pulse animation for hero text */
+        @keyframes pulseGlow {
+
+            0%,
+            100% {
+                text-shadow: 0 0 5px var(--primary-gradient-start), 0 0 10px var(--primary-gradient-end);
+            }
+
+            50% {
+                text-shadow: 0 0 15px var(--primary-gradient-start), 0 0 30px var(--primary-gradient-end);
+            }
+        }
+
+        .hero-title-glow {
+            animation: pulseGlow 3s infinite alternate;
+            color: var(--main-text-color);
+            /* Default color for dark theme */
+        }
+
+        /* Light mode specific color for hero title */
+        body.light-theme .hero-title-glow {
+            color: var(--hero-title-light-color) !important;
+            /* Apply specific light color */
+            /* Keep glow animation but adjust colors if needed for light theme */
+            animation: pulseGlowLight 3s infinite alternate;
+        }
+
+        @keyframes pulseGlowLight {
+
+            0%,
+            100% {
+                text-shadow: 0 0 5px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 0, 0, 0.05);
+            }
+
+            /* Subtle dark shadow */
+            50% {
+                text-shadow: 0 0 15px rgba(0, 0, 0, 0.2), 0 0 30px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+
+        /* About Me Image Enhancement */
+        .about-me-image {
+            transition: transform 0.5s ease, box-shadow 0.5s ease, filter 0.5s ease;
+            filter: drop-shadow(0 0 15px rgba(145, 94, 255, 0.3));
+        }
+
+        .about-me-image:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 0 30px var(--glow-color-primary), 0 0 60px var(--glow-color-secondary);
+            filter: drop-shadow(0 0 25px var(--glow-color-primary));
+        }
+
+        /* Light mode specific glow for about-me image */
+        body.light-theme .about-me-image:hover {
+            /* Adjusted for a more prominent light-theme glow using light theme gradient colors */
+            box-shadow: 0 0 30px var(--image-glow-light-primary), 0 0 60px var(--image-glow-light-secondary);
+            filter: drop-shadow(0 0 25px var(--image-glow-light-primary));
+        }
+
+
+        /* Testimonial Slider specific CSS */
+        #testimonial-slider .glass-card {
+            width: 100%;
+            /* Default for mobile */
+            flex-shrink: 0;
+            /* Prevent shrinking */
+            scroll-snap-align: start;
+            /* For smooth scrolling behavior if desired */
+            padding: 2rem;
+            /* Ensure consistent padding */
+        }
+
+        @media (min-width: 768px) {
+            #testimonial-slider .glass-card {
+                width: 50%;
+                /* Two cards per view on desktop */
+                padding: 2rem;
+            }
+        }
+
+        /* Modal specific CSS */
+        #project-modal .glass-card {
+            transition: transform 0.3s ease-out;
+            /* For the scale animation */
+            padding: 2rem;
+            /* Consistent padding */
+        }
+
+        #project-modal.hidden {
+            display: none;
+        }
+
+        #project-modal.opacity-0 {
+            opacity: 0;
+        }
+
+        #project-modal .glass-card.scale-95 {
+            transform: scale(0.95);
+        }
+
+        #project-modal .glass-card.scale-100 {
+            transform: scale(1);
+        }
+
+        /* Header Navigation Links */
+        header nav a {
+            color: var(--header-link-color);
+            transition: color 0.3s ease;
+        }
+
+        header nav a:hover {
+            color: var(--header-link-hover-color);
+        }
+
+        /* Footer text color */
+        footer {
+            color: var(--footer-text-color);
+        }
+
+        /* Specific overrides for elements that might not pick up general text-color */
+        /* These are crucial for fixing light mode visibility */
+        .text-slate-300,
+        .text-slate-400 {
+            color: var(--text-color) !important;
+            /* Force these classes to use the dynamic text-color */
+        }
+
+        /* Override for elements that were explicitly text-white */
+        .text-white {
+            color: var(--main-text-color) !important;
+            /* This makes them dark in light mode */
+        }
+
+        /* Ensure that in dark mode, these elements are still white */
+        body.dark-theme .text-white {
+            color: #ffffff !important;
+            /* Explicitly keep white in dark mode */
+        }
+
+        .text-violet-400 {
+            color: var(--primary-gradient-start) !important;
+            /* Keep violet accents consistent or adjust */
+        }
+
+        /* Backgrounds that need to change with theme */
+        .bg-black\/20 {
+            background-color: rgba(0, 0, 0, 0.2);
+            /* Dark theme specific */
+            transition: background-color 0.5s ease;
+            /* Smooth transition */
+        }
+
+        body.light-theme .bg-black\/20 {
+            background-color: rgba(255, 255, 255, 0.5);
+            /* Lighter background for these sections */
+        }
+
+        .bg-gray-800\/50 {
+            /* Used for inputs */
+            background-color: var(--input-bg);
+            transition: background-color 0.5s ease;
+        }
+
+        .border-gray-700 {
+            /* Used for inputs */
+            border-color: var(--input-border);
+            transition: border-color 0.5s ease;
+        }
+
+        .bg-gray-800 {
+            /* Used for process steps circles */
+            background-color: var(--input-bg);
+            transition: background-color 0.5s ease;
+        }
+
+        .bg-gray-700 {
+            /* Used for theme toggle button and secondary button */
+            background-color: var(--secondary-button-bg);
+            transition: background-color 0.5s ease;
+        }
+
+        .bg-gray-700:hover {
+            background-color: var(--secondary-button-hover-bg);
+        }
+
+        /* Shadow adjustments for light theme */
+        .shadow-violet-500\/20 {
+            box-shadow: 0 0 10px var(--glow-color-primary);
+            /* Use dynamic glow color */
+            transition: box-shadow 0.5s ease;
+        }
+
+        body.light-theme .shadow-violet-500\/20 {
+            box-shadow: 0 0 10px var(--glow-color-primary);
+            /* Keep some glow, but ensure it looks good */
+        }
+
+        .shadow-gray-500\/20 {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow for secondary elements */
+            transition: box-shadow 0.5s ease;
+        }
+
+        body.light-theme .shadow-gray-500\/20 {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+            /* Slightly darker shadow for light theme */
+        }
+
+        /* Ensure header links and mobile menu links also update */
+        #header nav a,
+        #mobile-menu nav a {
+            color: var(--header-link-color);
+        }
+
+        #header nav a:hover,
+        #mobile-menu nav a:hover {
+            color: var(--header-link-hover-color);
+        }
+
+        #mobile-menu {
+            background-color: var(--header-bg);
+            /* Use header background for consistency */
+        }
+
+        /* Specific styling for the 'Neil' part of the logo */
+        .logo-neil {
+            color: var(--neil-name-color);
+            transition: color 0.5s ease;
+        }
+
+        /* Process step numbers (3+, 20+, 1, 2, 3, 4) and headings in cards */
+        .glass-card h3,
+        .glass-card p {
+            color: var(--main-text-color) !important;
+            /* Make them dark in light mode */
+        }
+
+        body.dark-theme .glass-card h3,
+        body.dark-theme .glass-card p {
+            color: #ffffff !important;
+            /* Keep original white/slate in dark mode */
+        }
+
+        .glass-card-inner .text-violet-400 {
+            /* Specifically for "Years Experience" and "Projects Completed" */
+            color: var(--text-color) !important;
+            /* Use general text color for these */
+        }
+
+        body.dark-theme .glass-card-inner .text-violet-400 {
+            color: #a78bfa !important;
+            /* Keep original violet in dark mode */
+        }
+
+        /* Testimonial client names and roles */
+        #testimonials .glass-card h4 {
+            color: var(--main-text-color) !important;
+        }
+
+        body.dark-theme #testimonials .glass-card h4 {
+            color: #ffffff !important;
+        }
+
+        #testimonials .glass-card p.text-sm {
+            /* For client roles */
+            color: var(--text-color) !important;
+        }
+
+        body.dark-theme #testimonials .glass-card p.text-sm {
+            color: #a78bfa !important;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- Custom Cursor (Trail effect) -->
+    <!-- These divs will be dynamically populated by JavaScript -->
+
+    <!-- Header -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold"><span class="logo-neil">Neil</span><span
+                    class="text-gradient">.dev</span></a>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#about" class="text-gray-300 hover:text-white transition-colors">About</a>
+                <a href="#process" class="text-gray-300 hover:text-white transition-colors">Process</a>
+                <a href="#services" class="text-gray-300 hover:text-white transition-colors">Services</a>
+                <a href="#portfolio" class="text-gray-300 hover:text-white transition-colors">Work</a>
+                <a href="#contact" class="text-gray-300 hover:text-white transition-colors">Contact</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle"
+                    class="px-3 py-2 rounded-lg font-semibold transition-all duration-300 ease-in-out bg-gray-700 text-white hover:bg-gray-600 shadow-lg shadow-gray-500/20 btn-futuristic btn-secondary">
+                    <span id="toggle-icon">🌙</span> <!-- Moon for dark mode by default -->
+                </button>
+                <a href="#contact"
+                    class="hidden md:block px-6 py-2 rounded-lg font-semibold transition-all duration-300 ease-in-out bg-violet-600 text-white hover:bg-violet-700 shadow-lg shadow-violet-500/30 btn-futuristic">Hire
+                    Me</a>
+                <button id="mobile-menu-btn" class="md:hidden text-2xl text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-black/80 backdrop-blur-sm">
+            <nav class="flex flex-col items-center space-y-4 py-4">
+                <a href="#about" class="text-gray-300 hover:text-white transition-colors">About</a>
+                <a href="#process" class="text-gray-300 hover:text-white transition-colors">Process</a>
+                <a href="#services" class="text-gray-300 hover:text-white transition-colors">Services</a>
+                <a href="#portfolio" class="text-gray-300 hover:text-white transition-colors">Work</a>
+                <a href="#contact" class="text-gray-300 hover:text-white transition-colors">Contact</a>
+                <a href="#contact"
+                    class="px-6 py-2 rounded-lg font-semibold transition-all duration-300 ease-in-out bg-violet-600 text-white hover:bg-violet-700 shadow-lg shadow-violet-500/30 mt-4 btn-futuristic">Hire
+                    Me</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center text-center overflow-hidden">
+        <canvas id="hero-canvas"></canvas>
+        <div class="relative z-10 container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4 leading-tight hero-title-glow">
+                    Hi, I'm <span class="text-gradient">Neil</span>
+                </h1>
+                <p class="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
+                    I develop stunning user interfaces, web applications, and everything in between.
+                </p>
+                <div class="flex justify-center space-x-4">
+                    <a href="#contact"
+                        class="px-8 py-3 rounded-lg font-semibold transition-all duration-300 ease-in-out bg-violet-600 text-white hover:bg-violet-700 shadow-lg shadow-violet-500/30 btn-futuristic">
+                        Get in Touch
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20">
+        <div class="container mx-auto px-6 reveal">
+            <h2 class="section-title text-3xl md:text-4xl font-bold text-center text-white mb-12">Introduction</h2>
+            <div class="flex flex-col-reverse md:flex-row items-center gap-12">
+                <div class="md:w-2/3">
+                    <p class="text-slate-300 mb-6 text-lg">
+                        I'm a skilled software developer with experience in TypeScript and JavaScript, and expertise in
+                        frameworks like React, Node.js, and Next.js. I'm a quick learner and collaborate closely with
+                        clients to create efficient, scalable, and user-friendly solutions that solve real-world
+                        problems. Let's work together to bring your ideas to life!
+                    </p>
+                    <div class="grid grid-cols-2 gap-8">
+                        <div class="glass-card p-6 rounded-lg text-center card-3d-hover">
+                            <div class="glass-card-inner">
+                                <h3 class="text-4xl font-bold text-white">3+</h3>
+                                <p class="text-violet-400">Years Experience</p>
+                            </div>
+                        </div>
+                        <div class="glass-card p-6 rounded-lg text-center card-3d-hover">
+                            <div class="glass-card-inner">
+                                <h3 class="text-4xl font-bold text-white">20+</h3>
+                                <p class="text-violet-400">Projects Completed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/3 text-center md:text-left">
+                    <img src="image.png" alt="Developer Neil"
+                        class="about-me-image rounded-full shadow-2xl shadow-violet-500/20 mx-auto">
+                </div>
+            </div>
+            <div class="text-center mt-12 reveal">
+                <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
+
+                    <a href="#portfolio"
+                        class="w-full md:w-auto px-8 py-3 rounded-lg font-semibold transition-all duration-300 ease-in-out bg-violet-600 text-white hover:bg-violet-700 shadow-lg shadow-violet-500/30 btn-futuristic">
+                        See My Latest Projects
+                    </a>
+                    <a href="your-resume.pdf" target="_blank"
+                        class="w-full md:w-auto px-8 py-3 rounded-lg font-semibold transition-all duration-300 ease-in-out bg-gray-700 text-white hover:bg-gray-600 shadow-lg shadow-gray-500/20 btn-futuristic btn-secondary ml-4">
+                        Download Resume
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-separator reveal"></div>
+
+    <!-- Work Process Section -->
+    <section id="process" class="py-20 bg-black/20">
+        <div class="container mx-auto px-6 reveal">
+            <h2 class="section-title text-3xl md:text-4xl font-bold text-center text-white mb-16">My Work Process</h2>
+            <div class="relative">
+                <!-- The connecting line -->
+
+                <div class="grid md:grid-cols-4 gap-16 text-center relative">
+                    <!-- Step 1 -->
+                    <div class="flex flex-col items-center">
+                        <div
+                            class="w-24 h-24 rounded-full bg-gray-800 border-2 border-violet-500 flex items-center justify-center text-3xl text-violet-400 mb-4 z-10 glass-card card-3d-pop">
+                            <div class="glass-card-inner">1</div>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Discovery</h3>
+                        <p class="text-slate-400">We discuss your project, goals, and vision to ensure we're aligned.
+                        </p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="flex flex-col items-center">
+                        <div
+                            class="w-24 h-24 rounded-full bg-gray-800 border-2 border-violet-500 flex items-center justify-center text-3xl text-violet-400 mb-4 z-10 glass-card card-3d-pop">
+                            <div class="glass-card-inner">2</div>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Design & Develop</h3>
+                        <p class="text-slate-400">I create mockups and bring them to life with clean, efficient code.
+                        </p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="flex flex-col items-center">
+                        <div
+                            class="w-24 h-24 rounded-full bg-gray-800 border-2 border-violet-500 flex items-center justify-center text-3xl text-violet-400 mb-4 z-10 glass-card card-3d-pop">
+                            <div class="glass-card-inner">3</div>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Test & Review</h3>
+                        <p class="text-slate-400">We thoroughly test the project and review it together for feedback.
+                        </p>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="flex flex-col items-center">
+                        <div
+                            class="w-24 h-24 rounded-full bg-gray-800 border-2 border-violet-500 flex items-center justify-center text-3xl text-violet-400 mb-4 z-10 glass-card card-3d-pop">
+                            <div class="glass-card-inner">4</div>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Launch</h3>
+                        <p class="text-slate-400">After approval, I deploy your website for the world to see.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-separator reveal"></div>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20">
+        <div class="container mx-auto px-6 reveal">
+            <h2 class="section-title text-3xl md:text-4xl font-bold text-center text-white mb-12">What I Offer</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass-card p-8 rounded-2xl text-center card-3d-hover">
+                    <div class="glass-card-inner">
+                        <div class="icon-wrapper mb-4">
+                            <!-- Web Development Icon (Example: Code braces) -->
+                            <svg class="w-12 h-12 mx-auto text-gradient" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 20l4-4m0 0l4-4m-4 4L10 4m0 16L4 12l6-8m4 4l4 4l-4 4m-4-4H4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Web Development</h3>
+                        <p class="text-slate-400">High-performance websites from scratch.</p>
+                    </div>
+                </div>
+                <div class="glass-card p-8 rounded-2xl text-center card-3d-hover">
+                    <div class="glass-card-inner">
+                        <div class="icon-wrapper mb-4">
+                            <!-- UI/UX Design Icon (Example: Pen tool/design) -->
+                            <svg class="w-12 h-12 mx-auto text-gradient" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M11 4a2 2 0 100 4m-3 12a2 2 0 100-4m-3 4a2 2 0 100-4m3 4a2 2 0 100-4m-3 4a2 2 0 100-4m9-15v4m-3 0V4a2 2 0 012-2h4a2 2 0 012 2v4m-3 0v4m-3 0v4m-3 0v4">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">UI/UX Design</h3>
+                        <p class="text-slate-400">Intuitive and beautiful user interfaces.</p>
+                    </div>
+                </div>
+                <div class="glass-card p-8 rounded-2xl text-center card-3d-hover">
+                    <div class="glass-card-inner">
+                        <div class="icon-wrapper mb-4">
+                            <!-- SEO Optimization Icon (Example: Magnifying glass) -->
+                            <svg class="w-12 h-12 mx-auto text-gradient" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">SEO Optimization</h3>
+                        <p class="text-slate-400">Improving your site's search visibility.</p>
+                    </div>
+                </div>
+                <div class="glass-card p-8 rounded-2xl text-center card-3d-hover">
+                    <div class="glass-card-inner">
+                        <div class="icon-wrapper mb-4">
+                            <!-- Hosting & Deployment Icon (Example: Cloud upload) -->
+                            <svg class="w-12 h-12 mx-auto text-gradient" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Hosting & Deployment</h3>
+                        <p class="text-slate-400">Seamlessly launching your project online.</p>
+                    </div>
+                </div>
+                <div class="glass-card p-8 rounded-2xl text-center card-3d-hover">
+                    <div class="glass-card-inner">
+                        <div class="icon-wrapper mb-4">
+                            <!-- Web Security Icon (Example: Lock) -->
+                            <svg class="w-12 h-12 mx-auto text-gradient" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Web Security</h3>
+                        <p class="text-slate-400">Protecting your site from common threats.</p>
+                    </div>
+                </div>
+                <div class="glass-card p-8 rounded-2xl text-center card-3d-hover">
+                    <div class="glass-card-inner">
+                        <div class="icon-wrapper mb-4">
+                            <!-- Website Rework Icon (Example: Refresh/redo) -->
+                            <svg class="w-12 h-12 mx-auto text-gradient" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 4v5h.582m15.356-2A8.001 8.001 0 004.582 19M17 10v5h.582m-15.356 2A8.001 8.001 0 0119.418 5L18 4m-6 8h.01">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Website Rework</h3>
+                        <p class="text-slate-400">Modernizing and enhancing existing sites.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-separator reveal"></div>
+
+    <!-- Tech Stack Section -->
+    <section id="tech" class="py-20 bg-black/20">
+        <div class="container mx-auto px-6 reveal">
+            <h2 class="section-title text-3xl md:text-4xl font-bold text-center text-white mb-16">My Tech Stack</h2>
+            <div class="flex flex-wrap justify-center items-center gap-10">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg"
+                    alt="React" class="h-16 transition-transform duration-300 hover:scale-110" title="React">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg"
+                    alt="Next.js"
+                    class="h-16 transition-transform duration-300 hover:scale-110 bg-white rounded-full p-1"
+                    title="Next.js">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg"
+                    alt="Node.js" class="h-16 transition-transform duration-300 hover:scale-110" title="Node.js">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg"
+                    alt="Tailwind CSS" class="h-16 transition-transform duration-300 hover:scale-110"
+                    title="Tailwind CSS">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg"
+                    alt="MongoDB" class="h-16 transition-transform duration-300 hover:scale-110" title="MongoDB">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg"
+                    alt="TypeScript" class="h-16 transition-transform duration-300 hover:scale-110" title="TypeScript">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg"
+                    alt="Figma" class="h-16 transition-transform duration-300 hover:scale-110" title="Figma">
+            </div>
+        </div>
+    </section>
+
+    <div class="section-separator reveal"></div>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20">
+        <div class="container mx-auto px-6 reveal">
+            <h2 class="section-title text-3xl md:text-4xl font-bold text-center text-white mb-12">My Work</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Card 1 - Now triggers a modal -->
+                <div class="rounded-lg overflow-hidden group glass-card card-3d-rotate cursor-pointer"
+                    data-project-id="project1" data-project-title="E-commerce Platform"
+                    data-project-image="https://placehold.co/600x400/151030/915EFF?text=Project+Alpha"
+                    data-project-description="A full-featured online store with a custom CMS, built for scalability and a seamless user experience. Integrates secure payment gateways and robust inventory management, providing a smooth shopping experience from browse to checkout."
+                    data-project-tech="React, Node.js, Express, MongoDB, Stripe, AWS, GraphQL"
+                    data-project-live-link="https://your-ecommerce-demo.com"
+                    data-project-github-link="https://github.com/your-repo/ecommerce">
+                    <div class="glass-card-inner p-0">
+                        <img src="https://placehold.co/600x400/151030/915EFF?text=Project+Alpha" alt="Project 1"
+                            class="w-full h-48 object-cover transition-transform duration-300">
+                        <div class="p-6 w-full">
+                            <h3 class="text-xl font-bold text-white mb-2">E-commerce Platform</h3>
+                            <p class="text-slate-400 mb-4">A full-featured online store with a custom CMS.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Card 2 - Now triggers a modal -->
+                <div class="rounded-lg overflow-hidden group glass-card card-3d-rotate cursor-pointer"
+                    data-project-id="project2" data-project-title="Corporate Website"
+                    data-project-image="https://placehold.co/600x400/151030/FF57B9?text=Project+Beta"
+                    data-project-description="A sleek, responsive, and high-performance corporate website designed to showcase services and establish a strong online presence. Features a custom blog, contact forms, and client testimonials."
+                    data-project-tech="Next.js, Tailwind CSS, Sanity CMS, Vercel"
+                    data-project-live-link="https://your-corporate-demo.com"
+                    data-project-github-link="https://github.com/your-repo/corporate-site">
+                    <div class="glass-card-inner p-0">
+                        <img src="https://placehold.co/600x400/151030/915EFF?text=Project+Beta" alt="Project 2"
+                            class="w-full h-48 object-cover transition-transform duration-300">
+                        <div class="p-6 w-full">
+                            <h3 class="text-xl font-bold text-white mb-2">Corporate Website</h3>
+                            <p class="text-slate-400 mb-4">A professional site for a leading tech company.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Card 3 - Now triggers a modal -->
+                <div class="rounded-lg overflow-hidden group glass-card card-3d-rotate cursor-pointer"
+                    data-project-id="project3" data-project-title="Booking App"
+                    data-project-image="https://placehold.co/600x400/151030/915EFF?text=Project+Gamma"
+                    data-project-description="A user-friendly mobile-first booking application, enabling seamless scheduling of various services. Includes real-time availability, secure booking, and user authentication."
+                    data-project-tech="React Native, Firebase, Node.js, Express"
+                    data-project-live-link="https://your-booking-demo.com"
+                    data-project-github-link="https://github.com/your-repo/booking-app">
+                    <div class="glass-card-inner p-0">
+                        <img src="https://placehold.co/600x400/151030/915EFF?text=Project+Gamma" alt="Project 3"
+                            class="w-full h-48 object-cover transition-transform duration-300">
+                        <div class="p-6 w-full">
+                            <h3 class="text-xl font-bold text-white mb-2">Booking App</h3>
+                            <p class="text-slate-400 mb-4">A mobile-first app for scheduling services.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more project cards here if needed, with data attributes -->
+            </div>
+            <!-- New CTA after Portfolio section -->
+            <div class="text-center mt-16 reveal">
+                <p class="text-slate-300 mb-6 text-xl">Ready to turn your vision into reality?</p>
+                <a href="#contact"
+                    class="px-8 py-3 rounded-lg font-semibold transition-all duration-300 ease-in-out bg-violet-600 text-white hover:bg-violet-700 shadow-lg shadow-violet-500/30 btn-futuristic">
+                    Let's Talk!
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-separator reveal"></div>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 bg-black/20">
+        <div class="container mx-auto px-6 reveal">
+            <h2 class="section-title text-3xl md:text-4xl font-bold text-center text-white mb-12">What Clients Say</h2>
+            <div class="relative max-w-4xl mx-auto overflow-hidden">
+                <div id="testimonial-slider" class="flex transition-transform duration-500 ease-in-out">
+                    <!-- Testimonial 1 -->
+                    <div class="glass-card p-8 rounded-2xl card-3d-hover flex-none w-full md:w-1/2 px-4">
+                        <div class="glass-card-inner">
+                            <p class="text-slate-300 mb-6">"Neil is a top-tier developer. He delivered our project on
+                                time and exceeded our expectations with his creativity and technical skill. Highly
+                                recommended!"</p>
+                            <div class="flex items-center w-full">
+                                <img src="https://placehold.co/50x50/050816/915EFF?text=A" alt="Client 1"
+                                    class="w-12 h-12 rounded-full mr-4">
+                                <div>
+                                    <h4 class="font-bold text-white">Alice Johnson</h4>
+                                    <p class="text-sm text-violet-400">CEO, Tech Innovators</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="glass-card p-8 rounded-2xl card-3d-hover flex-none w-full md:w-1/2 px-4">
+                        <div class="glass-card-inner">
+                            <p class="text-slate-300 mb-6">"Working with Neil was a fantastic experience. He is a great
+                                communicator and his attention to detail is second to none. Our new website is a
+                                masterpiece."</p>
+                            <div class="flex items-center w-full">
+                                <img src="https://placehold.co/50x50/050816/915EFF?text=B" alt="Client 2"
+                                    class="w-12 h-12 rounded-full mr-4">
+                                <div>
+                                    <h4 class="font-bold text-white">Bob Williams</h4>
+                                    <p class="text-sm text-violet-400">Founder, Creative Co.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonial 3 (Added for slider effect) -->
+                    <div class="glass-card p-8 rounded-2xl card-3d-hover flex-none w-full md:w-1/2 px-4">
+                        <div class="glass-card-inner">
+                            <p class="text-slate-300 mb-6">"Neil transformed our old site into a modern, dynamic
+                                platform. His expertise in full-stack development is truly impressive. We couldn't be
+                                happier!"</p>
+                            <div class="flex items-center w-full">
+                                <img src="https://placehold.co/50x50/050816/915EFF?text=C" alt="Client 3"
+                                    class="w-12 h-12 rounded-full mr-4">
+                                <div>
+                                    <h4 class="font-bold text-white">Carol White</h4>
+                                    <p class="text-sm text-violet-400">Marketing Director, Global Solutions</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonial 4 (Added for slider effect) -->
+                    <div class="glass-card p-8 rounded-2xl card-3d-hover flex-none w-full md:w-1/2 px-4">
+                        <div class="glass-card-inner">
+                            <p class="text-slate-300 mb-6">"Professional, reliable, and incredibly talented. Neil
+                                understood our needs perfectly and delivered a product that exceeded all expectations. A
+                                pleasure to work with!"</p>
+                            <div class="flex items-center w-full">
+                                <img src="https://placehold.co/50x50/050816/915EFF?text=D" alt="Client 4"
+                                    class="w-12 h-12 rounded-full mr-4">
+                                <div>
+                                    <h4 class="font-bold text-white">David Green</h4>
+                                    <p class="text-sm text-violet-400">CTO, Future Apps</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Navigation Buttons -->
+                <button id="prev-testimonial"
+                    class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-800/70 p-2 rounded-full text-white text-xl z-20 hover:bg-gray-700 transition-colors">❮</button>
+                <button id="next-testimonial"
+                    class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-800/70 p-2 rounded-full text-white text-xl z-20 hover:bg-gray-700 transition-colors">❯</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-separator reveal"></div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-6 reveal">
+            <div class="glass-card rounded-2xl p-8 md:p-12 max-w-4xl mx-auto card-3d-hover">
+                <div class="glass-card-inner p-0">
+                    <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-2">Get in Touch</h2>
+                    <p class="text-slate-300 mb-8">Let's create something amazing together.</p>
+                    <form id="contact-form" class="space-y-6 w-full">
+                        <input type="text" name="name" placeholder="Your Name"
+                            class="w-full p-3 rounded-lg bg-gray-800/50 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-violet-500"
+                            required>
+                        <input type="email" name="email" placeholder="Your Email"
+                            class="w-full p-3 rounded-lg bg-gray-800/50 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-violet-500"
+                            required>
+                        <textarea name="message" placeholder="Your Message" rows="5"
+                            class="w-full p-3 rounded-lg bg-gray-800/50 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-violet-500"
+                            required></textarea>
+                        <button type="submit"
+                            class="w-full px-8 py-3 rounded-lg font-semibold transition-all duration-300 ease-in-out bg-violet-600 text-white hover:bg-violet-700 shadow-lg shadow-violet-500/30 btn-futuristic">
+                            Send Message
+                        </button>
+                        <p id="form-status" class="text-center mt-4"></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-slate-400 py-8">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="https://github.com/neil-devs" class="text-2xl hover:text-violet-400 transition-colors"><svg
+                        role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-current">
+                        <title>GitHub</title>
+                        <path
+                            d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                    </svg></a>
+                <a href="https://www.linkedin.com/in/soham-chakraborty-965759272/"
+                    class="text-2xl hover:text-violet-400 transition-colors"><svg role="img" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-current">
+                        <title>LinkedIn</title>
+                        <path
+                            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
+                    </svg></a>
+            </div>
+            <p>&copy; 2025 Neil.dev. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Project Details Modal Structure -->
+    <div id="project-modal"
+        class="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-[100] hidden opacity-0 transition-opacity duration-300">
+        <div
+            class="glass-card p-8 rounded-2xl max-w-2xl w-full mx-4 relative transform scale-95 transition-transform duration-300">
+            <button id="close-modal"
+                class="absolute top-4 right-4 text-white text-3xl font-bold hover:text-violet-400">&times;</button>
+            <img id="modal-project-image" src="" alt="Project Image" class="w-full h-64 object-cover rounded-lg mb-6">
+            <h3 id="modal-project-title" class="text-3xl font-bold text-gradient mb-4"></h3>
+            <p id="modal-project-description" class="text-slate-300 mb-4"></p>
+            <p class="text-white font-semibold mb-2">Technologies Used:</p>
+            <p id="modal-project-tech" class="text-violet-300 text-sm mb-6"></p>
+            <div class="flex flex-wrap gap-4">
+                <a id="modal-live-link" href="#" target="_blank"
+                    class="px-6 py-2 rounded-lg font-semibold bg-violet-600 text-white hover:bg-violet-700 btn-futuristic">Live
+                    Demo</a>
+                <a id="modal-github-link" href="#" target="_blank"
+                    class="px-6 py-2 rounded-lg font-semibold bg-gray-700 text-white hover:bg-gray-600 btn-futuristic">GitHub
+                    Repo</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Dark Mode Toggle Setup ---
+            const themeToggle = document.getElementById('theme-toggle');
+            const toggleIcon = document.getElementById('toggle-icon');
+            const body = document.body;
+
+            // Check for saved theme preference or default to dark
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+
+            function setTheme(theme) {
+                if (theme === 'dark') {
+                    body.classList.add('dark-theme'); // Add a class for dark theme specific styles
+                    body.classList.remove('light-theme'); // Remove light theme class
+                    toggleIcon.textContent = '🌙'; // Moon icon for dark mode
+                    body.style.backgroundColor = 'var(--bg-color)'; // Apply initial bg color
+                    body.style.color = 'var(--text-color)'; // Apply initial text color
+                } else {
+                    body.classList.add('light-theme'); // Add a class for light theme specific styles
+                    body.classList.remove('dark-theme'); // Remove dark theme class
+                    toggleIcon.textContent = '☀️'; // Sun icon for light mode
+                    body.style.backgroundColor = 'var(--bg-color)'; // Apply initial bg color
+                    body.style.color = 'var(--text-color)'; // Apply initial text color
+                }
+                localStorage.setItem('theme', theme);
+            }
+
+            // Apply initial theme
+            setTheme(currentTheme);
+
+            themeToggle.addEventListener('click', () => {
+                const newTheme = body.classList.contains('dark-theme') ? 'light' : 'dark';
+                setTheme(newTheme);
+            });
+
+            // --- 3D Hero Animation Setup ---
+            let scene, camera, renderer, shape, particles = [];
+            const particleCount = 200; // More particles for a denser, futuristic feel
+
+            function initThreeJS() {
+                const canvas = document.getElementById('hero-canvas');
+                if (!canvas) return;
+
+                scene = new THREE.Scene();
+                camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                camera.position.z = 5;
+
+                // Create a more complex shape (Icosahedron)
+                const geometry = new THREE.IcosahedronGeometry(1.5, 0);
+                // Material color will be updated by setTheme
+                const material = new THREE.MeshStandardMaterial({
+                    color: new THREE.Color(parseInt(getComputedStyle(document.documentElement).getPropertyValue('--hero-shape-color'), 16)),
+                    polygonOffset: true,
+                    polygonOffsetFactor: 1,
+                    polygonOffsetUnits: 1,
+                    metalness: 0.7,
+                    roughness: 0.4
+                });
+                shape = new THREE.Mesh(geometry, material);
+                scene.add(shape);
+
+                // Add wireframe for a cool effect
+                const wireframeGeo = new THREE.WireframeGeometry(geometry);
+                const wireframeMat = new THREE.LineBasicMaterial({
+                    color: new THREE.Color(parseInt(getComputedStyle(document.documentElement).getPropertyValue('--hero-shape-wireframe-color'), 16)),
+                    linewidth: 2
+                });
+                const wireframe = new THREE.LineSegments(wireframeGeo, wireframeMat);
+                shape.add(wireframe);
+
+                // Lighting
+                const pointLight = new THREE.PointLight(0xffffff, 1);
+                pointLight.position.set(5, 5, 5);
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+                scene.add(pointLight, ambientLight);
+
+                // Add particles for a futuristic background
+                const particleGeometry = new THREE.BufferGeometry();
+                const positions = [];
+                const colors = [];
+                const color1 = new THREE.Color(0x915EFF);
+                const color2 = new THREE.Color(0xFF57B9);
+
+                for (let i = 0; i < particleCount; i++) {
+                    // Random position within a larger cube
+                    positions.push(
+                        (Math.random() - 0.5) * 20,
+                        (Math.random() - 0.5) * 20,
+                        (Math.random() - 0.5) * 20
+                    );
+                    // Assign a random color between the two gradient colors
+                    const mixedColor = new THREE.Color().lerpColors(color1, color2, Math.random());
+                    colors.push(mixedColor.r, mixedColor.g, mixedColor.b);
+                }
+                particleGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+                particleGeometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+                const particleMaterial = new THREE.PointsMaterial({
+                    size: 0.1,
+                    vertexColors: true, // Use vertex colors
+                    transparent: true,
+                    opacity: 0.8,
+                    blending: THREE.AdditiveBlending, // For glowing effect
+                    sizeAttenuation: true
+                });
+                particles = new THREE.Points(particleGeometry, particleMaterial);
+                scene.add(particles);
+
+                animate();
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+                if (shape) {
+                    shape.rotation.x += 0.001;
+                    shape.rotation.y += 0.002;
+                }
+
+                // Animate particles
+                if (particles) {
+                    particles.rotation.x += 0.0005;
+                    particles.rotation.y += 0.001;
+                }
+
+                renderer.render(scene, camera);
+            }
+
+            function onWindowResize() {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+            window.addEventListener('resize', onWindowResize, false);
+
+            // This function will now be responsible for updating the Three.js shape's color
+            function updateThreeJsShapeColor() {
+                if (shape) {
+                    const rootStyles = getComputedStyle(document.documentElement);
+                    const shapeColorHex = rootStyles.getPropertyValue('--hero-shape-color').trim();
+                    const wireframeColorHex = rootStyles.getPropertyValue('--hero-shape-wireframe-color').trim();
+
+                    // Convert hex string (e.g., "0xADD8E6") to a number for THREE.Color
+                    shape.material.color.setHex(parseInt(shapeColorHex, 16));
+                    // Update wireframe color if it exists
+                    if (shape.children.length > 0 && shape.children[0] instanceof THREE.LineSegments) {
+                        shape.children[0].material.color.setHex(parseInt(wireframeColorHex, 16));
+                    }
+                }
+            }
+
+            initThreeJS();
+            // Call it initially to set the correct color based on initial theme
+            updateThreeJsShapeColor();
+
+
+            // --- Custom Cursor (Trail effect) ---
+            const trailCount = 20; // Number of particles in the trail
+            const trail = [];
+            let mouseX = -100; // Initialize off-screen
+            let mouseY = -100; // Initialize off-screen
+            let isInteractive = false; // Track if mouse is over an interactive element
+
+            // Create trail elements and append them to the body
+            for (let i = 0; i < trailCount; i++) {
+                const div = document.createElement('div');
+                div.classList.add('cursor-trail');
+                document.body.appendChild(div);
+                trail.push(div);
+            }
+
+            // Update mouse coordinates on mousemove
+            window.addEventListener('mousemove', e => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            // Animate the trail
+            function animateTrail() {
+                let x = mouseX;
+                let y = mouseY;
+
+                trail.forEach((t, index) => {
+                    // Smoothly move each trail particle towards the position of the previous one (or mouse for the first)
+                    const targetX = (index === 0) ? mouseX : trail[index - 1].offsetLeft;
+                    const targetY = (index === 0) ? mouseY : trail[index - 1].offsetTop;
+
+                    t.style.left = x + 'px';
+                    t.style.top = y + 'px';
+
+                    // Set CSS variable for dynamic scaling
+                    t.style.setProperty('--trail-scale', `${(trailCount - index) / trailCount}`);
+                    t.style.opacity = '1';
+
+                    if (isInteractive) {
+                        t.classList.add('cursor-interactive');
+                    } else {
+                        t.classList.remove('cursor-interactive');
+                    }
+
+                    // Update x, y for the next particle in the trail
+                    x += (targetX - t.offsetLeft) * 0.2; // Adjust 0.2 for trail smoothness
+                    y += (targetY - t.offsetTop) * 0.2; // Adjust 0.2 for trail smoothness
+                });
+                requestAnimationFrame(animateTrail);
+            }
+            animateTrail(); // Start the trail animation loop
+
+            // Hide trail when mouse leaves body
+            document.body.addEventListener('mouseleave', () => {
+                trail.forEach(t => t.style.opacity = '0');
+            });
+            // Show trail when mouse enters body
+            document.body.addEventListener('mouseenter', () => {
+                trail.forEach(t => t.style.opacity = '1');
+            });
+
+            // Add interactive class to cursor when hovering over interactive elements
+            const interactiveElements = document.querySelectorAll('a, button, .glass-card, input, textarea');
+
+            interactiveElements.forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    isInteractive = true;
+                });
+                element.addEventListener('mouseleave', () => {
+                    isInteractive = false;
+                });
+            });
+
+
+            // --- Glowing Card Effect & 3D Tilt ---
+            document.querySelectorAll('.glass-card').forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty('--x', `${x}px`);
+                    card.style.setProperty('--y', `${y}px`);
+                });
+            });
+
+            // --- Mobile Menu Toggle ---
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
+
+            // --- Header Scroll Effect ---
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('bg-black/80', 'backdrop-blur-sm');
+                    header.style.backgroundColor = 'var(--header-bg)'; /* Apply themed header background */
+                } else {
+                    header.classList.remove('bg-black/80', 'backdrop-blur-sm');
+                    header.style.backgroundColor = ''; /* Reset */
+                }
+            });
+
+            // --- Scroll Reveal Animation ---
+            const revealElements = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        // Optional: If you want elements to reveal every time they come into view, remove unobserve
+                        // observer.unobserve(entry.target);
+                    } else {
+                        // Optional: If you want elements to hide when they leave view
+                        // entry.target.classList.remove('visible');
+                    }
+                });
+            }, { threshold: 0.1 }); // Adjusted threshold for earlier reveal
+
+            revealElements.forEach(el => observer.observe(el));
+
+            // --- Contact Form Handling (UPDATED) ---
+            const contactForm = document.getElementById('contact-form');
+            const formStatus = document.getElementById('form-status');
+
+            // NOTE: We added 'async' here to allow waiting for the backend response
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                // 1. Update UI to show "Sending..."
+                const submitBtn = contactForm.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.innerText;
+
+                submitBtn.innerText = 'Sending...';
+                submitBtn.disabled = true;
+                formStatus.textContent = 'Sending...';
+                formStatus.style.color = 'white';
+
+                // 2. Collect the data from the HTML inputs
+                const formData = {
+                    name: contactForm.name.value,
+                    email: contactForm.email.value,
+                    message: contactForm.message.value
+                };
+
+                try {
+                    // 3. Send the data to your Node.js backend
+                    const response = await fetch('http://localhost:5000/api/contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    const result = await response.json();
+
+                    // 4. Handle Success or Failure
+                    if (response.ok) {
+                        formStatus.textContent = 'Message sent successfully!';
+                        formStatus.style.color = '#34D399'; // Green
+                        contactForm.reset(); // Clear the form inputs
+                    } else {
+                        throw new Error(result.message || 'Failed to send message');
+                    }
+
+                } catch (error) {
+                    console.error('Error:', error);
+                    formStatus.textContent = 'Server error. Is the backend running?';
+                    formStatus.style.color = '#EF4444'; // Red
+                } finally {
+                    // 5. Reset button state
+                    submitBtn.innerText = originalBtnText;
+                    submitBtn.disabled = false;
+
+                    // Clear status message after 3 seconds
+                    setTimeout(() => {
+                        formStatus.textContent = '';
+                    }, 3000);
+                }
+            });
+
+            // --- Project Details Modals ---
+            const projectCards = document.querySelectorAll('.glass-card[data-project-id]');
+            const projectModal = document.getElementById('project-modal');
+            const closeModalBtn = document.getElementById('close-modal');
+            const modalProjectImage = document.getElementById('modal-project-image');
+            const modalProjectTitle = document.getElementById('modal-project-title');
+            const modalProjectDescription = document.getElementById('modal-project-description');
+            const modalProjectTech = document.getElementById('modal-project-tech');
+            const modalLiveLink = document.getElementById('modal-live-link');
+            const modalGithubLink = document.getElementById('modal-github-link');
+            const modalContent = projectModal.querySelector('.glass-card'); // The inner content for scale animation
+
+            projectCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    modalProjectImage.src = card.dataset.projectImage;
+                    modalProjectTitle.textContent = card.dataset.projectTitle;
+                    modalProjectDescription.textContent = card.dataset.projectDescription;
+                    modalProjectTech.textContent = card.dataset.projectTech;
+                    modalLiveLink.href = card.dataset.liveLink; /* Corrected to liveLink */
+                    modalGithubLink.href = card.dataset.githubLink; /* Corrected to githubLink */
+
+                    projectModal.classList.remove('hidden');
+                    // Force reflow to ensure transition plays
+                    void projectModal.offsetWidth; // Trigger reflow
+                    projectModal.classList.add('opacity-100');
+                    modalContent.classList.remove('scale-95');
+                    modalContent.classList.add('scale-100');
+                    document.body.style.overflow = 'hidden'; // Prevent body scroll when modal is open
+                });
+            });
+
+            closeModalBtn.addEventListener('click', () => {
+                projectModal.classList.remove('opacity-100');
+                modalContent.classList.remove('scale-100');
+                modalContent.classList.add('scale-95');
+                setTimeout(() => {
+                    projectModal.classList.add('hidden');
+                    document.body.style.overflow = ''; // Restore body scroll
+                }, 300); // Match CSS transition duration
+            });
+
+            // Close modal if clicking outside the content
+            projectModal.addEventListener('click', (e) => {
+                if (e.target === projectModal) {
+                    closeModalBtn.click();
+                }
+            });
+
+            // Close with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !projectModal.classList.contains('hidden')) {
+                    closeModalBtn.click();
+                }
+            });
+
+            // --- Testimonial Carousel ---
+            const slider = document.getElementById('testimonial-slider');
+            const prevBtn = document.getElementById('prev-testimonial');
+            const nextBtn = document.getElementById('next-testimonial');
+            const testimonialCards = slider.querySelectorAll('.glass-card');
+            let currentIndex = 0;
+            let slidesPerView; // Defined globally to be updated by resize listener
+
+            function getSlidesPerView() {
+                // Determine how many cards to show based on screen width
+                return window.innerWidth >= 768 ? 2 : 1;
+            }
+
+            function updateSlider() {
+                slidesPerView = getSlidesPerView(); // Ensure this is updated before calculating offset
+                const offset = -currentIndex * (100 / slidesPerView);
+                slider.style.transform = `translateX(${offset}%)`;
+
+                // Disable/enable navigation buttons
+                prevBtn.disabled = currentIndex === 0;
+                nextBtn.disabled = currentIndex >= (testimonialCards.length - slidesPerView);
+
+                // Hide/show buttons if there aren't enough slides to scroll
+                if (testimonialCards.length <= slidesPerView) {
+                    prevBtn.style.display = 'none';
+                    nextBtn.style.display = 'none';
+                } else {
+                    prevBtn.style.display = 'block';
+                    nextBtn.style.display = 'block';
+                }
+            }
+
+            prevBtn.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateSlider();
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentIndex < (testimonialCards.length - slidesPerView)) {
+                    currentIndex++;
+                    updateSlider();
+                }
+            });
+
+            // Recalculate slidesPerView and reset slider on window resize
+            window.addEventListener('resize', () => {
+                currentIndex = 0; // Reset to first slide on resize for better UX
+                updateSlider();
+            });
+
+            updateSlider(); // Initial update when the page loads
+        });
+    </script>
+</body>
+
+</html>
