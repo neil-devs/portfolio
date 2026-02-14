@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neil's Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #050816; color: white; font-family: sans-serif; }
+        .glass-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+    </style>
+</head>
+<body class="p-8 max-w-4xl mx-auto">
+
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold text-violet-500">🔒 Private Inbox</h1>
+        <button onclick="fetchMessages()" class="bg-violet-600 hover:bg-violet-700 px-4 py-2 rounded font-bold">Refresh Data</button>
+    </div>
+
+    <div id="messages-list" class="space-y-4">
+        <p class="text-gray-400">Waiting for password...</p>
+    </div>
+
+    <script>
+        async function fetchMessages() {
+            const container = document.getElementById('messages-list');
+            
+            // 1. Ask you for the password
+            const password = prompt("Enter Admin Password:");
+            
+            if (!password) return; // specific check if user cancelled
+
+            container.innerHTML = '<p class="text-yellow-400">Loading secure data...</p>';
+
+            try {
+                // 2. Send password to the server to get data
+                // Note: We use a relative path '/api/messages' so it works on localhost AND Railway automatically
+                const response = await fetch(`/api/messages?password=${password}`);
+                const data = await response.json();
+
+                if (response.status === 403) {
+                    container.innerHTML = `<p class="text-red-500 font-bold text-xl">⛔ ${data.message}</p>`;
+                    return;
+                }
+
+                // 3. Render Messages
+                container.innerHTML = ''; // Clear loading text
+                
+                if (data.length === 0) {
+                    container.innerHTML = '<p>No messages found.</p>';
+                    return;
+                }
+
+                data.forEach(msg => {
+                    const html = `
+                        <div class="glass-card p-6 rounded-xl shadow-lg">
+                            <div class="flex justify-between text-sm text-gray-400 mb-2">
+                                <span>ID: ${msg.id}</span>
+                                <span>${new Date(msg.date).toLocaleString()}</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white">${msg.name}</h3>
+                            <a href="mailto:${msg.email}" class="text-violet-400 hover:underline mb-4 block">${msg.email}</a>
+                            <div class="bg-black/30 p-3 rounded border border-gray-700">
+                                ${msg.message}
+                            </div>
+                        </div>
+                    `;
+                    container.innerHTML += html;
+                });
+
+            } catch (err) {
+                console.error(err);
+                container.innerHTML = '<p class="text-red-500">Server Error. Please try again.</p>';
+            }
+        }
+
+        // Run immediately when page loads
+        fetchMessages();
+    </script>
+</body>
+</html>
