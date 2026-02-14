@@ -708,10 +708,55 @@
         body.dark-theme #testimonials .glass-card p.text-sm {
             color: #a78bfa !important;
         }
+
+        /* --- NEW: Infinite Tech Marquee Animation --- */
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .marquee-content {
+            display: inline-flex;
+            animation: scroll 20s linear infinite;
+            min-width: 200%;
+            /* Ensure it spans enough width */
+        }
+
+        .marquee-content:hover {
+            animation-play-state: paused;
+        }
+
+        /* Cursor blink for typewriter */
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
+        }
+
+        #typewriter {
+            animation: blink 0.7s infinite;
+        }
     </style>
 </head>
 
 <body class="antialiased">
+
+    <div id="scroll-progress"
+        class="fixed top-0 left-0 h-1 bg-gradient-to-r from-violet-500 to-fuchsia-500 z-[100] w-0 transition-all duration-100 ease-out">
+    </div>
 
     <!-- Custom Cursor (Trail effect) -->
     <!-- These divs will be dynamically populated by JavaScript -->
@@ -768,9 +813,9 @@
                 <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4 leading-tight hero-title-glow">
                     Hi, I'm <span class="text-gradient">Neil</span>
                 </h1>
-                <p class="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
-                    I develop stunning user interfaces, web applications, and everything in between.
-                </p>
+                <h2 class="text-xl md:text-2xl font-semibold text-slate-300 mb-8 h-8">
+                    I am a <span id="typewriter" class="text-violet-400 border-r-2 border-violet-400 pr-1"></span>
+                </h2>
                 <div class="flex justify-center space-x-4">
                     <a href="#contact"
                         class="px-8 py-3 rounded-lg font-semibold transition-all duration-300 ease-in-out bg-violet-600 text-white hover:bg-violet-700 shadow-lg shadow-violet-500/30 btn-futuristic">
@@ -988,24 +1033,38 @@
     <section id="tech" class="py-20 bg-black/20">
         <div class="container mx-auto px-6 reveal">
             <h2 class="section-title text-3xl md:text-4xl font-bold text-center text-white mb-16">My Tech Stack</h2>
-            <div class="flex flex-wrap justify-center items-center gap-10">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg"
-                    alt="React" class="h-16 transition-transform duration-300 hover:scale-110" title="React">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg"
-                    alt="Next.js"
-                    class="h-16 transition-transform duration-300 hover:scale-110 bg-white rounded-full p-1"
-                    title="Next.js">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg"
-                    alt="Node.js" class="h-16 transition-transform duration-300 hover:scale-110" title="Node.js">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg"
-                    alt="Tailwind CSS" class="h-16 transition-transform duration-300 hover:scale-110"
-                    title="Tailwind CSS">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg"
-                    alt="MongoDB" class="h-16 transition-transform duration-300 hover:scale-110" title="MongoDB">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg"
-                    alt="TypeScript" class="h-16 transition-transform duration-300 hover:scale-110" title="TypeScript">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg"
-                    alt="Figma" class="h-16 transition-transform duration-300 hover:scale-110" title="Figma">
+            <div class="marquee-container py-10">
+                <div class="marquee-content gap-16 px-4">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg"
+                        alt="React" class="h-16 w-16" title="React">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg"
+                        alt="Next.js" class="h-16 w-16 bg-white rounded-full p-1" title="Next.js">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg"
+                        alt="Node.js" class="h-16 w-16" title="Node.js">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg"
+                        alt="Tailwind CSS" class="h-16 w-16" title="Tailwind CSS">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg"
+                        alt="MongoDB" class="h-16 w-16" title="MongoDB">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg"
+                        alt="TypeScript" class="h-16 w-16" title="TypeScript">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg"
+                        alt="Figma" class="h-16 w-16" title="Figma">
+
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg"
+                        alt="React" class="h-16 w-16" title="React">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg"
+                        alt="Next.js" class="h-16 w-16 bg-white rounded-full p-1" title="Next.js">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg"
+                        alt="Node.js" class="h-16 w-16" title="Node.js">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg"
+                        alt="Tailwind CSS" class="h-16 w-16" title="Tailwind CSS">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg"
+                        alt="MongoDB" class="h-16 w-16" title="MongoDB">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg"
+                        alt="TypeScript" class="h-16 w-16" title="TypeScript">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg"
+                        alt="Figma" class="h-16 w-16" title="Figma">
+                </div>
             </div>
         </div>
     </section>
@@ -1689,6 +1748,51 @@
             });
 
             updateSlider(); // Initial update when the page loads
+
+            // --- NEW: Scroll Progress Bar Logic ---
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById('scroll-progress').style.width = scrolled + "%";
+            });
+
+            // --- NEW: Typewriter Logic ---
+            const words = ["Full Stack Developer", "UI/UX Designer", "Problem Solver", "Tech Enthusiast"];
+            let i = 0;
+            let timer;
+
+            function typeWriter() {
+                const heading = document.getElementById("typewriter");
+                const word = words[i];
+                let charIndex = 0;
+                let isDeleting = false;
+
+                function type() {
+                    if (isDeleting) {
+                        heading.textContent = word.substring(0, charIndex - 1);
+                        charIndex--;
+                    } else {
+                        heading.textContent = word.substring(0, charIndex + 1);
+                        charIndex++;
+                    }
+
+                    if (!isDeleting && charIndex === word.length) {
+                        isDeleting = true;
+                        setTimeout(type, 2000); // Pause at end of word
+                    } else if (isDeleting && charIndex === 0) {
+                        isDeleting = false;
+                        i = (i + 1) % words.length;
+                        setTimeout(type, 500); // Pause before next word
+                    } else {
+                        setTimeout(type, isDeleting ? 50 : 100);
+                    }
+                }
+                type();
+            }
+            
+            // Start the typewriter
+            typeWriter();
         });
     </script>
 </body>
