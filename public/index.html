@@ -9,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
-
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         /* --- Custom Styles & Fallbacks --- */
         /* CSS Variables for theming */
@@ -767,11 +767,11 @@
             <a href="#home" class="text-2xl font-bold"><span class="logo-neil">Neil</span><span
                     class="text-gradient">.dev</span></a>
             <nav class="hidden md:flex items-center space-x-8">
-                <a href="#about" class="text-gray-300 hover:text-white transition-colors">About</a>
-                <a href="#process" class="text-gray-300 hover:text-white transition-colors">Process</a>
-                <a href="#services" class="text-gray-300 hover:text-white transition-colors">Services</a>
-                <a href="#portfolio" class="text-gray-300 hover:text-white transition-colors">Work</a>
-                <a href="#contact" class="text-gray-300 hover:text-white transition-colors">Contact</a>
+                <a href="#about" class="transition-colors hover:text-violet-500">About</a>
+                <a href="#process" class="transition-colors hover:text-violet-500">Process</a>
+                <a href="#services" class="transition-colors hover:text-violet-500">Services</a>
+                <a href="#portfolio" class="transition-colors hover:text-violet-500">Work</a>
+                <a href="#contact" class="transition-colors hover:text-violet-500">Contact</a>
             </nav>
             <div class="flex items-center space-x-4">
                 <button id="theme-toggle"
@@ -793,11 +793,12 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-black/80 backdrop-blur-sm">
             <nav class="flex flex-col items-center space-y-4 py-4">
-                <a href="#about" class="text-gray-300 hover:text-white transition-colors">About</a>
-                <a href="#process" class="text-gray-300 hover:text-white transition-colors">Process</a>
-                <a href="#services" class="text-gray-300 hover:text-white transition-colors">Services</a>
-                <a href="#portfolio" class="text-gray-300 hover:text-white transition-colors">Work</a>
-                <a href="#contact" class="text-gray-300 hover:text-white transition-colors">Contact</a>
+                <a href="#about" class="transition-colors hover:text-violet-500">About</a>
+                <a href="#process" class="transition-colors hover:text-violet-500">Process</a>
+                <a href="#services" class="transition-colors hover:text-violet-500">Services</a>
+                <a href="#portfolio" class="transition-colors hover:text-violet-500">Work</a>
+                <a href="#contact" class="transition-colors hover:text-violet-500">Contact</a>
+
                 <a href="#contact"
                     class="px-6 py-2 rounded-lg font-semibold transition-all duration-300 ease-in-out bg-violet-600 text-white hover:bg-violet-700 shadow-lg shadow-violet-500/30 mt-4 btn-futuristic">Hire
                     Me</a>
@@ -1073,69 +1074,90 @@
 
     <!-- Portfolio Section -->
     <section id="portfolio" class="py-20">
-        <div class="container mx-auto px-6 reveal">
-            <h2 class="section-title text-3xl md:text-4xl font-bold text-center text-white mb-12">My Work</h2>
+        <div class="container mx-auto px-6" data-aos="fade-up">
+            <h2 class="section-title text-3xl md:text-4xl font-bold text-center text-white mb-8">My Work</h2>
+
+            <div class="flex justify-center space-x-4 mb-12 flex-wrap gap-2">
+                <button
+                    class="filter-btn active px-6 py-2 rounded-full border border-violet-500 text-white bg-violet-600 transition-all focus:outline-none"
+                    data-filter="all">All</button>
+
+                <button
+                    class="filter-btn px-6 py-2 rounded-full border border-gray-700 text-slate-300 hover:bg-violet-900 hover:border-violet-500 hover:text-white transition-all focus:outline-none"
+                    data-filter="web">Web Dev</button>
+
+                <button
+                    class="filter-btn px-6 py-2 rounded-full border border-gray-700 text-slate-300 hover:bg-violet-900 hover:border-violet-500 hover:text-white transition-all focus:outline-none"
+                    data-filter="python">Python/AI</button>
+
+                <button
+                    class="filter-btn px-6 py-2 rounded-full border border-gray-700 text-slate-300 hover:bg-violet-900 hover:border-violet-500 hover:text-white transition-all focus:outline-none"
+                    data-filter="hacking">Ethical Hacking</button>
+            </div>
+
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project Card 1 - Now triggers a modal -->
-                <div class="rounded-lg overflow-hidden group glass-card card-3d-rotate cursor-pointer"
-                    data-project-id="project1" data-project-title="E-commerce Platform"
-                    data-project-image="https://placehold.co/600x400/151030/915EFF?text=Project+Alpha"
-                    data-project-description="A full-featured online store with a custom CMS, built for scalability and a seamless user experience. Integrates secure payment gateways and robust inventory management, providing a smooth shopping experience from browse to checkout."
-                    data-project-tech="React, Node.js, Express, MongoDB, Stripe, AWS, GraphQL"
-                    data-project-live-link="https://your-ecommerce-demo.com"
-                    data-project-github-link="https://github.com/your-repo/ecommerce">
+
+                <div class="project-card rounded-lg overflow-hidden group glass-card card-3d-rotate cursor-pointer"
+                    data-category="web" data-aos="zoom-in" data-aos-delay="100" data-project-id="project1"
+                    data-project-title="E-commerce Platform"
+                    data-project-image="https://placehold.co/600x400/151030/915EFF?text=E-Commerce"
+                    data-project-description="A full-featured online store with a custom CMS."
+                    data-project-tech="React, Node.js, MongoDB" data-project-live-link="#" data-project-github-link="#">
                     <div class="glass-card-inner p-0">
-                        <img src="https://placehold.co/600x400/151030/915EFF?text=Project+Alpha" alt="Project 1"
-                            class="w-full h-48 object-cover transition-transform duration-300">
+                        <img src="https://placehold.co/600x400/151030/915EFF?text=E-Commerce"
+                            class="w-full h-48 object-cover">
                         <div class="p-6 w-full">
                             <h3 class="text-xl font-bold text-white mb-2">E-commerce Platform</h3>
-                            <p class="text-slate-400 mb-4">A full-featured online store with a custom CMS.</p>
+                            <p class="text-slate-400 mb-4">Full Stack Web App</p>
+                            <span class="text-xs text-violet-400 border border-violet-500 px-2 py-1 rounded">Web
+                                Dev</span>
                         </div>
                     </div>
                 </div>
-                <!-- Project Card 2 - Now triggers a modal -->
-                <div class="rounded-lg overflow-hidden group glass-card card-3d-rotate cursor-pointer"
-                    data-project-id="project2" data-project-title="Corporate Website"
-                    data-project-image="https://placehold.co/600x400/151030/FF57B9?text=Project+Beta"
-                    data-project-description="A sleek, responsive, and high-performance corporate website designed to showcase services and establish a strong online presence. Features a custom blog, contact forms, and client testimonials."
-                    data-project-tech="Next.js, Tailwind CSS, Sanity CMS, Vercel"
-                    data-project-live-link="https://your-corporate-demo.com"
-                    data-project-github-link="https://github.com/your-repo/corporate-site">
+
+                <div class="project-card rounded-lg overflow-hidden group glass-card card-3d-rotate cursor-pointer"
+                    data-category="python" data-aos="zoom-in" data-aos-delay="200" data-project-id="project2"
+                    data-project-title="JARVIS AI"
+                    data-project-image="https://placehold.co/600x400/151030/FF57B9?text=JARVIS+AI"
+                    data-project-description="Voice activated personal assistant built with Python."
+                    data-project-tech="Python, SpeechRecognition, OpenAI API" data-project-live-link="#"
+                    data-project-github-link="#">
                     <div class="glass-card-inner p-0">
-                        <img src="https://placehold.co/600x400/151030/915EFF?text=Project+Beta" alt="Project 2"
-                            class="w-full h-48 object-cover transition-transform duration-300">
+                        <img src="https://placehold.co/600x400/151030/FF57B9?text=JARVIS+AI"
+                            class="w-full h-48 object-cover">
                         <div class="p-6 w-full">
-                            <h3 class="text-xl font-bold text-white mb-2">Corporate Website</h3>
-                            <p class="text-slate-400 mb-4">A professional site for a leading tech company.</p>
+                            <h3 class="text-xl font-bold text-white mb-2">JARVIS AI Assistant</h3>
+                            <p class="text-slate-400 mb-4">Voice Automation Tool</p>
+                            <span class="text-xs text-pink-400 border border-pink-500 px-2 py-1 rounded">Python</span>
                         </div>
                     </div>
                 </div>
-                <!-- Project Card 3 - Now triggers a modal -->
-                <div class="rounded-lg overflow-hidden group glass-card card-3d-rotate cursor-pointer"
-                    data-project-id="project3" data-project-title="Booking App"
-                    data-project-image="https://placehold.co/600x400/151030/915EFF?text=Project+Gamma"
-                    data-project-description="A user-friendly mobile-first booking application, enabling seamless scheduling of various services. Includes real-time availability, secure booking, and user authentication."
-                    data-project-tech="React Native, Firebase, Node.js, Express"
-                    data-project-live-link="https://your-booking-demo.com"
-                    data-project-github-link="https://github.com/your-repo/booking-app">
+
+                <div class="project-card rounded-lg overflow-hidden group glass-card card-3d-rotate cursor-pointer"
+                    data-category="hacking" data-aos="zoom-in" data-aos-delay="300" data-project-id="project3"
+                    data-project-title="WiFi Penetration Tool"
+                    data-project-image="https://placehold.co/600x400/000000/00FF00?text=Kali+Tool"
+                    data-project-description="A network security auditing tool for testing WPA2 security."
+                    data-project-tech="Python, Kali Linux, Aircrack-ng" data-project-live-link="#"
+                    data-project-github-link="#">
                     <div class="glass-card-inner p-0">
-                        <img src="https://placehold.co/600x400/151030/915EFF?text=Project+Gamma" alt="Project 3"
-                            class="w-full h-48 object-cover transition-transform duration-300">
+                        <img src="https://placehold.co/600x400/000000/00FF00?text=Kali+Tool"
+                            class="w-full h-48 object-cover">
                         <div class="p-6 w-full">
-                            <h3 class="text-xl font-bold text-white mb-2">Booking App</h3>
-                            <p class="text-slate-400 mb-4">A mobile-first app for scheduling services.</p>
+                            <h3 class="text-xl font-bold text-white mb-2">WiFi Pen-Tester</h3>
+                            <p class="text-slate-400 mb-4">Cybersecurity Tool</p>
+                            <span
+                                class="text-xs text-green-400 border border-green-500 px-2 py-1 rounded">Hacking</span>
                         </div>
                     </div>
                 </div>
-                <!-- Add more project cards here if needed, with data attributes -->
+
             </div>
-            <!-- New CTA after Portfolio section -->
-            <div class="text-center mt-16 reveal">
-                <p class="text-slate-300 mb-6 text-xl">Ready to turn your vision into reality?</p>
+
+            <div class="text-center mt-16" data-aos="fade-up">
                 <a href="#contact"
-                    class="px-8 py-3 rounded-lg font-semibold transition-all duration-300 ease-in-out bg-violet-600 text-white hover:bg-violet-700 shadow-lg shadow-violet-500/30 btn-futuristic">
-                    Let's Talk!
-                </a>
+                    class="px-8 py-3 rounded-lg font-semibold bg-violet-600 text-white hover:bg-violet-700 shadow-lg shadow-violet-500/30 btn-futuristic">Let's
+                    Talk!</a>
             </div>
         </div>
     </section>
@@ -1224,6 +1246,85 @@
 
     <div class="section-separator reveal"></div>
 
+    <section id="social-platforms" class="py-20">
+        <div class="container mx-auto px-6" data-aos="fade-up">
+            <h2 class="section-title text-3xl md:text-4xl font-bold text-center text-white mb-12">Connect with Me</h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+
+                <a href="https://twitter.com/your-username" target="_blank"
+                    class="platform-card glass-card p-4 rounded-xl flex items-center justify-between group transition-all duration-300">
+                    <div class="flex items-center space-x-4">
+                        <div
+                            class="w-12 h-12 bg-black rounded-lg flex items-center justify-center text-white text-xl font-bold border border-gray-700">
+                            X</div>
+                        <span class="text-white font-semibold text-lg">Twitter</span>
+                    </div>
+                    <span class="text-slate-400 group-hover:text-violet-400 text-2xl font-light">+</span>
+                </a>
+
+                <a href="https://linkedin.com/in/soham-chakraborty-965759272/" target="_blank"
+                    class="platform-card glass-card p-4 rounded-xl flex items-center justify-between group transition-all duration-300">
+                    <div class="flex items-center space-x-4">
+                        <div
+                            class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center text-white text-xl font-bold">
+                            in</div>
+                        <span class="text-white font-semibold text-lg">LinkedIn</span>
+                    </div>
+                    <span class="text-slate-400 group-hover:text-violet-400 text-2xl font-light">+</span>
+                </a>
+
+                <a href="#" target="_blank"
+                    class="platform-card glass-card p-4 rounded-xl flex items-center justify-between group transition-all duration-300">
+                    <div class="flex items-center space-x-4">
+                        <div
+                            class="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center text-white text-xl font-bold">
+                            Y</div>
+                        <span class="text-white font-semibold text-lg">YouTube</span>
+                    </div>
+                    <span class="text-slate-400 group-hover:text-violet-400 text-2xl font-light">+</span>
+                </a>
+
+                <a href="#" target="_blank"
+                    class="platform-card glass-card p-4 rounded-xl flex items-center justify-between group transition-all duration-300">
+                    <div class="flex items-center space-x-4">
+                        <div
+                            class="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center text-white text-xl font-bold">
+                            L</div>
+                        <span class="text-white font-semibold text-lg">LeetCode</span>
+                    </div>
+                    <span class="text-slate-400 group-hover:text-violet-400 text-2xl font-light">+</span>
+                </a>
+
+                <a href="https://github.com/src-neil" target="_blank"
+                    class="platform-card glass-card p-4 rounded-xl flex items-center justify-between group transition-all duration-300">
+                    <div class="flex items-center space-x-4">
+                        <div
+                            class="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center text-white text-xl font-bold border border-gray-600">
+                            G</div>
+                        <span class="text-white font-semibold text-lg">GitHub</span>
+                    </div>
+                    <span class="text-slate-400 group-hover:text-violet-400 text-2xl font-light">+</span>
+                </a>
+
+                <a href="#" target="_blank"
+                    class="platform-card glass-card p-4 rounded-xl flex items-center justify-between group transition-all duration-300">
+                    <div class="flex items-center space-x-4">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 rounded-lg flex items-center justify-center text-white text-xl font-bold">
+                            I</div>
+                        <span class="text-white font-semibold text-lg">Instagram</span>
+                    </div>
+                    <span class="text-slate-400 group-hover:text-violet-400 text-2xl font-light">+</span>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+
+    <div class="section-separator reveal"></div>
+
     <!-- Contact Section -->
     <section id="contact" class="py-20">
         <div class="container mx-auto px-6 reveal">
@@ -1251,6 +1352,7 @@
             </div>
         </div>
     </section>
+
 
     <!-- Footer -->
     <footer class="text-slate-400 py-8">
@@ -1296,7 +1398,7 @@
             </div>
         </div>
     </div>
-
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // --- Dark Mode Toggle Setup ---
@@ -1330,6 +1432,7 @@
             themeToggle.addEventListener('click', () => {
                 const newTheme = body.classList.contains('dark-theme') ? 'light' : 'dark';
                 setTheme(newTheme);
+                updateThreeJsShapeColor();
             });
 
             // --- 3D Hero Animation Setup ---
@@ -1413,12 +1516,33 @@
 
             function animate() {
                 requestAnimationFrame(animate);
+
+                // Slower, more ominous speed for the heartbeat
+                const time = Date.now() * 0.002;
+
                 if (shape) {
                     shape.rotation.x += 0.001;
                     shape.rotation.y += 0.002;
+
+                    // "CYBER HEARTBEAT" LOGIC
+                    // We stick strictly to Purple (0.75 hue) and shift slightly
+                    // No rainbows. Just cool, dark tech colors.
+
+                    // 1. Color Shift: Pulse between Deep Purple and Blue
+                    const hue = 0.75 + Math.sin(time * 0.5) * 0.05;
+
+                    // 2. Brightness Pulse: machine "breathing" effect
+                    const lightness = 0.5 + Math.sin(time * 2) * 0.1;
+
+                    // Apply the dark neon color
+                    shape.material.color.setHSL(hue, 1.0, lightness);
+
+                    // Make the wireframe glow slightly brighter
+                    if (shape.children[0]) {
+                        shape.children[0].material.color.setHSL(hue, 1.0, 0.8);
+                    }
                 }
 
-                // Animate particles
                 if (particles) {
                     particles.rotation.x += 0.0005;
                     particles.rotation.y += 0.001;
@@ -1641,7 +1765,7 @@
             });
 
             // --- Project Details Modals ---
-            const projectCards = document.querySelectorAll('.glass-card[data-project-id]');
+            const filterableCards = document.querySelectorAll('.glass-card[data-project-id]');
             const projectModal = document.getElementById('project-modal');
             const closeModalBtn = document.getElementById('close-modal');
             const modalProjectImage = document.getElementById('modal-project-image');
@@ -1652,7 +1776,7 @@
             const modalGithubLink = document.getElementById('modal-github-link');
             const modalContent = projectModal.querySelector('.glass-card'); // The inner content for scale animation
 
-            projectCards.forEach(card => {
+            filterableCards.forEach(card => {
                 card.addEventListener('click', () => {
                     modalProjectImage.src = card.dataset.projectImage;
                     modalProjectTitle.textContent = card.dataset.projectTitle;
@@ -1757,42 +1881,85 @@
                 document.getElementById('scroll-progress').style.width = scrolled + "%";
             });
 
-            // --- NEW: Typewriter Logic ---
-            const words = ["Full Stack Developer", "UI/UX Designer", "Problem Solver", "Tech Enthusiast"];
+            // --- OPTION 1: HACKER TYPEWRITER LOGIC (FIXED) ---
+            const words = ["Full Stack Developer", "Ethical Hacker", "Python Expert", "Linux Enthusiast"];
             let i = 0;
-            let timer;
 
             function typeWriter() {
                 const heading = document.getElementById("typewriter");
-                const word = words[i];
                 let charIndex = 0;
                 let isDeleting = false;
 
                 function type() {
+                    // FIX: We define 'currentWord' INSIDE the loop so it updates when 'i' changes
+                    const currentWord = words[i];
+
                     if (isDeleting) {
-                        heading.textContent = word.substring(0, charIndex - 1);
+                        heading.textContent = currentWord.substring(0, charIndex - 1);
                         charIndex--;
                     } else {
-                        heading.textContent = word.substring(0, charIndex + 1);
+                        heading.textContent = currentWord.substring(0, charIndex + 1);
                         charIndex++;
                     }
 
-                    if (!isDeleting && charIndex === word.length) {
+                    if (!isDeleting && charIndex === currentWord.length) {
                         isDeleting = true;
                         setTimeout(type, 2000); // Pause at end of word
                     } else if (isDeleting && charIndex === 0) {
                         isDeleting = false;
-                        i = (i + 1) % words.length;
-                        setTimeout(type, 500); // Pause before next word
+                        i = (i + 1) % words.length; // Switch to next word
+                        setTimeout(type, 500);
                     } else {
                         setTimeout(type, isDeleting ? 50 : 100);
                     }
                 }
                 type();
             }
-            
-            // Start the typewriter
             typeWriter();
+
+
+            // --- OPTION 2: INITIALIZE AOS (SCROLL ANIMATIONS) ---
+            // Note: You must add the AOS script tag in the HTML body for this to work
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 1000,
+                    once: true,
+                    mirror: false,
+                });
+            }
+
+
+            // --- OPTION 3: PORTFOLIO FILTERING LOGIC ---
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.project-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // 1. Reset all buttons to inactive style
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('bg-violet-600', 'text-white', 'border-violet-500');
+                        btn.classList.add('border-gray-700', 'text-slate-300');
+                    });
+
+                    // 2. Make the clicked button active
+                    button.classList.remove('border-gray-700', 'text-slate-300');
+                    button.classList.add('bg-violet-600', 'text-white', 'border-violet-500');
+
+                    const category = button.getAttribute('data-filter');
+
+                    // 3. Show/Hide projects
+                    galleryItems.forEach(item => {
+                        if (category === 'all' || item.getAttribute('data-category') === category) {
+                            item.style.display = 'block';
+                            // Reset animation for cool effect
+                            item.classList.remove('aos-animate');
+                            setTimeout(() => item.classList.add('aos-animate'), 50);
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
         });
     </script>
 </body>
