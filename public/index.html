@@ -750,6 +750,52 @@
         #typewriter {
             animation: blink 0.7s infinite;
         }
+
+        /* --- OPTION 3: CYBERSECURITY BRANDING STYLES --- */
+
+        /* The "Top Secret" Redacted Effect */
+        .redacted {
+            background-color: var(--text-color);
+            /* Looks like a black marker block */
+            color: transparent;
+            border-radius: 2px;
+            padding: 0 4px;
+            transition: all 0.3s ease;
+            cursor: crosshair;
+            /* Hacker feel */
+            user-select: none;
+        }
+
+        /* Reveal text on hover */
+        .group:hover .redacted,
+        .redacted:hover {
+            background-color: transparent;
+            color: var(--primary-gradient-start);
+            /* Reveal in Violet */
+        }
+
+        /* "CONFIDENTIAL" Stamp */
+        .stamp {
+            border: 2px solid #ef4444;
+            /* Red border */
+            color: #ef4444;
+            /* Red text */
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            letter-spacing: 2px;
+            transform: rotate(-5deg);
+            display: inline-block;
+            opacity: 0.8;
+            margin-bottom: 8px;
+        }
+
+        /* Tech Mono Font for specific data */
+        .font-mono {
+            font-family: 'Courier New', Courier, monospace;
+            /* Falls back to system mono */
+        }
     </style>
 </head>
 
@@ -1076,79 +1122,112 @@
     <!-- Portfolio Section -->
     <section id="portfolio" class="py-20">
         <div class="container mx-auto px-6" data-aos="fade-up">
-            <h2 class="section-title text-3xl md:text-4xl font-bold text-center text-white mb-8">My Work</h2>
+            <h2 class="section-title text-3xl md:text-4xl font-bold text-center text-white mb-4">Mission Log</h2>
+            <p class="text-center text-slate-400 mb-12 font-mono text-sm">[ ACCESS LEVEL: DECLASSIFIED ]</p>
 
             <div class="flex justify-center space-x-4 mb-12 flex-wrap gap-2">
                 <button
                     class="filter-btn active px-6 py-2 rounded-full border border-violet-500 text-white bg-violet-600 transition-all focus:outline-none"
-                    data-filter="all">All</button>
-
+                    data-filter="all">All Files</button>
                 <button
                     class="filter-btn px-6 py-2 rounded-full border border-gray-700 text-slate-300 hover:bg-violet-900 hover:border-violet-500 hover:text-white transition-all focus:outline-none"
-                    data-filter="web">Web Dev</button>
-
+                    data-filter="web">Web Ops</button>
                 <button
                     class="filter-btn px-6 py-2 rounded-full border border-gray-700 text-slate-300 hover:bg-violet-900 hover:border-violet-500 hover:text-white transition-all focus:outline-none"
-                    data-filter="python">Python/AI</button>
-
+                    data-filter="python">AI/Scripts</button>
                 <button
                     class="filter-btn px-6 py-2 rounded-full border border-gray-700 text-slate-300 hover:bg-violet-900 hover:border-violet-500 hover:text-white transition-all focus:outline-none"
-                    data-filter="hacking">Ethical Hacking</button>
+                    data-filter="hacking">Red Team</button>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                <div class="project-card rounded-lg overflow-hidden group glass-card card-3d-rotate cursor-pointer"
-                    data-category="web" data-aos="zoom-in" data-aos-delay="100" data-project-id="project1"
+                <div class="project-card rounded-lg overflow-hidden group glass-card cursor-pointer border-l-4 border-violet-500"
+                    data-category="web" data-aos="fade-up" data-project-id="project1"
                     data-project-title="E-commerce Platform"
-                    data-project-image="https://placehold.co/600x400/151030/915EFF?text=E-Commerce"
-                    data-project-description="A full-featured online store with a custom CMS."
+                    data-project-image="https://placehold.co/600x400/151030/915EFF?text=Target:+Commerce"
+                    data-project-description="Objective: Build secure payment gateway and user auth system."
                     data-project-tech="React, Node.js, MongoDB" data-project-live-link="#" data-project-github-link="#">
-                    <div class="glass-card-inner p-0">
-                        <img src="https://placehold.co/600x400/151030/915EFF?text=E-Commerce"
-                            class="w-full h-48 object-cover">
-                        <div class="p-6 w-full">
-                            <h3 class="text-xl font-bold text-white mb-2">E-commerce Platform</h3>
-                            <p class="text-slate-400 mb-4">Full Stack Web App</p>
-                            <span class="text-xs text-violet-400 border border-violet-500 px-2 py-1 rounded">Web
-                                Dev</span>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="project-card rounded-lg overflow-hidden group glass-card card-3d-rotate cursor-pointer"
-                    data-category="python" data-aos="zoom-in" data-aos-delay="200" data-project-id="project2"
-                    data-project-title="JARVIS AI"
-                    data-project-image="https://placehold.co/600x400/151030/FF57B9?text=JARVIS+AI"
-                    data-project-description="Voice activated personal assistant built with Python."
-                    data-project-tech="Python, SpeechRecognition, OpenAI API" data-project-live-link="#"
-                    data-project-github-link="#">
-                    <div class="glass-card-inner p-0">
-                        <img src="https://placehold.co/600x400/151030/FF57B9?text=JARVIS+AI"
-                            class="w-full h-48 object-cover">
-                        <div class="p-6 w-full">
-                            <h3 class="text-xl font-bold text-white mb-2">JARVIS AI Assistant</h3>
-                            <p class="text-slate-400 mb-4">Voice Automation Tool</p>
-                            <span class="text-xs text-pink-400 border border-pink-500 px-2 py-1 rounded">Python</span>
-                        </div>
-                    </div>
-                </div>
+                    <div class="glass-card-inner p-6 items-start text-left">
+                        <div class="stamp mb-4">CLEARED</div>
+                        <h3 class="text-xl font-bold text-white mb-1 font-mono">OP: E-COMMERCE</h3>
+                        <p class="text-xs text-slate-500 mb-4 font-mono">ID: #WEB-2025-A</p>
 
-                <div class="project-card rounded-lg overflow-hidden group glass-card card-3d-rotate cursor-pointer"
-                    data-category="hacking" data-aos="zoom-in" data-aos-delay="300" data-project-id="project3"
-                    data-project-title="WiFi Penetration Tool"
-                    data-project-image="https://placehold.co/600x400/000000/00FF00?text=Kali+Tool"
-                    data-project-description="A network security auditing tool for testing WPA2 security."
-                    data-project-tech="Python, Kali Linux, Aircrack-ng" data-project-live-link="#"
-                    data-project-github-link="#">
-                    <div class="glass-card-inner p-0">
-                        <img src="https://placehold.co/600x400/000000/00FF00?text=Kali+Tool"
-                            class="w-full h-48 object-cover">
-                        <div class="p-6 w-full">
-                            <h3 class="text-xl font-bold text-white mb-2">WiFi Pen-Tester</h3>
-                            <p class="text-slate-400 mb-4">Cybersecurity Tool</p>
+                        <p class="text-slate-300 mb-4 text-sm">
+                            <span class="text-violet-400 font-bold">Objective:</span> Full-stack deployment with secure
+                            transaction protocols. <br>
+                            <span class="text-violet-400 font-bold">Status:</span> <span
+                                class="redacted">Vulnerabilities Patched</span>
+                        </p>
+
+                        <div class="w-full h-[1px] bg-gray-700 my-4"></div>
+
+                        <div class="flex flex-wrap gap-2">
                             <span
-                                class="text-xs text-green-400 border border-green-500 px-2 py-1 rounded">Hacking</span>
+                                class="text-xs text-violet-300 bg-violet-900/30 px-2 py-1 rounded font-mono">React.js</span>
+                            <span
+                                class="text-xs text-violet-300 bg-violet-900/30 px-2 py-1 rounded font-mono">Node.js</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card rounded-lg overflow-hidden group glass-card cursor-pointer border-l-4 border-pink-500"
+                    data-category="python" data-aos="fade-up" data-aos-delay="100" data-project-id="project2"
+                    data-project-title="JARVIS AI"
+                    data-project-image="https://placehold.co/600x400/151030/FF57B9?text=AI+Core"
+                    data-project-description="Voice activated personal assistant built with Python."
+                    data-project-tech="Python, OpenAI, SpeechRec" data-project-live-link="#"
+                    data-project-github-link="#">
+
+                    <div class="glass-card-inner p-6 items-start text-left">
+                        <div class="stamp border-pink-500 text-pink-500 mb-4">PROTOTYPE</div>
+                        <h3 class="text-xl font-bold text-white mb-1 font-mono">PROJECT: JARVIS</h3>
+                        <p class="text-xs text-slate-500 mb-4 font-mono">ID: #AI-NEURAL-01</p>
+
+                        <p class="text-slate-300 mb-4 text-sm">
+                            <span class="text-pink-400 font-bold">Objective:</span> Automate system controls via voice.
+                            <br>
+                            <span class="text-pink-400 font-bold">Payload:</span> <span class="redacted">Speech
+                                Recognition</span>
+                        </p>
+
+                        <div class="w-full h-[1px] bg-gray-700 my-4"></div>
+
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs text-pink-300 bg-pink-900/30 px-2 py-1 rounded font-mono">Python</span>
+                            <span class="text-xs text-pink-300 bg-pink-900/30 px-2 py-1 rounded font-mono">OpenAI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card rounded-lg overflow-hidden group glass-card cursor-pointer border-l-4 border-green-500"
+                    data-category="hacking" data-aos="fade-up" data-aos-delay="200" data-project-id="project3"
+                    data-project-title="WiFi Pentest Tool"
+                    data-project-image="https://placehold.co/600x400/000000/00FF00?text=Access+Denied"
+                    data-project-description="Network security auditing tool for testing WPA2."
+                    data-project-tech="Kali, Python, Aircrack-ng" data-project-live-link="#"
+                    data-project-github-link="#">
+
+                    <div class="glass-card-inner p-6 items-start text-left">
+                        <div class="stamp border-green-500 text-green-500 mb-4">RESTRICTED</div>
+                        <h3 class="text-xl font-bold text-white mb-1 font-mono">TOOL: WPA2-CRACK</h3>
+                        <p class="text-xs text-slate-500 mb-4 font-mono">ID: #SEC-OPS-99</p>
+
+                        <p class="text-slate-300 mb-4 text-sm">
+                            <span class="text-green-400 font-bold">Objective:</span> Audit network security protocols.
+                            <br>
+                            <span class="text-green-400 font-bold">Target:</span> <span class="redacted">WPA2
+                                Handshakes</span>
+                        </p>
+
+                        <div class="w-full h-[1px] bg-gray-700 my-4"></div>
+
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs text-green-300 bg-green-900/30 px-2 py-1 rounded font-mono">Kali
+                                Linux</span>
+                            <span
+                                class="text-xs text-green-300 bg-green-900/30 px-2 py-1 rounded font-mono">Python</span>
                         </div>
                     </div>
                 </div>
@@ -1157,8 +1236,8 @@
 
             <div class="text-center mt-16" data-aos="fade-up">
                 <a href="#contact"
-                    class="px-8 py-3 rounded-lg font-semibold bg-violet-600 text-white hover:bg-violet-700 shadow-lg shadow-violet-500/30 btn-futuristic">Let's
-                    Talk!</a>
+                    class="px-8 py-3 rounded-lg font-semibold bg-violet-600 text-white hover:bg-violet-700 shadow-lg btn-futuristic">Initiate
+                    Contact</a>
             </div>
         </div>
     </section>
