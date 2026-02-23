@@ -5,9 +5,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="logo.png">
-    <title>Neil - Creative Full-Stack Developer</title>
+
+    <!-- Advanced SEO & Social Sharing Tags -->
+    <meta name="description"
+        content="Soham Chakraborty - Full-Stack Engineer, Cybersecurity Enthusiast, and Python Automation Expert. Building secure, dynamic, and modern web applications.">
+    <meta name="keywords"
+        content="Soham Chakraborty, Full-Stack Developer, MERN Stack, Cybersecurity, Python Automation, Linux Admin, Portfolio">
+    <meta name="author" content="Soham Chakraborty">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Soham - Creative Full-Stack Developer">
+    <meta property="og:description"
+        content="Explore my projects, skills, and experience in full-stack engineering and cybersecurity.">
+    <meta property="og:image" content="https://neil-portfolio.up.railway.app/logo.png">
+    <meta property="og:url" content="https://neil-portfolio.up.railway.app/">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Soham - Creative Full-Stack Developer">
+    <meta property="twitter:description"
+        content="Explore my projects, skills, and experience in full-stack engineering and cybersecurity.">
+    <meta property="twitter:image" content="https://neil-portfolio.up.railway.app/logo.png">
+
+    <title>Soham - Creative Full-Stack Developer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -811,7 +835,7 @@
     <!-- Header -->
     <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#home" class="text-2xl font-bold"><span class="logo-neil">Neil</span><span
+            <a href="#home" class="text-2xl font-bold"><span class="logo-neil">Soham</span><span
                     class="text-gradient">.dev</span></a>
             <nav class="hidden md:flex items-center space-x-8">
                 <a href="#about" class="transition-colors hover:text-violet-500">About</a>
@@ -859,7 +883,7 @@
         <div class="relative z-10 container mx-auto px-6">
             <div class="max-w-4xl mx-auto">
                 <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4 leading-tight hero-title-glow">
-                    Hi, I'm <span class="text-gradient">Neil</span>
+                    Hi, I'm <span class="text-gradient">Soham</span>
                 </h1>
                 <h2 class="text-xl md:text-2xl font-semibold text-slate-300 mb-8 h-8">
                     I am a <span id="typewriter" class="text-violet-400 border-r-2 border-violet-400 pr-1"></span>
@@ -881,10 +905,12 @@
             <div class="flex flex-col-reverse md:flex-row items-center gap-12">
                 <div class="md:w-2/3">
                     <p class="text-slate-300 mb-6 text-lg">
-                        I'm a skilled software developer with experience in TypeScript and JavaScript, and expertise in
-                        frameworks like React, Node.js, and Next.js. I'm a quick learner and collaborate closely with
-                        clients to create efficient, scalable, and user-friendly solutions that solve real-world
-                        problems. Let's work together to bring your ideas to life!
+                        Aspiring Full-Stack Developer and Cybersecurity Enthusiast with a strong foundation in the MERN
+                        stack (MongoDB, Express, React, Node.js) and Python automation. Proven ability to build
+                        responsive web applications, develop custom automation tools, and manage secure Linux
+                        environments. Passionate about writing clean, efficient code and combining software development
+                        with security best practices. Eager to leverage technical skills in a challenging internship or
+                        software engineering role.
                     </p>
                     <div class="grid grid-cols-2 gap-8">
                         <div class="glass-card p-6 rounded-lg text-center card-3d-hover">
@@ -913,11 +939,81 @@
                         class="w-full md:w-auto px-8 py-3 rounded-lg font-semibold transition-all duration-300 ease-in-out bg-violet-600 text-white hover:bg-violet-700 shadow-lg shadow-violet-500/30 btn-futuristic">
                         See My Latest Projects
                     </a>
-                    <a href="your-resume.pdf" target="_blank"
+                    <a href="soham_chakraborty_Resume.pdf" target="_blank"
                         class="w-full md:w-auto px-8 py-3 rounded-lg font-semibold transition-all duration-300 ease-in-out bg-gray-700 text-white hover:bg-gray-600 shadow-lg shadow-gray-500/20 btn-futuristic btn-secondary ml-4">
                         Download Resume
                     </a>
 
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-separator reveal"></div>
+
+    <!-- Education Section -->
+    <section id="education" class="py-20">
+        <div class="container mx-auto px-6 reveal">
+            <h2 class="section-title text-3xl md:text-4xl font-bold text-center text-white mb-12">Education</h2>
+            <div class="space-y-6 max-w-4xl mx-auto">
+                <div class="glass-card p-6 md:p-8 rounded-2xl card-3d-hover border-l-4 border-violet-500">
+                    <div class="glass-card-inner text-left items-start p-0 w-full">
+                        <div
+                            class="flex flex-col md:flex-row md:items-center justify-between w-full mb-2 border-b border-gray-700/50 pb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">Major in Computer Science</h3>
+                                <h4 class="text-lg text-violet-400 font-semibold">UEM</h4>
+                            </div>
+                            <span
+                                class="text-slate-300 font-semibold font-mono bg-violet-900/30 px-4 py-2 rounded-full mt-4 md:mt-0 shadow-lg border border-violet-500/30">2023
+                                - 2027</span>
+                        </div>
+                        <div class="pt-4 flex items-start gap-3">
+                            <span class="text-xl">📍</span>
+                            <p class="text-slate-400 text-sm leading-relaxed">University Area, Plot No. III-B/5, Main
+                                Arterial Road, New Town Action Area - III, Kolkata - 700160</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-2xl card-3d-hover border-l-4 border-pink-500">
+                    <div class="glass-card-inner text-left items-start p-0 w-full">
+                        <div
+                            class="flex flex-col md:flex-row md:items-center justify-between w-full mb-2 border-b border-gray-700/50 pb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">Specialisation in AI/ML</h3>
+                                <h4 class="text-lg text-pink-400 font-semibold">IEM SALTLAKE</h4>
+                            </div>
+                            <span
+                                class="text-slate-300 font-semibold font-mono bg-pink-900/30 px-4 py-2 rounded-full mt-4 md:mt-0 shadow-lg border border-pink-500/30">2023
+                                - 2027</span>
+                        </div>
+                        <div class="pt-4 flex items-start gap-3">
+                            <span class="text-xl">📍</span>
+                            <p class="text-slate-400 text-sm leading-relaxed">EP BLOCK , Sector-V, Bidhannagar, West
+                                Bengal 700091</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-2xl card-3d-hover border-l-4 border-blue-500">
+                    <div class="glass-card-inner text-left items-start p-0 w-full">
+                        <div
+                            class="flex flex-col md:flex-row md:items-center justify-between w-full mb-2 border-b border-gray-700/50 pb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">Minor in Web Development</h3>
+                                <h4 class="text-lg text-blue-400 font-semibold">IEM SALTLAKE</h4>
+                            </div>
+                            <span
+                                class="text-slate-300 font-semibold font-mono bg-blue-900/30 px-4 py-2 rounded-full mt-4 md:mt-0 shadow-lg border border-blue-500/30">2023
+                                - 2025</span>
+                        </div>
+                        <div class="pt-4 flex items-start gap-3">
+                            <span class="text-xl">📍</span>
+                            <p class="text-slate-400 text-sm leading-relaxed">EP BLOCK ,Saltlake, Sector-V, Bidhannagar,
+                                West Bengal 700091</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1114,6 +1210,166 @@
                         alt="Figma" class="h-16 w-16" title="Figma">
                 </div>
             </div>
+
+            <!-- Detailed Skills Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16 max-w-6xl mx-auto">
+                <div class="glass-card p-6 rounded-xl border-t-2 border-violet-500 card-3d-hover">
+                    <div class="glass-card-inner p-0 items-start text-left w-full">
+                        <h3 class="text-xl font-bold text-white mb-4">Programming Languages</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed font-mono bg-gray-900/50 p-3 rounded">C, C++,
+                            Python, HTML5, CSS3, JS, TS, PHP, SQL, md, Rust, Go, Bash, Lua, Haskell</p>
+                    </div>
+                </div>
+                <div class="glass-card p-6 rounded-xl border-t-2 border-pink-500 card-3d-hover">
+                    <div class="glass-card-inner p-0 items-start text-left w-full">
+                        <h3 class="text-xl font-bold text-white mb-4">Web & Mobile</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed font-mono bg-gray-900/50 p-3 rounded">React,
+                            Angular, Vue, Vite, React-Native, Django, Material UI, Chakra UI, Tailwind CSS, Bootstrap,
+                            Next, Express, Nuxt, Redux, VueX, Webpack, Babel, Redux-Thunk/Saga, Molecular, Svelte,
+                            Three, Framer Motion, Astro, Vanta, Hono</p>
+                    </div>
+                </div>
+                <div class="glass-card p-6 rounded-xl border-t-2 border-blue-500 card-3d-hover">
+                    <div class="glass-card-inner p-0 items-start text-left w-full">
+                        <h3 class="text-xl font-bold text-white mb-4">DevOps</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed font-mono bg-gray-900/50 p-3 rounded">Git,
+                            GitHub, GitHub Actions, Heroku, Digital Ocean, Cloudinary, React Dev Tools, Redux Dev Tools,
+                            Azure-DevOps, Terraform, ARM-Templates, Ansible, Kubernetes, Docker</p>
+                    </div>
+                </div>
+                <div class="glass-card p-6 rounded-xl border-t-2 border-emerald-500 card-3d-hover">
+                    <div class="glass-card-inner p-0 items-start text-left w-full">
+                        <h3 class="text-xl font-bold text-white mb-4">Databases</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed font-mono bg-gray-900/50 p-3 rounded">MySQL,
+                            PostgreSQL, MongoDB, MariaDB</p>
+                    </div>
+                </div>
+                <div class="glass-card p-6 rounded-xl border-t-2 border-amber-500 card-3d-hover">
+                    <div class="glass-card-inner p-0 items-start text-left w-full">
+                        <h3 class="text-xl font-bold text-white mb-4">API & Cloud</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed font-mono bg-gray-900/50 p-3 rounded"><span
+                                class="block border-b border-gray-700/50 pb-2 mb-2">API: REST, SOAP,
+                                GraphQL</span>Cloud: Azure, AWS, Firebase, GCP</p>
+                    </div>
+                </div>
+                <div class="glass-card p-6 rounded-xl border-t-2 border-rose-500 card-3d-hover">
+                    <div class="glass-card-inner p-0 items-start text-left w-full">
+                        <h3 class="text-xl font-bold text-white mb-4">Design</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed font-mono bg-gray-900/50 p-3 rounded">Adobe:
+                            Illustrator, Photoshop, XD, Corel Draw, Figma, Canva</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-separator reveal"></div>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20">
+        <div class="container mx-auto px-6 reveal">
+            <h2 class="section-title text-3xl md:text-4xl font-bold text-center text-white mb-16">Experience & Projects
+            </h2>
+            <div class="max-w-4xl mx-auto space-y-12">
+                <!-- Linux System Admin -->
+                <div
+                    class="relative glass-card p-8 rounded-2xl card-3d-hover border-t border-r border-b border-gray-700/50 border-l-4 border-l-violet-500">
+                    <div class="glass-card-inner items-start text-left p-0 w-full">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between w-full mb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">Linux System Administration & Security
+                                    Enthusiast</h3>
+                                <h4 class="text-lg text-violet-400 font-semibold mt-1">Self-Learning / Home Lab</h4>
+                            </div>
+                            <span
+                                class="text-slate-300 font-semibold font-mono bg-violet-900/20 px-4 py-2 rounded-lg mt-4 md:mt-0 border border-violet-500/30 whitespace-nowrap">2025
+                                - Present</span>
+                        </div>
+                        <ul class="space-y-3 text-slate-300 leading-relaxed list-none pl-0">
+                            <li class="flex items-start"><span class="text-violet-500 mr-3 hidden sm:inline">▹</span>
+                                <p>Configured and customized Kali Linux environments, utilizing GNOME desktop and shell
+                                    scripting for workflow optimization.</p>
+                            </li>
+                            <li class="flex items-start"><span class="text-violet-500 mr-3 hidden sm:inline">▹</span>
+                                <p>Conducted ethical hacking simulations and penetration testing labs to understand
+                                    network vulnerabilities and security best practices.</p>
+                            </li>
+                            <li class="flex items-start"><span class="text-violet-500 mr-3 hidden sm:inline">▹</span>
+                                <p>Managed local development servers and gained hands-on experience with package
+                                    management, permissions, and command-line interfaces.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Python Automation -->
+                <div
+                    class="relative glass-card p-8 rounded-2xl card-3d-hover border-t border-r border-b border-gray-700/50 border-l-4 border-l-pink-500">
+                    <div class="glass-card-inner items-start text-left p-0 w-full">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between w-full mb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">Python Automation & Tool Developer</h3>
+                                <h4 class="text-lg text-pink-400 font-semibold mt-1">Personal Projects</h4>
+                            </div>
+                            <span
+                                class="text-slate-300 font-semibold font-mono bg-pink-900/20 px-4 py-2 rounded-lg mt-4 md:mt-0 border border-pink-500/30 whitespace-nowrap">2024
+                                - 2025</span>
+                        </div>
+                        <ul class="space-y-3 text-slate-300 leading-relaxed list-none pl-0">
+                            <li class="flex items-start"><span class="text-pink-500 mr-3 hidden sm:inline">▹</span>
+                                <p>Developed "JARVIS," a voice-activated AI assistant using Python, integrating speech
+                                    recognition and system automation libraries.</p>
+                            </li>
+                            <li class="flex items-start"><span class="text-pink-500 mr-3 hidden sm:inline">▹</span>
+                                <p>Created a PDF editor tool, utilizing Python scripts to optimize file sizes, split a
+                                    long pdf file, edit the pdf (adding pages, editing texts etc).</p>
+                            </li>
+                            <li class="flex items-start"><span class="text-pink-500 mr-3 hidden sm:inline">▹</span>
+                                <p>Automated routine system tasks and file management workflows, demonstrating strong
+                                    problem-solving.</p>
+                            </li>
+                            <li class="flex items-start"><span class="text-pink-500 mr-3 hidden sm:inline">▹</span>
+                                <p>Designed and deployed a custom Discord Bot using Python, automating server moderation
+                                    tasks.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Freelance Full-Stack -->
+                <div
+                    class="relative glass-card p-8 rounded-2xl card-3d-hover border-t border-r border-b border-gray-700/50 border-l-4 border-l-blue-500">
+                    <div class="glass-card-inner items-start text-left p-0 w-full">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between w-full mb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">Freelance Full-Stack Developer</h3>
+                                <h4 class="text-lg text-blue-400 font-semibold mt-1">Remote / Self Employed</h4>
+                            </div>
+                            <span
+                                class="text-slate-300 font-semibold font-mono bg-blue-900/20 px-4 py-2 rounded-lg mt-4 md:mt-0 border border-blue-500/30 whitespace-nowrap">2023
+                                - 2024</span>
+                        </div>
+                        <ul class="space-y-3 text-slate-300 leading-relaxed list-none pl-0">
+                            <li class="flex items-start"><span class="text-blue-500 mr-3 hidden sm:inline">▹</span>
+                                <p>Designed and developed responsive web applications using the MERN Stack (MongoDB,
+                                    Express.js, React, Node.js).</p>
+                            </li>
+                            <li class="flex items-start"><span class="text-blue-500 mr-3 hidden sm:inline">▹</span>
+                                <p>Built and deployed production-ready portfolio websites and landing pages, ensuring
+                                    cross-browser compatibility.</p>
+                            </li>
+                            <li class="flex items-start"><span class="text-blue-500 mr-3 hidden sm:inline">▹</span>
+                                <p>Implemented secure backend authentication and RESTful APIs, optimizing database
+                                    queries for faster load times.</p>
+                            </li>
+                            <li class="flex items-start"><span class="text-blue-500 mr-3 hidden sm:inline">▹</span>
+                                <p>Managed deployment pipelines using standard hosting platforms (e.g., Vercel, Netlify,
+                                    Railway) and version control via Git/GitHub.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1122,8 +1378,8 @@
     <!-- Portfolio Section -->
     <section id="portfolio" class="py-20">
         <div class="container mx-auto px-6" data-aos="fade-up">
-            <h2 class="section-title text-3xl md:text-4xl font-bold text-center text-white mb-4">Mission Log</h2>
-            <p class="text-center text-slate-400 mb-12 font-mono text-sm">[ ACCESS LEVEL: DECLASSIFIED ]</p>
+            <h2 class="section-title text-3xl md:text-4xl font-bold text-center text-white mb-4">Projects</h2>
+
 
             <div class="flex justify-center space-x-4 mb-12 flex-wrap gap-2">
                 <button
@@ -1140,98 +1396,9 @@
                     data-filter="hacking">Red Team</button>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                <div class="project-card rounded-lg overflow-hidden group glass-card cursor-pointer border-l-4 border-violet-500"
-                    data-category="web" data-aos="fade-up" data-project-id="project1"
-                    data-project-title="E-commerce Platform"
-                    data-project-image="https://placehold.co/600x400/151030/915EFF?text=Target:+Commerce"
-                    data-project-description="Objective: Build secure payment gateway and user auth system."
-                    data-project-tech="React, Node.js, MongoDB" data-project-live-link="#" data-project-github-link="#">
-
-                    <div class="glass-card-inner p-6 items-start text-left">
-                        <div class="stamp mb-4">CLEARED</div>
-                        <h3 class="text-xl font-bold text-white mb-1 font-mono">OP: E-COMMERCE</h3>
-                        <p class="text-xs text-slate-500 mb-4 font-mono">ID: #WEB-2025-A</p>
-
-                        <p class="text-slate-300 mb-4 text-sm">
-                            <span class="text-violet-400 font-bold">Objective:</span> Full-stack deployment with secure
-                            transaction protocols. <br>
-                            <span class="text-violet-400 font-bold">Status:</span> <span
-                                class="redacted">Vulnerabilities Patched</span>
-                        </p>
-
-                        <div class="w-full h-[1px] bg-gray-700 my-4"></div>
-
-                        <div class="flex flex-wrap gap-2">
-                            <span
-                                class="text-xs text-violet-300 bg-violet-900/30 px-2 py-1 rounded font-mono">React.js</span>
-                            <span
-                                class="text-xs text-violet-300 bg-violet-900/30 px-2 py-1 rounded font-mono">Node.js</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card rounded-lg overflow-hidden group glass-card cursor-pointer border-l-4 border-pink-500"
-                    data-category="python" data-aos="fade-up" data-aos-delay="100" data-project-id="project2"
-                    data-project-title="JARVIS AI"
-                    data-project-image="https://placehold.co/600x400/151030/FF57B9?text=AI+Core"
-                    data-project-description="Voice activated personal assistant built with Python."
-                    data-project-tech="Python, OpenAI, SpeechRec" data-project-live-link="#"
-                    data-project-github-link="#">
-
-                    <div class="glass-card-inner p-6 items-start text-left">
-                        <div class="stamp border-pink-500 text-pink-500 mb-4">PROTOTYPE</div>
-                        <h3 class="text-xl font-bold text-white mb-1 font-mono">PROJECT: JARVIS</h3>
-                        <p class="text-xs text-slate-500 mb-4 font-mono">ID: #AI-NEURAL-01</p>
-
-                        <p class="text-slate-300 mb-4 text-sm">
-                            <span class="text-pink-400 font-bold">Objective:</span> Automate system controls via voice.
-                            <br>
-                            <span class="text-pink-400 font-bold">Payload:</span> <span class="redacted">Speech
-                                Recognition</span>
-                        </p>
-
-                        <div class="w-full h-[1px] bg-gray-700 my-4"></div>
-
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-xs text-pink-300 bg-pink-900/30 px-2 py-1 rounded font-mono">Python</span>
-                            <span class="text-xs text-pink-300 bg-pink-900/30 px-2 py-1 rounded font-mono">OpenAI</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card rounded-lg overflow-hidden group glass-card cursor-pointer border-l-4 border-green-500"
-                    data-category="hacking" data-aos="fade-up" data-aos-delay="200" data-project-id="project3"
-                    data-project-title="WiFi Pentest Tool"
-                    data-project-image="https://placehold.co/600x400/000000/00FF00?text=Access+Denied"
-                    data-project-description="Network security auditing tool for testing WPA2."
-                    data-project-tech="Kali, Python, Aircrack-ng" data-project-live-link="#"
-                    data-project-github-link="#">
-
-                    <div class="glass-card-inner p-6 items-start text-left">
-                        <div class="stamp border-green-500 text-green-500 mb-4">RESTRICTED</div>
-                        <h3 class="text-xl font-bold text-white mb-1 font-mono">TOOL: WPA2-CRACK</h3>
-                        <p class="text-xs text-slate-500 mb-4 font-mono">ID: #SEC-OPS-99</p>
-
-                        <p class="text-slate-300 mb-4 text-sm">
-                            <span class="text-green-400 font-bold">Objective:</span> Audit network security protocols.
-                            <br>
-                            <span class="text-green-400 font-bold">Target:</span> <span class="redacted">WPA2
-                                Handshakes</span>
-                        </p>
-
-                        <div class="w-full h-[1px] bg-gray-700 my-4"></div>
-
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-xs text-green-300 bg-green-900/30 px-2 py-1 rounded font-mono">Kali
-                                Linux</span>
-                            <span
-                                class="text-xs text-green-300 bg-green-900/30 px-2 py-1 rounded font-mono">Python</span>
-                        </div>
-                    </div>
-                </div>
-
+            <div id="projects-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Projects will be injected here dynamically -->
+                <p class="text-slate-400 text-center w-full col-span-3">Loading records...</p>
             </div>
 
             <div class="text-center mt-16" data-aos="fade-up">
@@ -1244,6 +1411,8 @@
 
     <div class="section-separator reveal"></div>
 
+
+
     <!-- Testimonials Section -->
     <section id="testimonials" class="py-20 bg-black/20">
         <div class="container mx-auto px-6 reveal">
@@ -1253,7 +1422,7 @@
                     <!-- Testimonial 1 -->
                     <div class="glass-card p-8 rounded-2xl card-3d-hover flex-none w-full md:w-1/2 px-4">
                         <div class="glass-card-inner">
-                            <p class="text-slate-300 mb-6">"Neil is a top-tier developer. He delivered our project on
+                            <p class="text-slate-300 mb-6">"Soham is a top-tier developer. He delivered our project on
                                 time and exceeded our expectations with his creativity and technical skill. Highly
                                 recommended!"</p>
                             <div class="flex items-center w-full">
@@ -1269,7 +1438,7 @@
                     <!-- Testimonial 2 -->
                     <div class="glass-card p-8 rounded-2xl card-3d-hover flex-none w-full md:w-1/2 px-4">
                         <div class="glass-card-inner">
-                            <p class="text-slate-300 mb-6">"Working with Neil was a fantastic experience. He is a great
+                            <p class="text-slate-300 mb-6">"Working with Soham was a fantastic experience. He is a great
                                 communicator and his attention to detail is second to none. Our new website is a
                                 masterpiece."</p>
                             <div class="flex items-center w-full">
@@ -1285,7 +1454,7 @@
                     <!-- Testimonial 3 (Added for slider effect) -->
                     <div class="glass-card p-8 rounded-2xl card-3d-hover flex-none w-full md:w-1/2 px-4">
                         <div class="glass-card-inner">
-                            <p class="text-slate-300 mb-6">"Neil transformed our old site into a modern, dynamic
+                            <p class="text-slate-300 mb-6">"Soham transformed our old site into a modern, dynamic
                                 platform. His expertise in full-stack development is truly impressive. We couldn't be
                                 happier!"</p>
                             <div class="flex items-center w-full">
@@ -1301,7 +1470,7 @@
                     <!-- Testimonial 4 (Added for slider effect) -->
                     <div class="glass-card p-8 rounded-2xl card-3d-hover flex-none w-full md:w-1/2 px-4">
                         <div class="glass-card-inner">
-                            <p class="text-slate-300 mb-6">"Professional, reliable, and incredibly talented. Neil
+                            <p class="text-slate-300 mb-6">"Professional, reliable, and incredibly talented. Soham
                                 understood our needs perfectly and delivered a product that exceeded all expectations. A
                                 pleasure to work with!"</p>
                             <div class="flex items-center w-full">
@@ -1408,26 +1577,71 @@
     <!-- Contact Section -->
     <section id="contact" class="py-20">
         <div class="container mx-auto px-6 reveal">
-            <div class="glass-card rounded-2xl p-8 md:p-12 max-w-4xl mx-auto card-3d-hover">
-                <div class="glass-card-inner p-0">
-                    <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-2">Get in Touch</h2>
-                    <p class="text-slate-300 mb-8">Let's create something amazing together.</p>
-                    <form id="contact-form" class="space-y-6 w-full">
-                        <input type="text" name="name" placeholder="Your Name"
-                            class="w-full p-3 rounded-lg bg-gray-800/50 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-violet-500"
-                            required>
-                        <input type="email" name="email" placeholder="Your Email"
-                            class="w-full p-3 rounded-lg bg-gray-800/50 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-violet-500"
-                            required>
-                        <textarea name="message" placeholder="Your Message" rows="5"
-                            class="w-full p-3 rounded-lg bg-gray-800/50 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-violet-500"
-                            required></textarea>
-                        <button type="submit"
-                            class="w-full px-8 py-3 rounded-lg font-semibold transition-all duration-300 ease-in-out bg-violet-600 text-white hover:bg-violet-700 shadow-lg shadow-violet-500/30 btn-futuristic">
-                            Send Message
-                        </button>
-                        <p id="form-status" class="text-center mt-4"></p>
-                    </form>
+            <h2 class="section-title text-3xl md:text-4xl font-bold text-center text-white mb-12">Get in Touch</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                <div class="glass-card rounded-2xl p-8 md:p-10 card-3d-hover">
+                    <div class="glass-card-inner p-0 text-left w-full">
+                        <h3 class="text-2xl font-bold text-white mb-6">Contact Information</h3>
+                        <p class="text-slate-300 mb-8">Feel free to reach out to me through any of the following
+                            methods.</p>
+                        <ul class="space-y-6 text-slate-300">
+                            <li class="flex items-center space-x-4">
+                                <span class="bg-violet-900/30 p-4 rounded-lg text-violet-400 text-xl">📧</span>
+                                <div class="overflow-hidden">
+                                    <p class="font-bold text-white">Email</p>
+                                    <p class="truncate hover:text-violet-400 transition-colors cursor-pointer"><a
+                                            href="mailto:sohamytofficial333@gmail.com">sohamytofficial333@gmail.com</a>
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="flex items-center space-x-4">
+                                <span class="bg-violet-900/30 p-4 rounded-lg text-violet-400 text-xl">📞</span>
+                                <div>
+                                    <p class="font-bold text-white">Phone</p>
+                                    <p>+91 8250896159</p>
+                                </div>
+                            </li>
+                            <li class="flex items-center space-x-4">
+                                <span class="bg-violet-900/30 p-4 rounded-lg text-violet-400 text-xl">📍</span>
+                                <div>
+                                    <p class="font-bold text-white">Location</p>
+                                    <p>Newtown, Action Area 1 , Kolkata</p>
+                                </div>
+                            </li>
+                            <li class="flex items-center space-x-4">
+                                <span class="bg-violet-900/30 p-4 rounded-lg text-violet-400 text-xl">🌐</span>
+                                <div class="overflow-hidden">
+                                    <p class="font-bold text-white">Website</p>
+                                    <p class="truncate hover:text-violet-400 transition-colors"><a
+                                            href="https://neil-portfolio.up.railway.app/"
+                                            target="_blank">neil-portfolio.up.railway.app</a></p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-8 md:p-10 card-3d-hover">
+                    <div class="glass-card-inner p-0 w-full">
+                        <h3 class="text-2xl font-bold text-white mb-2">Send a Message</h3>
+                        <p class="text-slate-300 mb-8">Let's create something amazing together.</p>
+                        <form id="contact-form" class="space-y-6 w-full">
+                            <input type="text" name="name" placeholder="Your Name"
+                                class="w-full p-3 rounded-lg bg-gray-800/50 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-violet-500"
+                                required>
+                            <input type="email" name="email" placeholder="Your Email"
+                                class="w-full p-3 rounded-lg bg-gray-800/50 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-violet-500"
+                                required>
+                            <textarea name="message" placeholder="Your Message" rows="5"
+                                class="w-full p-3 rounded-lg bg-gray-800/50 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-violet-500"
+                                required></textarea>
+                            <button type="submit"
+                                class="w-full px-8 py-3 rounded-lg font-semibold transition-all duration-300 ease-in-out bg-violet-600 text-white hover:bg-violet-700 shadow-lg shadow-violet-500/30 btn-futuristic">
+                                Send Message
+                            </button>
+                            <p id="form-status" class="text-center mt-4"></p>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1452,7 +1666,7 @@
                             d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
                     </svg></a>
             </div>
-            <p>&copy; 2025 Neil.dev. All Rights Reserved.</p>
+            <p>&copy; 2025 Soham.dev. All Rights Reserved.</p>
         </div>
     </footer>
 
@@ -1962,7 +2176,7 @@
             });
 
             // --- OPTION 1: HACKER TYPEWRITER LOGIC (FIXED) ---
-            const words = ["Full Stack Developer", "Ethical Hacker", "Python Expert", "Linux Enthusiast"];
+            const words = ["Full-Stack Engineer", "Cybersecurity Enthusiast", "Python Automation", "Linux Admin"];
             let i = 0;
 
             function typeWriter() {
@@ -2009,39 +2223,323 @@
             }
 
 
-            // --- OPTION 3: PORTFOLIO FILTERING LOGIC ---
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            const galleryItems = document.querySelectorAll('.project-card');
+            // --- DYNAMIC DATA FETCHING ---
 
-            filterButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    // 1. Reset all buttons to inactive style
-                    filterButtons.forEach(btn => {
-                        btn.classList.remove('bg-violet-600', 'text-white', 'border-violet-500');
-                        btn.classList.add('border-gray-700', 'text-slate-300');
-                    });
+            async function fetchProjects() {
+                const container = document.getElementById('projects-container');
+                try {
+                    const response = await fetch('/api/projects');
+                    if (!response.ok) throw new Error('Failed to fetch projects');
+                    const projects = await response.json();
 
-                    // 2. Make the clicked button active
-                    button.classList.remove('border-gray-700', 'text-slate-300');
-                    button.classList.add('bg-violet-600', 'text-white', 'border-violet-500');
+                    if (projects.length === 0) {
+                        container.innerHTML = '<p class="text-slate-400 text-center w-full col-span-3">No mission logs currently available.</p>';
+                        return;
+                    }
 
-                    const category = button.getAttribute('data-filter');
+                    container.innerHTML = projects.map((project, index) => {
+                        // Alternate border colors based on index or category if desired. using modulo for variety
+                        const colors = ['violet', 'pink', 'green', 'blue'];
+                        const color = colors[index % colors.length];
 
-                    // 3. Show/Hide projects
-                    galleryItems.forEach(item => {
-                        if (category === 'all' || item.getAttribute('data-category') === category) {
-                            item.style.display = 'block';
-                            // Reset animation for cool effect
-                            item.classList.remove('aos-animate');
-                            setTimeout(() => item.classList.add('aos-animate'), 50);
-                        } else {
-                            item.style.display = 'none';
-                        }
+                        return `
+                            <div class="project-card rounded-lg overflow-hidden group glass-card cursor-pointer border-l-4 border-${color}-500"
+                                data-category="${project.category.toLowerCase()}" data-aos="fade-up" data-aos-delay="${(index % 3) * 100}" data-project-id="project${project.id}"
+                                data-project-title="${project.title}"
+                                data-project-image="${project.image_url || 'https://placehold.co/600x400/151030/915EFF?text=Project'}"
+                                data-project-description="${project.description.replace(/"/g, '&quot;')}"
+                                data-project-tech="${project.tech_stack}" data-project-live-link="${project.live_link || '#'}" data-project-github-link="${project.github_link || '#'}">
+
+                                <div class="glass-card-inner p-6 items-start text-left h-full flex flex-col justify-between">
+                                    <div>
+                                        <div class="stamp mb-4" style="border-color: var(--${color}-500); color: var(--${color}-500);">DECRYPTED</div>
+                                        <h3 class="text-xl font-bold text-white mb-1 font-mono">${project.title}</h3>
+                                        <p class="text-xs text-slate-500 mb-4 font-mono">ID: #SYS-${project.id}</p>
+
+                                        <p class="text-slate-300 mb-4 text-sm line-clamp-3">
+                                            ${project.description}
+                                        </p>
+                                    </div>
+
+                                    <div class="w-full">
+                                        <div class="w-full h-[1px] bg-gray-700 my-4"></div>
+                                        <div class="flex flex-wrap gap-2">
+                                            ${project.tech_stack.split(',').map(tech =>
+                            `<span class="text-xs text-${color}-300 bg-${color}-900/30 px-2 py-1 rounded font-mono">${tech.trim()}</span>`
+                        ).join('')}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                         `;
+                    }).join('');
+
+                    // Re-initialize modal listeners for new cards
+                    initProjectModals();
+                    // Re-initialize portfolio filtering
+                    initPortfolioFiltering();
+
+                } catch (error) {
+                    console.error('Error loading projects:', error);
+                    container.innerHTML = '<p class="text-red-500 text-center w-full col-span-3">Failed to load mission logs. System Error.</p>';
+                }
+            }
+
+
+            // Initialization Function block for dynamic items
+            function initProjectModals() {
+                const filterableCards = document.querySelectorAll('.project-card');
+                const projectModal = document.getElementById('project-modal');
+                const closeModalBtn = document.getElementById('close-modal');
+                const modalProjectImage = document.getElementById('modal-project-image');
+                const modalProjectTitle = document.getElementById('modal-project-title');
+                const modalProjectDescription = document.getElementById('modal-project-description');
+                const modalProjectTech = document.getElementById('modal-project-tech');
+                const modalLiveLink = document.getElementById('modal-live-link');
+                const modalGithubLink = document.getElementById('modal-github-link');
+                const modalContent = projectModal.querySelector('.glass-card');
+
+                filterableCards.forEach(card => {
+                    // Remove existing to prevent duplicates
+                    const newCard = card.cloneNode(true);
+                    card.parentNode.replaceChild(newCard, card);
+
+                    newCard.addEventListener('click', () => {
+                        modalProjectImage.src = newCard.dataset.projectImage;
+                        modalProjectTitle.textContent = newCard.dataset.projectTitle;
+                        modalProjectDescription.textContent = newCard.dataset.projectDescription;
+                        modalProjectTech.textContent = newCard.dataset.projectTech;
+
+                        modalLiveLink.href = newCard.dataset.projectLiveLink;
+                        modalLiveLink.style.display = newCard.dataset.projectLiveLink !== '#' ? 'inline-block' : 'none';
+
+                        modalGithubLink.href = newCard.dataset.projectGithubLink;
+                        modalGithubLink.style.display = newCard.dataset.projectGithubLink !== '#' ? 'inline-block' : 'none';
+
+                        projectModal.classList.remove('hidden');
+                        void projectModal.offsetWidth;
+                        projectModal.classList.add('opacity-100');
+                        modalContent.classList.remove('scale-95');
+                        modalContent.classList.add('scale-100');
+                        document.body.style.overflow = 'hidden';
                     });
                 });
-            });
+            }
+
+            function initPortfolioFiltering() {
+                const filterButtons = document.querySelectorAll('.filter-btn');
+                const galleryItems = document.querySelectorAll('.project-card');
+
+                // Remove old listeners by cloning
+                filterButtons.forEach(button => {
+                    const newBtn = button.cloneNode(true);
+                    button.parentNode.replaceChild(newBtn, button);
+
+                    newBtn.addEventListener('click', () => {
+                        const filterBtnsRefresh = document.querySelectorAll('.filter-btn');
+                        filterBtnsRefresh.forEach(btn => {
+                            btn.classList.remove('bg-violet-600', 'text-white', 'border-violet-500');
+                            btn.classList.add('border-gray-700', 'text-slate-300');
+                        });
+
+                        newBtn.classList.remove('border-gray-700', 'text-slate-300');
+                        newBtn.classList.add('bg-violet-600', 'text-white', 'border-violet-500');
+
+                        const category = newBtn.getAttribute('data-filter');
+                        const items = document.querySelectorAll('.project-card');
+
+                        items.forEach(item => {
+                            if (category === 'all' || item.getAttribute('data-category') === category) {
+                                item.style.display = 'block';
+                                item.classList.remove('aos-animate');
+                                setTimeout(() => item.classList.add('aos-animate'), 50);
+                            } else {
+                                item.style.display = 'none';
+                            }
+                        });
+                    });
+                });
+            }
+
+            // Call fetches
+            fetchProjects();
+            fetchPosts();
         });
     </script>
+
+    <!-- Interactive Terminal Component -->
+    <div id="terminal-wrapper" class="fixed bottom-4 right-4 z-[200] flex flex-col items-end group">
+        <!-- Terminal Button (Always visible) -->
+        <button id="terminal-toggle"
+            class="bg-violet-600 text-white rounded-full p-3 shadow-lg hover:bg-violet-700 transition-all shadow-violet-500/30 font-mono text-xl flex items-center justify-center w-12 h-12">
+            &gt;_
+        </button>
+
+        <!-- Terminal Window (Hidden by default) -->
+        <div id="terminal-window"
+            class="hidden w-[90vw] md:w-[400px] h-[300px] bg-black/90 backdrop-blur-md rounded-lg shadow-2xl border border-gray-700 font-mono text-sm flex-col justify-between mt-2 origin-bottom-right transition-all duration-300 transform scale-95 opacity-0">
+
+            <!-- Terminal Header Area (Keep at top) -->
+            <div class="flex-shrink-0">
+                <div
+                    class="bg-gray-800 rounded-t-lg px-4 py-2 flex justify-between items-center border-b border-gray-700">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500 cursor-pointer" id="terminal-close"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500 cursor-pointer" id="terminal-min"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500 cursor-pointer" id="terminal-max"></div>
+                    </div>
+                    <div class="text-xs text-gray-400 font-bold">guest@soham.dev:~</div>
+                </div>
+            </div>
+
+            <!-- Terminal Output Area (Expand to fill space) -->
+            <div id="terminal-output"
+                class="flex-1 w-full p-4 overflow-y-auto overscroll-contain text-green-400 space-y-2 select-text pointer-events-auto min-h-0"
+                style="scrollbar-width: thin; scrollbar-color: #4c1d95 transparent;">
+                <p>Welcome to Soham OS v1.0.0</p>
+                <p>Type <span class="text-violet-400">'help'</span> to see available commands.</p>
+            </div>
+
+            <!-- Terminal Input (Keep at bottom) -->
+            <div class="flex-shrink-0 px-4 py-2 border-t border-gray-800 flex items-center bg-gray-900/50 rounded-b-lg">
+                <span class="text-green-500 mr-2 font-bold text-xs">&gt;</span>
+                <input type="text" id="terminal-input"
+                    class="w-full bg-transparent border-none text-white focus:outline-none placeholder-gray-600 text-xs py-1"
+                    placeholder="Enter command..." autocomplete="off" spellcheck="false">
+            </div>
+        </div>
+    </div>
+
+    <!--Project Details Modal Structure(Existing)-- >
+    < !-- ...Rest of body Scripts ... -->
+
+    < !--Load AOS and Other Scripts-->
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // ... existing JS code ..
+
+                // --- INTERACTIVE TERMINAL LOGIC ---
+                const terminalToggle = document.getElementById('terminal-toggle');
+                const terminalWindow = document.getElementById('terminal-window');
+                const terminalClose = document.getElementById('terminal-close');
+                const terminalMin = document.getElementById('terminal-min');
+                const terminalMax = document.getElementById('terminal-max');
+                const terminalInput = document.getElementById('terminal-input');
+                const terminalOutput = document.getElementById('terminal-output');
+
+                // File System / Data for commands
+                const terminalCommands = {
+                    'help': () => {
+                        return [
+                            'Available Commands:',
+                            '  <span class="text-violet-400">help</span>     - Display this menu',
+                            '  <span class="text-violet-400">whoami</span>   - Print current user identity',
+                            '  <span class="text-violet-400">skills</span>   - List functional capabilities',
+                            '  <span class="text-violet-400">projects</span> - Query mission logs',
+                            '  <span class="text-violet-400">contact</span>  - Initiate communication subrotine',
+                            '  <span class="text-violet-400">clear</span>    - Wipes terminal trace',
+                            '  <span class="text-violet-400">sudo</span>     - Elevate privileges (requires clearance)'
+                        ].join('<br>');
+                    },
+                    'whoami': () => {
+                        return 'User: <span class="text-green-300">guest</span><br>Authorization: <span class="text-red-400">Level 1 (Basic Access)</span><br>Target: <span class="text-pink-400">Soham Chakraborty</span> [Full-Stack Engineer & Cybersecurity Enthusiast]';
+                    },
+                    'skills': () => {
+                        return '[Python, React, Node.js, Linux Admin, Penetration Testing, Full-Stack Ops]';
+                    },
+                    'projects': () => {
+                        document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth' });
+                        return 'Querying database... Redirecting visual interface to Mission Logs.';
+                    },
+                    'contact': () => {
+                        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+                        return 'Initializing comm channels protocol... Target location pinged.';
+                    },
+                    'clear': () => {
+                        terminalOutput.innerHTML = '';
+                        return ''; // Returns nothing so nothing is printed after clear
+                    },
+                    'sudo': () => {
+                        return 'Nice try. This incident will be reported.';
+                    }
+                };
+
+                // Toggle visibility
+                function toggleTerminal(show) {
+                    if (show) {
+                        terminalWindow.classList.remove('hidden');
+                        // small delay for transition
+                        setTimeout(() => {
+                            terminalWindow.classList.remove('scale-95', 'opacity-0');
+                            terminalWindow.classList.add('scale-100', 'opacity-100');
+                            terminalInput.focus();
+                        }, 10);
+                    } else {
+                        terminalWindow.classList.remove('scale-100', 'opacity-100');
+                        terminalWindow.classList.add('scale-95', 'opacity-0');
+                        setTimeout(() => {
+                            terminalWindow.classList.add('hidden');
+                        }, 300);
+                    }
+                }
+
+                terminalToggle.addEventListener('click', () => {
+                    const isHidden = terminalWindow.classList.contains('hidden');
+                    toggleTerminal(isHidden);
+                });
+
+                terminalClose.addEventListener('click', () => toggleTerminal(false));
+                terminalMin.addEventListener('click', () => toggleTerminal(false));
+
+                // Basic Maximize toggle
+                let isMaximized = false;
+                terminalMax.addEventListener('click', () => {
+                    if (!isMaximized) {
+                        terminalWindow.classList.remove('w-[90vw]', 'md:w-[400px]', 'h-[300px]');
+                        terminalWindow.classList.add('w-[95vw]', 'h-[80vh]');
+                    } else {
+                        terminalWindow.classList.remove('w-[95vw]', 'h-[80vh]');
+                        terminalWindow.classList.add('w-[90vw]', 'md:w-[400px]', 'h-[300px]');
+                    }
+                    isMaximized = !isMaximized;
+                    terminalInput.focus();
+                });
+
+                // Handle Commands
+                function printLine(html) {
+                    if (!html) return;
+                    const p = document.createElement('div');
+                    p.innerHTML = html;
+                    terminalOutput.appendChild(p);
+                    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+                }
+
+                terminalInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        const cmdUnprocessed = terminalInput.value;
+                        const cmd = cmdUnprocessed.trim().toLowerCase();
+                        terminalInput.value = ''; // clear input
+
+                        if (cmd === '') return;
+
+                        // Echo command
+                        printLine(`<span class="text-gray-400">guest@soham.dev:~$</span> ${cmdUnprocessed}`);
+
+                        // Process command
+                        if (terminalCommands[cmd]) {
+                            // Known command
+                            const response = terminalCommands[cmd]();
+                            printLine(response);
+                        } else {
+                            // Unknown
+                            printLine(`bash: ${cmd}: command not found. Type 'help' for sys manual.`);
+                        }
+                    }
+                });
+
+            });
+        </script>
 </body>
 
 </html>

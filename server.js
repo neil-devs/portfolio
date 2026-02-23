@@ -2,86 +2,170 @@ const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const cors = require('cors');
 const path = require('path');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+
 const app = express();
+const PORT = process.env.PORT || 5000;
 
-// Use the port assigned by the hosting service, or 5000 if running locally
-const PORT = process.env.PORT || 5000; 
+// Hardcoded admin credentials for simplicity 
+// IN PRODUCTION, USE ENVIRONMENT VARIABLES
+const ADMIN_EMAIL = 'admin@neil.dev';
+// Password is 'neil-secret-code'
+const ADMIN_PASSWORD_HASH = '$2a$10$WpXlQ5S.u4Z9Y/7jQ7C.Oea5e9hCxgfX3r3v3o3b1UeE.y1.l1z5m'; 
+const JWT_SECRET = 'super-secret-key-12345'; // Replace with a strong random secret in production
 
-// Middleware
 app.use(cors());
 app.use(express.json());
+app.use(express.static('public'));
 
-// Serve Frontend Files
-// This tells the server to look inside the 'public' folder for your HTML, CSS, and images
-app.use(express.static('public')); 
-
-// 1. Connect/Create the SQLite Database
+// --- Database Setup ---
 const db = new sqlite3.Database('./portfolio.db', (err) => {
     if (err) {
         console.error('❌ Database Error:', err.message);
     } else {
         console.log('✅ Connected to the SQLite database.');
+        initDb();
     }
 });
 
-// 2. Create the 'messages' table if it doesn't exist
-db.run(`CREATE TABLE IF NOT EXISTS messages (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    email TEXT,
-    message TEXT,
-    date TEXT
-)`);
+function initDb() {
+    // Existing messages table
+    db.run(`CREATE TABLE IF NOT EXISTS messages (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        email TEXT,
+        message TEXT,
+        date TEXT
+    )`);
+
+    // Projects table
+    db.run(`CREATE TABLE IF NOT EXISTS projects (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT,
+        category TEXT,
+        image_url TEXT,
+        description TEXT,
+        tech_stack TEXT,
+        live_link TEXT,
+        github_link TEXT
+    )`);
+
+    // Posts table (for the blog section)
+    db.run(`CREATE TABLE IF NOT EXISTS posts (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT,
+        content TEXT,
+        date TEXT
+    )`);
+}
+
+// --- Verification Middleware ---
+function authenticateToken(req, res, next) {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (token == null) return res.status(401).json({ success: false, message: 'Unauthorized' });
+
+    jwt.verify(token, JWT_SECRET, (err, user) => {
+        if (err) return res.status(403).json({ success: false, message: 'Forbidden' });
+        req.user = user;
+        next();
+    });
+}
 
 // --- Routes ---
 
-// Root Route: Serve index.html
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// Root 
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
+
+// --- Auth Routes ---
+app.post('/api/login', async (req, res) => {
+    const { email, password } = req.body;
+    
+    if (email !== ADMIN_EMAIL) {
+        return res.status(401).json({ success: false, message: 'Invalid credentials' });
+    }
+
+    const validPassword = await bcrypt.compare(password, ADMIN_PASSWORD_HASH);
+    if (!validPassword) {
+        return res.status(401).json({ success: false, message: 'Invalid credentials' });
+    }
+
+    const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: '24h' });
+    res.json({ success: true, token });
 });
 
-// POST Route: Save a new message
+
+// --- Messages Routes ---
 app.post('/api/contact', (req, res) => {
     const { name, email, message } = req.body;
     const date = new Date().toISOString();
-
-    // SQL Query to insert data
-    const sql = `INSERT INTO messages (name, email, message, date) VALUES (?, ?, ?, ?)`;
-    
-    db.run(sql, [name, email, message, date], function(err) {
-        if (err) {
-            console.error(err.message);
-            return res.status(500).json({ success: false, message: 'Database error' });
-        }
-        res.json({ success: true, message: 'Message saved!', id: this.lastID });
+    db.run(`INSERT INTO messages (name, email, message, date) VALUES (?, ?, ?, ?)`, 
+        [name, email, message, date], function(err) {
+            if (err) return res.status(500).json({ success: false, message: 'DB Error' });
+            res.json({ success: true, message: 'Message saved!' });
     });
 });
 
-// GET Route: View all messages (SECURE VERSION)
-// This route now requires a password to view the data
-app.get('/api/messages', (req, res) => {
-    // 1. Check the password sent from the browser
-    const password = req.query.password;
-
-    // 2. CHANGE THIS to the same password you put in admin.html
-    const MY_SECRET_PASSWORD = "neil-secret-code"; 
-
-    if (password !== MY_SECRET_PASSWORD) {
-        // If password is wrong, block them instantly
-        return res.status(403).json({ success: false, message: "⛔ Access Denied: Wrong Password" });
-    }
-
-    // 3. If password matches, show the data
-    const sql = `SELECT * FROM messages ORDER BY id DESC`;
-    db.all(sql, [], (err, rows) => {
-        if (err) {
-            return res.status(500).json({ success: false, message: err.message });
-        }
+app.get('/api/messages', authenticateToken, (req, res) => {
+    db.all(`SELECT * FROM messages ORDER BY id DESC`, [], (err, rows) => {
+        if (err) return res.status(500).json({ success: false, message: err.message });
         res.json(rows);
     });
 });
 
-// Start Server
+// --- Projects Routes ---
+app.get('/api/projects', (req, res) => {
+    db.all(`SELECT * FROM projects ORDER BY id DESC`, [], (err, rows) => {
+        if (err) return res.status(500).json({ success: false, message: err.message });
+        res.json(rows);
+    });
+});
+
+app.post('/api/projects', authenticateToken, (req, res) => {
+    const { title, category, image_url, description, tech_stack, live_link, github_link } = req.body;
+    db.run(`INSERT INTO projects (title, category, image_url, description, tech_stack, live_link, github_link) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)`, 
+        [title, category, image_url, description, tech_stack, live_link, github_link], function(err) {
+            if (err) return res.status(500).json({ success: false, message: err.message });
+            res.json({ success: true, message: 'Project added!' });
+    });
+});
+
+app.delete('/api/projects/:id', authenticateToken, (req, res) => {
+    db.run(`DELETE FROM projects WHERE id = ?`, req.params.id, function(err) {
+        if (err) return res.status(500).json({ success: false, message: err.message });
+        res.json({ success: true, message: 'Project deleted!' });
+    });
+});
+
+// --- Posts Routes ---
+app.get('/api/posts', (req, res) => {
+    db.all(`SELECT * FROM posts ORDER BY id DESC`, [], (err, rows) => {
+        if (err) return res.status(500).json({ success: false, message: err.message });
+        res.json(rows);
+    });
+});
+
+app.post('/api/posts', authenticateToken, (req, res) => {
+    const { title, content } = req.body;
+    const date = new Date().toISOString();
+    db.run(`INSERT INTO posts (title, content, date) VALUES (?, ?, ?)`, 
+        [title, content, date], function(err) {
+            if (err) return res.status(500).json({ success: false, message: err.message });
+            res.json({ success: true, message: 'Post added!' });
+    });
+});
+
+app.delete('/api/posts/:id', authenticateToken, (req, res) => {
+    db.run(`DELETE FROM posts WHERE id = ?`, req.params.id, function(err) {
+        if (err) return res.status(500).json({ success: false, message: err.message });
+        res.json({ success: true, message: 'Post deleted!' });
+    });
+});
+
+
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`🚀 Server running on port ${PORT}`);
 });
