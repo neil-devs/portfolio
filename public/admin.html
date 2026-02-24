@@ -507,7 +507,7 @@
                 const res = await fetch('/api/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ password })
+                    body: JSON.stringify({ email: 'admin@neil.dev', password }) // ADDED HARDCODED EMAIL
                 });
 
                 const data = await res.json();

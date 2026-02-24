@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 5000;
 // IN PRODUCTION, USE ENVIRONMENT VARIABLES
 const ADMIN_EMAIL = 'admin@neil.dev';
 // Password is 'neil-secret-code'
-const ADMIN_PASSWORD_HASH = '$2a$10$WpXlQ5S.u4Z9Y/7jQ7C.Oea5e9hCxgfX3r3v3o3b1UeE.y1.l1z5m'; 
+const ADMIN_PASSWORD_HASH = '$2b$10$KvhC4cPwPdwgohVWA/whR.2uBy.8Su3BoC8Xz81gZ80MEu71GGgZ2';
 const JWT_SECRET = 'super-secret-key-12345'; // Replace with a strong random secret in production
 
 app.use(cors());
@@ -82,7 +82,7 @@ app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.ht
 // --- Auth Routes ---
 app.post('/api/login', async (req, res) => {
     const { email, password } = req.body;
-    
+
     if (email !== ADMIN_EMAIL) {
         return res.status(401).json({ success: false, message: 'Invalid credentials' });
     }
@@ -101,11 +101,11 @@ app.post('/api/login', async (req, res) => {
 app.post('/api/contact', (req, res) => {
     const { name, email, message } = req.body;
     const date = new Date().toISOString();
-    db.run(`INSERT INTO messages (name, email, message, date) VALUES (?, ?, ?, ?)`, 
-        [name, email, message, date], function(err) {
+    db.run(`INSERT INTO messages (name, email, message, date) VALUES (?, ?, ?, ?)`,
+        [name, email, message, date], function (err) {
             if (err) return res.status(500).json({ success: false, message: 'DB Error' });
             res.json({ success: true, message: 'Message saved!' });
-    });
+        });
 });
 
 app.get('/api/messages', authenticateToken, (req, res) => {
@@ -126,15 +126,15 @@ app.get('/api/projects', (req, res) => {
 app.post('/api/projects', authenticateToken, (req, res) => {
     const { title, category, image_url, description, tech_stack, live_link, github_link } = req.body;
     db.run(`INSERT INTO projects (title, category, image_url, description, tech_stack, live_link, github_link) 
-            VALUES (?, ?, ?, ?, ?, ?, ?)`, 
-        [title, category, image_url, description, tech_stack, live_link, github_link], function(err) {
+            VALUES (?, ?, ?, ?, ?, ?, ?)`,
+        [title, category, image_url, description, tech_stack, live_link, github_link], function (err) {
             if (err) return res.status(500).json({ success: false, message: err.message });
             res.json({ success: true, message: 'Project added!' });
-    });
+        });
 });
 
 app.delete('/api/projects/:id', authenticateToken, (req, res) => {
-    db.run(`DELETE FROM projects WHERE id = ?`, req.params.id, function(err) {
+    db.run(`DELETE FROM projects WHERE id = ?`, req.params.id, function (err) {
         if (err) return res.status(500).json({ success: false, message: err.message });
         res.json({ success: true, message: 'Project deleted!' });
     });
@@ -151,15 +151,15 @@ app.get('/api/posts', (req, res) => {
 app.post('/api/posts', authenticateToken, (req, res) => {
     const { title, content } = req.body;
     const date = new Date().toISOString();
-    db.run(`INSERT INTO posts (title, content, date) VALUES (?, ?, ?)`, 
-        [title, content, date], function(err) {
+    db.run(`INSERT INTO posts (title, content, date) VALUES (?, ?, ?)`,
+        [title, content, date], function (err) {
             if (err) return res.status(500).json({ success: false, message: err.message });
             res.json({ success: true, message: 'Post added!' });
-    });
+        });
 });
 
 app.delete('/api/posts/:id', authenticateToken, (req, res) => {
-    db.run(`DELETE FROM posts WHERE id = ?`, req.params.id, function(err) {
+    db.run(`DELETE FROM posts WHERE id = ?`, req.params.id, function (err) {
         if (err) return res.status(500).json({ success: false, message: err.message });
         res.json({ success: true, message: 'Post deleted!' });
     });

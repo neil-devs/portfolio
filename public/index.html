@@ -837,7 +837,7 @@
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#home" class="text-2xl font-bold"><span class="logo-neil">Soham</span><span
                     class="text-gradient">.dev</span></a>
-            <nav class="hidden md:flex items-center space-x-8">
+            <nav class="hidden lg:flex items-center space-x-8">
                 <a href="#about" class="transition-colors hover:text-violet-500">About</a>
                 <a href="#process" class="transition-colors hover:text-violet-500">Process</a>
                 <a href="#services" class="transition-colors hover:text-violet-500">Services</a>
@@ -852,7 +852,7 @@
                 <a href="#contact"
                     class="hidden md:block px-6 py-2 rounded-lg font-semibold transition-all duration-300 ease-in-out bg-violet-600 text-white hover:bg-violet-700 shadow-lg shadow-violet-500/30 btn-futuristic">Hire
                     Me</a>
-                <button id="mobile-menu-btn" class="md:hidden text-2xl text-white">
+                <button id="mobile-menu-btn" class="lg:hidden text-2xl text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -862,7 +862,7 @@
             </div>
         </div>
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-black/80 backdrop-blur-sm">
+        <div id="mobile-menu" class="hidden lg:hidden bg-black/80 backdrop-blur-sm">
             <nav class="flex flex-col items-center space-y-4 py-4">
                 <a href="#about" class="transition-colors hover:text-violet-500">About</a>
                 <a href="#process" class="transition-colors hover:text-violet-500">Process</a>
@@ -1501,6 +1501,7 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
 
+
                 <a href="https://twitter.com/your-username" target="_blank"
                     class="platform-card glass-card p-4 rounded-xl flex items-center justify-between group transition-all duration-300">
                     <div class="flex items-center space-x-4">
@@ -1511,6 +1512,7 @@
                     </div>
                     <span class="text-slate-400 group-hover:text-violet-400 text-2xl font-light">+</span>
                 </a>
+
 
                 <a href="https://linkedin.com/in/soham-chakraborty-965759272/" target="_blank"
                     class="platform-card glass-card p-4 rounded-xl flex items-center justify-between group transition-all duration-300">
@@ -1523,7 +1525,8 @@
                     <span class="text-slate-400 group-hover:text-violet-400 text-2xl font-light">+</span>
                 </a>
 
-                <a href="#" target="_blank"
+
+                <a href="https://www.youtube.com/@soham3334" target="_blank"
                     class="platform-card glass-card p-4 rounded-xl flex items-center justify-between group transition-all duration-300">
                     <div class="flex items-center space-x-4">
                         <div
@@ -1534,7 +1537,9 @@
                     <span class="text-slate-400 group-hover:text-violet-400 text-2xl font-light">+</span>
                 </a>
 
-                <a href="#" target="_blank"
+
+
+                <a href="https://leetcode.com/u/neil-devs/" target="_blank"
                     class="platform-card glass-card p-4 rounded-xl flex items-center justify-between group transition-all duration-300">
                     <div class="flex items-center space-x-4">
                         <div
@@ -1545,7 +1550,8 @@
                     <span class="text-slate-400 group-hover:text-violet-400 text-2xl font-light">+</span>
                 </a>
 
-                <a href="https://github.com/src-neil" target="_blank"
+
+                <a href="https://github.com/neil-devs" target="_blank"
                     class="platform-card glass-card p-4 rounded-xl flex items-center justify-between group transition-all duration-300">
                     <div class="flex items-center space-x-4">
                         <div
@@ -1556,7 +1562,8 @@
                     <span class="text-slate-400 group-hover:text-violet-400 text-2xl font-light">+</span>
                 </a>
 
-                <a href="#" target="_blank"
+
+                <a href="https://www.instagram.com/itx_neil_333/" target="_blank"
                     class="platform-card glass-card p-4 rounded-xl flex items-center justify-between group transition-all duration-300">
                     <div class="flex items-center space-x-4">
                         <div
@@ -1566,6 +1573,7 @@
                     </div>
                     <span class="text-slate-400 group-hover:text-violet-400 text-2xl font-light">+</span>
                 </a>
+
 
             </div>
         </div>
@@ -2410,136 +2418,136 @@
         </div>
     </div>
 
-    <!--Project Details Modal Structure(Existing)-- >
-    < !-- ...Rest of body Scripts ... -->
+    <!-- Project Details Modal Structure (Existing) -->
+    <!-- ...Rest of body Scripts ... -->
 
-    < !--Load AOS and Other Scripts-->
-        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                // ... existing JS code ..
+    <!-- Load AOS and Other Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // ... existing JS code ..
 
-                // --- INTERACTIVE TERMINAL LOGIC ---
-                const terminalToggle = document.getElementById('terminal-toggle');
-                const terminalWindow = document.getElementById('terminal-window');
-                const terminalClose = document.getElementById('terminal-close');
-                const terminalMin = document.getElementById('terminal-min');
-                const terminalMax = document.getElementById('terminal-max');
-                const terminalInput = document.getElementById('terminal-input');
-                const terminalOutput = document.getElementById('terminal-output');
+            // --- INTERACTIVE TERMINAL LOGIC ---
+            const terminalToggle = document.getElementById('terminal-toggle');
+            const terminalWindow = document.getElementById('terminal-window');
+            const terminalClose = document.getElementById('terminal-close');
+            const terminalMin = document.getElementById('terminal-min');
+            const terminalMax = document.getElementById('terminal-max');
+            const terminalInput = document.getElementById('terminal-input');
+            const terminalOutput = document.getElementById('terminal-output');
 
-                // File System / Data for commands
-                const terminalCommands = {
-                    'help': () => {
-                        return [
-                            'Available Commands:',
-                            '  <span class="text-violet-400">help</span>     - Display this menu',
-                            '  <span class="text-violet-400">whoami</span>   - Print current user identity',
-                            '  <span class="text-violet-400">skills</span>   - List functional capabilities',
-                            '  <span class="text-violet-400">projects</span> - Query mission logs',
-                            '  <span class="text-violet-400">contact</span>  - Initiate communication subrotine',
-                            '  <span class="text-violet-400">clear</span>    - Wipes terminal trace',
-                            '  <span class="text-violet-400">sudo</span>     - Elevate privileges (requires clearance)'
-                        ].join('<br>');
-                    },
-                    'whoami': () => {
-                        return 'User: <span class="text-green-300">guest</span><br>Authorization: <span class="text-red-400">Level 1 (Basic Access)</span><br>Target: <span class="text-pink-400">Soham Chakraborty</span> [Full-Stack Engineer & Cybersecurity Enthusiast]';
-                    },
-                    'skills': () => {
-                        return '[Python, React, Node.js, Linux Admin, Penetration Testing, Full-Stack Ops]';
-                    },
-                    'projects': () => {
-                        document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth' });
-                        return 'Querying database... Redirecting visual interface to Mission Logs.';
-                    },
-                    'contact': () => {
-                        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-                        return 'Initializing comm channels protocol... Target location pinged.';
-                    },
-                    'clear': () => {
-                        terminalOutput.innerHTML = '';
-                        return ''; // Returns nothing so nothing is printed after clear
-                    },
-                    'sudo': () => {
-                        return 'Nice try. This incident will be reported.';
-                    }
-                };
-
-                // Toggle visibility
-                function toggleTerminal(show) {
-                    if (show) {
-                        terminalWindow.classList.remove('hidden');
-                        // small delay for transition
-                        setTimeout(() => {
-                            terminalWindow.classList.remove('scale-95', 'opacity-0');
-                            terminalWindow.classList.add('scale-100', 'opacity-100');
-                            terminalInput.focus();
-                        }, 10);
-                    } else {
-                        terminalWindow.classList.remove('scale-100', 'opacity-100');
-                        terminalWindow.classList.add('scale-95', 'opacity-0');
-                        setTimeout(() => {
-                            terminalWindow.classList.add('hidden');
-                        }, 300);
-                    }
+            // File System / Data for commands
+            const terminalCommands = {
+                'help': () => {
+                    return [
+                        'Available Commands:',
+                        '  <span class="text-violet-400">help</span>     - Display this menu',
+                        '  <span class="text-violet-400">whoami</span>   - Print current user identity',
+                        '  <span class="text-violet-400">skills</span>   - List functional capabilities',
+                        '  <span class="text-violet-400">projects</span> - Query mission logs',
+                        '  <span class="text-violet-400">contact</span>  - Initiate communication subrotine',
+                        '  <span class="text-violet-400">clear</span>    - Wipes terminal trace',
+                        '  <span class="text-violet-400">sudo</span>     - Elevate privileges (requires clearance)'
+                    ].join('<br>');
+                },
+                'whoami': () => {
+                    return 'User: <span class="text-green-300">guest</span><br>Authorization: <span class="text-red-400">Level 1 (Basic Access)</span><br>Target: <span class="text-pink-400">Soham Chakraborty</span> [Full-Stack Engineer & Cybersecurity Enthusiast]';
+                },
+                'skills': () => {
+                    return '[Python, React, Node.js, Linux Admin, Penetration Testing, Full-Stack Ops]';
+                },
+                'projects': () => {
+                    document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth' });
+                    return 'Querying database... Redirecting visual interface to Mission Logs.';
+                },
+                'contact': () => {
+                    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+                    return 'Initializing comm channels protocol... Target location pinged.';
+                },
+                'clear': () => {
+                    terminalOutput.innerHTML = '';
+                    return ''; // Returns nothing so nothing is printed after clear
+                },
+                'sudo': () => {
+                    return 'Nice try. This incident will be reported.';
                 }
+            };
 
-                terminalToggle.addEventListener('click', () => {
-                    const isHidden = terminalWindow.classList.contains('hidden');
-                    toggleTerminal(isHidden);
-                });
-
-                terminalClose.addEventListener('click', () => toggleTerminal(false));
-                terminalMin.addEventListener('click', () => toggleTerminal(false));
-
-                // Basic Maximize toggle
-                let isMaximized = false;
-                terminalMax.addEventListener('click', () => {
-                    if (!isMaximized) {
-                        terminalWindow.classList.remove('w-[90vw]', 'md:w-[400px]', 'h-[300px]');
-                        terminalWindow.classList.add('w-[95vw]', 'h-[80vh]');
-                    } else {
-                        terminalWindow.classList.remove('w-[95vw]', 'h-[80vh]');
-                        terminalWindow.classList.add('w-[90vw]', 'md:w-[400px]', 'h-[300px]');
-                    }
-                    isMaximized = !isMaximized;
-                    terminalInput.focus();
-                });
-
-                // Handle Commands
-                function printLine(html) {
-                    if (!html) return;
-                    const p = document.createElement('div');
-                    p.innerHTML = html;
-                    terminalOutput.appendChild(p);
-                    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+            // Toggle visibility
+            function toggleTerminal(show) {
+                if (show) {
+                    terminalWindow.classList.remove('hidden');
+                    // small delay for transition
+                    setTimeout(() => {
+                        terminalWindow.classList.remove('scale-95', 'opacity-0');
+                        terminalWindow.classList.add('scale-100', 'opacity-100');
+                        terminalInput.focus();
+                    }, 10);
+                } else {
+                    terminalWindow.classList.remove('scale-100', 'opacity-100');
+                    terminalWindow.classList.add('scale-95', 'opacity-0');
+                    setTimeout(() => {
+                        terminalWindow.classList.add('hidden');
+                    }, 300);
                 }
+            }
 
-                terminalInput.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter') {
-                        const cmdUnprocessed = terminalInput.value;
-                        const cmd = cmdUnprocessed.trim().toLowerCase();
-                        terminalInput.value = ''; // clear input
-
-                        if (cmd === '') return;
-
-                        // Echo command
-                        printLine(`<span class="text-gray-400">guest@soham.dev:~$</span> ${cmdUnprocessed}`);
-
-                        // Process command
-                        if (terminalCommands[cmd]) {
-                            // Known command
-                            const response = terminalCommands[cmd]();
-                            printLine(response);
-                        } else {
-                            // Unknown
-                            printLine(`bash: ${cmd}: command not found. Type 'help' for sys manual.`);
-                        }
-                    }
-                });
-
+            terminalToggle.addEventListener('click', () => {
+                const isHidden = terminalWindow.classList.contains('hidden');
+                toggleTerminal(isHidden);
             });
-        </script>
+
+            terminalClose.addEventListener('click', () => toggleTerminal(false));
+            terminalMin.addEventListener('click', () => toggleTerminal(false));
+
+            // Basic Maximize toggle
+            let isMaximized = false;
+            terminalMax.addEventListener('click', () => {
+                if (!isMaximized) {
+                    terminalWindow.classList.remove('w-[90vw]', 'md:w-[400px]', 'h-[300px]');
+                    terminalWindow.classList.add('w-[95vw]', 'h-[80vh]');
+                } else {
+                    terminalWindow.classList.remove('w-[95vw]', 'h-[80vh]');
+                    terminalWindow.classList.add('w-[90vw]', 'md:w-[400px]', 'h-[300px]');
+                }
+                isMaximized = !isMaximized;
+                terminalInput.focus();
+            });
+
+            // Handle Commands
+            function printLine(html) {
+                if (!html) return;
+                const p = document.createElement('div');
+                p.innerHTML = html;
+                terminalOutput.appendChild(p);
+                terminalOutput.scrollTop = terminalOutput.scrollHeight;
+            }
+
+            terminalInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    const cmdUnprocessed = terminalInput.value;
+                    const cmd = cmdUnprocessed.trim().toLowerCase();
+                    terminalInput.value = ''; // clear input
+
+                    if (cmd === '') return;
+
+                    // Echo command
+                    printLine(`<span class="text-gray-400">guest@soham.dev:~$</span> ${cmdUnprocessed}`);
+
+                    // Process command
+                    if (terminalCommands[cmd]) {
+                        // Known command
+                        const response = terminalCommands[cmd]();
+                        printLine(response);
+                    } else {
+                        // Unknown
+                        printLine(`bash: ${cmd}: command not found. Type 'help' for sys manual.`);
+                    }
+                }
+            });
+
+        });
+    </script>
 </body>
 
 </html>
