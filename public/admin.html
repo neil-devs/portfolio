@@ -457,6 +457,10 @@
 
     <!-- MAIN JAVASCRIPT LOGIC -->
     <script>
+        const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+            ? 'http://localhost:5000' 
+            : 'https://portfolio-tj6b.onrender.com';
+
         // --- STATE & UTILS ---
         let jwtToken = localStorage.getItem('adminToken');
 
@@ -504,7 +508,7 @@
             btnSpinner.classList.remove('hidden');
 
             try {
-                const res = await fetch('/api/login', {
+                const res = await fetch(`${API_BASE_URL}/api/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: 'admin@neil.dev', password }) // ADDED HARDCODED EMAIL
@@ -589,7 +593,7 @@
             container.innerHTML = '<div class="text-center py-10"><svg class="animate-spin h-8 w-8 text-violet-500 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg></div>';
 
             try {
-                const res = await fetch('/api/messages', { headers: getAuthHeaders() });
+                const res = await fetch(`${API_BASE_URL}/api/messages`, { headers: getAuthHeaders() });
                 handleApiError(res);
                 const data = await res.json();
 
@@ -630,7 +634,7 @@
         async function deleteMessage(id) {
             if (!confirm("Erase this record completely?")) return;
             try {
-                const res = await fetch(`/api/messages/${id}`, { method: 'DELETE', headers: getAuthHeaders() });
+                const res = await fetch(`${API_BASE_URL}/api/messages/${id}`, { method: 'DELETE', headers: getAuthHeaders() });
                 handleApiError(res);
                 showToast("Record erased", "success");
                 loadMessages();
@@ -645,7 +649,7 @@
         async function loadProjects() {
             const container = document.getElementById('projects-list');
             try {
-                const res = await fetch('/api/projects'); // GET is public
+                const res = await fetch(`${API_BASE_URL}/api/projects`); // GET is public
                 if (!res.ok) throw new Error("Failed to fetch");
                 currentProjects = await res.json();
 
@@ -723,7 +727,7 @@
             };
 
             const method = id ? 'PUT' : 'POST';
-            const url = id ? `/api/projects/${id}` : '/api/projects';
+            const url = id ? `${API_BASE_URL}/api/projects/${id}` : `${API_BASE_URL}/api/projects`;
 
             try {
                 const res = await fetch(url, {
@@ -744,7 +748,7 @@
         async function deleteProject(id) {
             if (!confirm("Permanently delete this mission log? This cannot be undone.")) return;
             try {
-                const res = await fetch(`/api/projects/${id}`, { method: 'DELETE', headers: getAuthHeaders() });
+                const res = await fetch(`${API_BASE_URL}/api/projects/${id}`, { method: 'DELETE', headers: getAuthHeaders() });
                 handleApiError(res);
                 showToast("Mission log deleted", "success");
                 loadProjects();
@@ -759,7 +763,7 @@
         async function loadPosts() {
             const container = document.getElementById('posts-list');
             try {
-                const res = await fetch('/api/posts'); // GET is public
+                const res = await fetch(`${API_BASE_URL}/api/posts`); // GET is public
                 if (!res.ok) throw new Error("Failed to fetch");
                 currentPosts = await res.json();
 
@@ -838,7 +842,7 @@
             };
 
             const method = id ? 'PUT' : 'POST';
-            const url = id ? `/api/posts/${id}` : '/api/posts';
+            const url = id ? `${API_BASE_URL}/api/posts/${id}` : `${API_BASE_URL}/api/posts`;
 
             try {
                 const res = await fetch(url, {
@@ -859,7 +863,7 @@
         async function deletePost(id) {
             if (!confirm("Erase this article from the database?")) return;
             try {
-                const res = await fetch(`/api/posts/${id}`, { method: 'DELETE', headers: getAuthHeaders() });
+                const res = await fetch(`${API_BASE_URL}/api/posts/${id}`, { method: 'DELETE', headers: getAuthHeaders() });
                 handleApiError(res);
                 showToast("Article erased", "success");
                 loadPosts();

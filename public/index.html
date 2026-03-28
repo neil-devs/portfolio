@@ -2044,6 +2044,10 @@
     </div>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+            ? 'http://localhost:5000' 
+            : 'https://portfolio-tj6b.onrender.com';
+
         document.addEventListener('DOMContentLoaded', () => {
             // --- Dark Mode Toggle Setup ---
             const themeToggle = document.getElementById('theme-toggle');
@@ -2388,7 +2392,7 @@
 
                 try {
                     // 3. Send the data to your Node.js backend
-                    const response = await fetch('/api/contact', {
+                    const response = await fetch(`${API_BASE_URL}/api/contact`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -2600,7 +2604,7 @@
             async function fetchProjects() {
                 const container = document.getElementById('projects-container');
                 try {
-                    const response = await fetch('/api/projects');
+                    const response = await fetch(`${API_BASE_URL}/api/projects`);
                     if (!response.ok) throw new Error('Failed to fetch projects');
                     const projects = await response.json();
 
