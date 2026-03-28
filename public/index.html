@@ -32,6 +32,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    <script src="https://unpkg.com/split-type"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -141,6 +146,12 @@
             --hero-shape-wireframe-color: 0x6a0dad;
             /* Deeper purple for wireframe */
         }
+
+        /* Lenis Smooth Scroll */
+        html.lenis { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
 
         body {
             font-family: 'Poppins', sans-serif;
@@ -801,9 +812,7 @@
         /* "CONFIDENTIAL" Stamp */
         .stamp {
             border: 2px solid #ef4444;
-            /* Red border */
             color: #ef4444;
-            /* Red text */
             font-size: 0.7rem;
             font-weight: 800;
             text-transform: uppercase;
@@ -818,13 +827,149 @@
         /* Tech Mono Font for specific data */
         .font-mono {
             font-family: 'Courier New', Courier, monospace;
-            /* Falls back to system mono */
+        }
+
+        /* --- MASSIVE AWWWARDS-STYLE UI OVERRIDE --- */
+        
+        body { 
+            background: linear-gradient(to bottom, #030014, #10002b) !important; 
+        }
+
+        .glass-card {
+            background: rgba(20, 10, 40, 0.4) !important;
+            backdrop-filter: blur(8px) saturate(120%) !important;
+            -webkit-backdrop-filter: blur(8px) saturate(120%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
+            border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.02) !important;
+            transition: box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease !important;
+            will-change: transform;
+        }
+
+        .glass-card:hover {
+            box-shadow: 0 40px 80px rgba(138, 43, 226, 0.3), inset 0 0 30px rgba(255,255,255,0.05) !important;
+            border-color: rgba(255,255,255,0.3) !important;
+        }
+
+        .btn-futuristic {
+            position: relative;
+            overflow: hidden;
+            background: rgba(138, 43, 226, 0.2) !important;
+            border: 1px solid rgba(138, 43, 226, 0.4) !important;
+            backdrop-filter: blur(10px) !important;
+            transition: all 0.4s ease !important;
+        }
+
+        .btn-futuristic::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .btn-futuristic:hover::before {
+            left: 100%;
+        }
+
+        .btn-futuristic:hover {
+            background: rgba(138, 43, 226, 0.4) !important;
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.5) !important;
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #b48cf7, #f78cf0, #8cecf7) !important;
+            -webkit-background-clip: text !important;
+            background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-size: 200% auto !important;
+            animation: text-gradient-shift 4s linear infinite !important;
+        }
+
+        /* Custom GSAP Ring Cursor */
+        .custom-cursor-ring, .custom-cursor-dot {
+            position: fixed;
+            top: 0; left: 0; pointer-events: none; z-index: 9999;
+            border-radius: 50%;
+            mix-blend-mode: exclusion;
+        }
+        .custom-cursor-ring {
+            width: 40px; height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transform: translate(-50%, -50%);
+        }
+        .custom-cursor-dot {
+            width: 8px; height: 8px;
+            background: white;
+            transform: translate(-50%, -50%);
+        }
+        body { cursor: none !important; }
+
+        /* Hacker Glitch Glow */
+        .glitch-hover:hover {
+            color: #b48cf7;
+            text-shadow: 0 0 10px rgba(180, 140, 247, 0.8), -2px 0 red, 2px 0 cyan;
+        }
+
+        @keyframes text-gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Split words styling */
+        .char {
+            transform: translateY(115%);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #hero-canvas {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            opacity: 0.6; mix-blend-mode: screen;
+        }
+        /* Curtain reveal */
+        #preloader {
+            transition: transform 1s cubic-bezier(0.85, 0, 0.15, 1);
+        }
+        
+        /* Magnetic Nav */
+        nav a {
+            display: inline-block;
+            transition: color 0.3s ease;
+            will-change: transform;
+        }
+
+        /* Liquid Image Hover */
+        .about-me-image, .project-card img {
+            transition: filter 0.5s ease;
+        }
+        .liquid-hover:hover {
+            filter: url(#liquid);
         }
     </style>
 </head>
 
 <body class="antialiased">
 
+    <!-- Cinematic Preloader -->
+    <div id="preloader" class="fixed top-0 left-0 w-full h-full bg-[#030014] z-[99999] flex flex-col justify-center items-center">
+        <div class="text-violet-400 font-mono text-xl mb-4 tracking-widest preloader-text">INITIALIZING...</div>
+        <div class="w-64 h-1 bg-gray-800 rounded overflow-hidden">
+            <div id="preloader-bar" class="w-0 h-full bg-violet-500 shadow-[0_0_15px_#8b5cf6]"></div>
+        </div>
+    </div>
+
+    <!-- Liquid SVG Filter -->
+    <svg style="display:none;">
+        <filter id="liquid">
+            <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" id="liquid-displacement"/>
+        </filter>
+    </svg>
+    <!-- WebGL Background Canvas -->
+    <canvas id="bg-canvas" class="fixed top-0 left-0 w-full h-full z-[-2] pointer-events-none"></canvas>
     <div id="scroll-progress"
         class="fixed top-0 left-0 h-1 bg-gradient-to-r from-violet-500 to-fuchsia-500 z-[100] w-0 transition-all duration-100 ease-out">
     </div>
@@ -1752,30 +1897,45 @@
                 renderer.setSize(window.innerWidth, window.innerHeight);
                 camera.position.z = 5;
 
+                // Create the shape group for scroll/mouse physics
+                const shapeGroup = new THREE.Group();
+                scene.add(shapeGroup);
+                window.heroShapeGroup = shapeGroup; // Export for GSAP logic
+
                 // Create a more complex shape (Icosahedron)
                 const geometry = new THREE.IcosahedronGeometry(1.5, 0);
-                // Material color will be updated by setTheme
-                const material = new THREE.MeshStandardMaterial({
-                    color: new THREE.Color(parseInt(getComputedStyle(document.documentElement).getPropertyValue('--hero-shape-color'), 16)),
-                    polygonOffset: true,
-                    polygonOffsetFactor: 1,
-                    polygonOffsetUnits: 1,
-                    metalness: 0.7,
-                    roughness: 0.4
+                
+                // Frosted Glass Material (Faked for transparent canvas)
+                const material = new THREE.MeshPhysicalMaterial({
+                    color: new THREE.Color(0xb48cf7), // base purple tint
+                    metalness: 0.6,
+                    roughness: 0.2,
+                    opacity: 0.15,
+                    transparent: true,
+                    side: THREE.DoubleSide
                 });
                 shape = new THREE.Mesh(geometry, material);
-                scene.add(shape);
+                shapeGroup.add(shape);
 
                 // Add wireframe for a cool effect
                 const wireframeGeo = new THREE.WireframeGeometry(geometry);
                 const wireframeMat = new THREE.LineBasicMaterial({
                     color: new THREE.Color(parseInt(getComputedStyle(document.documentElement).getPropertyValue('--hero-shape-wireframe-color'), 16)),
-                    linewidth: 2
+                    transparent: true,
+                    opacity: 0.6,
+                    linewidth: 1
                 });
                 const wireframe = new THREE.LineSegments(wireframeGeo, wireframeMat);
                 shape.add(wireframe);
 
+                // Add Solid Glowing Inner Core
+                const coreGeo = new THREE.IcosahedronGeometry(0.5, 0);
+                const coreMat = new THREE.MeshBasicMaterial({ color: 0x915EFF });
+                const core = new THREE.Mesh(coreGeo, coreMat);
+                shape.add(core);
+
                 // Lighting
+
                 const pointLight = new THREE.PointLight(0xffffff, 1);
                 pointLight.position.set(5, 5, 5);
                 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -2547,6 +2707,418 @@
             });
 
         });
+
+        // --- GLOBAL UI UPGRADES (Awwwards Style) ---
+        // 1. Initialize Lenis Smooth Scrolling
+        const lenis = new Lenis({
+            duration: 1.5, // Ultra smooth 1.5s friction
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+            direction: 'vertical', 
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 0.8, // Elegant drag weight
+            smoothTouch: false,
+            touchMultiplier: 2,
+            infinite: false,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        if (typeof gsap !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger);
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time)=>{ lenis.raf(time * 1000) });
+            gsap.ticker.lagSmoothing(0);
+
+            // 2. Magnetic Buttons for futuristic links
+            const magneticElements = document.querySelectorAll('.btn-futuristic');
+            magneticElements.forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    gsap.to(btn, {
+                        x: x * 0.3,
+                        y: y * 0.3,
+                        rotation: x * 0.05,
+                        duration: 0.5,
+                        ease: 'power3.out'
+                    });
+                });
+                
+                btn.addEventListener('mouseleave', () => {
+                    gsap.to(btn, {x: 0, y: 0, rotation: 0, duration: 0.8, ease: 'elastic.out(1, 0.3)'});
+                });
+            });
+
+            // 3. Staggered reveal for section titles (Replaced with advanced SplitType)
+            const splitTitles = new SplitType('.section-title', { types: 'chars,words' });
+            
+            gsap.registerPlugin(ScrollTrigger);
+            
+            document.querySelectorAll('.section-title').forEach((title) => {
+                const chars = title.querySelectorAll('.char');
+                gsap.fromTo(chars, 
+                    { y: '115%', opacity: 0, rotationX: -90, transformOrigin: '0% 50% -50' },
+                    {
+                        y: '0%', opacity: 1, rotationX: 0,
+                        duration: 1, stagger: 0.03, ease: 'power4.out',
+                        scrollTrigger: {
+                            trigger: title,
+                            start: 'top 85%',
+                        }
+                    }
+                );
+            });
+
+            // Advanced Text Reveal for main paragraphs / elements
+            const splitTexts = new SplitType('.reveal p, .reveal h3', { types: 'lines' });
+            document.querySelectorAll('.reveal').forEach((rev) => {
+                const lines = rev.querySelectorAll('.line');
+                gsap.fromTo(lines,
+                    { y: 30, opacity: 0 },
+                    { y: 0, opacity: 1, duration: 1.2, stagger: 0.1, ease: 'power3.out', scrollTrigger: { trigger: rev, start: 'top 80%' } }
+                );
+            });
+
+            // 4. Parallax effect for cards
+            document.querySelectorAll('.glass-card').forEach((card, index) => {
+                // Remove constant heavy yoyo floating, replacing with hover transform via GSAP ONLY
+                card.addEventListener('mouseenter', () => {
+                    gsap.to(card, { y: -15, scale: 1.02, duration: 0.5, ease: 'power3.out', overwrite: 'auto' });
+                });
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card, { y: 0, scale: 1, duration: 0.5, ease: 'power3.out', overwrite: 'auto' });
+                });
+
+                // Scroll parallax
+                gsap.fromTo(card, 
+                    { y: 30 },
+                    {
+                        scrollTrigger: {
+                            trigger: card,
+                            start: 'top bottom',
+                            end: 'bottom top',
+                            scrub: 1
+                        },
+                        y: -30,
+                        rotation: index % 2 === 0 ? 1 : -1,
+                        ease: 'none'
+                    }
+                );
+            });
+
+            // Removed SplitType from hero text to fix background-clip gradient blurring and margin collapsing
+
+            // 5. Custom GSAP Magnetic Cursor
+            const cursorRing = document.createElement('div');
+            const cursorDot = document.createElement('div');
+            cursorRing.className = 'custom-cursor-ring';
+            cursorDot.className = 'custom-cursor-dot';
+            document.body.appendChild(cursorRing);
+            document.body.appendChild(cursorDot);
+            
+            gsap.set('.custom-cursor-ring, .custom-cursor-dot', { xPercent: -50, yPercent: -50 });
+            let xTo = gsap.quickTo('.custom-cursor-ring', 'x', { duration: 0.4, ease: 'power3' }),
+                yTo = gsap.quickTo('.custom-cursor-ring', 'y', { duration: 0.4, ease: 'power3' }),
+                xDotTo = gsap.quickTo('.custom-cursor-dot', 'x', { duration: 0.1, ease: 'power3' }),
+                yDotTo = gsap.quickTo('.custom-cursor-dot', 'y', { duration: 0.1, ease: 'power3' });
+                
+            window.addEventListener("mousemove", e => {
+                xTo(e.clientX); yTo(e.clientY);
+                xDotTo(e.clientX); yDotTo(e.clientY);
+            });
+            
+            document.querySelectorAll('a, button, input, textarea, .cursor-pointer').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    gsap.to('.custom-cursor-ring', { scale: 1.5, backgroundColor: 'white', opacity: 0.2, border: 'none', duration: 0.3 });
+                });
+                el.addEventListener('mouseleave', () => {
+                    gsap.to('.custom-cursor-ring', { scale: 1, backgroundColor: 'transparent', opacity: 1, border: '1px solid rgba(255, 255, 255, 0.6)', duration: 0.3 });
+                });
+            });
+
+            // 6. Hacker Text Decryption on Logo & Subtitles
+            const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*";
+            document.querySelectorAll('.logo-neil, .section-title').forEach(el => {
+                el.dataset.value = el.innerText;
+                el.classList.add('glitch-hover');
+                el.addEventListener('mouseenter', (e) => {
+                    let iteration = 0;
+                    clearInterval(el.interval);
+                    el.interval = setInterval(() => {
+                        e.target.innerText = e.target.innerText.split("").map((letter, index) => {
+                            if(index < iteration) return e.target.dataset.value[index];
+                            return letters[Math.floor(Math.random() * letters.length)];
+                        }).join("");
+                        if(iteration >= e.target.dataset.value.length) clearInterval(el.interval);
+                        iteration += 1 / 2;
+                    }, 30);
+                });
+            });
+
+            // 7. Dynamic Iridescent Border Tracking on Glass Cards
+            document.querySelectorAll('.glass-card').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.background = `radial-gradient(1000px circle at ${x}px ${y}px, rgba(255,255,255,0.06), transparent 40%), rgba(20, 10, 40, 0.4)`;
+                });
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card, { background: 'rgba(20, 10, 40, 0.4)', duration: 0.5 });
+                });
+            });
+
+            // 8. Cyber Dust WebGL Background
+            const bgCanvas = document.getElementById('bg-canvas');
+            if(bgCanvas && typeof THREE !== 'undefined') {
+                const bgScene = new THREE.Scene();
+                const bgCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                const bgRenderer = new THREE.WebGLRenderer({ canvas: bgCanvas, alpha: true, antialias: true });
+                bgRenderer.setSize(window.innerWidth, window.innerHeight);
+                bgRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+                const particlesGeometry = new THREE.BufferGeometry();
+                const particlesCount = 900;
+                const posArray = new Float32Array(particlesCount * 3);
+                
+                for(let i = 0; i < particlesCount * 3; i++) {
+                    posArray[i] = (Math.random() - 0.5) * 12; // Spread
+                }
+                
+                particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+                
+                const particlesMaterial = new THREE.PointsMaterial({
+                    size: 0.015,
+                    color: 0xb48cf7,
+                    transparent: true,
+                    opacity: 0.6,
+                    blending: THREE.AdditiveBlending
+                });
+                
+                const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+                bgScene.add(particlesMesh);
+                
+                bgCamera.position.z = 3;
+                
+                let mouseX = 0; let mouseY = 0;
+                window.addEventListener('mousemove', (event) => {
+                    mouseX = event.clientX / window.innerWidth - 0.5;
+                    mouseY = event.clientY / window.innerHeight - 0.5;
+                    
+                    if(window.heroShapeGroup) {
+                        gsap.to(window.heroShapeGroup.rotation, { 
+                            x: mouseY * 0.8, 
+                            y: mouseX * 0.8, 
+                            duration: 1.5, 
+                            ease: 'power3.out' 
+                        });
+                    }
+                });
+                
+                let diamondYTo, diamondRTo;
+                lenis.on('scroll', (e) => {
+                    if(window.heroShapeGroup) {
+                        // CRITICAL PERF FIX: Prevents 60 duplicate GSAP Tweens per second which causes memory leaks and full-page freezing!
+                        if(!diamondYTo) {
+                            diamondYTo = gsap.quickTo(window.heroShapeGroup.position, "y", { duration: 0.8, ease: "power3.out" });
+                            diamondRTo = gsap.quickTo(window.heroShapeGroup.rotation, "z", { duration: 0.8, ease: "power3.out" });
+                        }
+                        diamondYTo(e.velocity * -0.02);
+                        diamondRTo(e.velocity * 0.005);
+                    }
+                });
+
+                const clock = new THREE.Clock();
+                
+                function animateBg() {
+                    requestAnimationFrame(animateBg);
+                    const elapsedTime = clock.getElapsedTime();
+                    
+                    particlesMesh.rotation.y = elapsedTime * 0.05 + mouseX * 0.3;
+                    particlesMesh.rotation.x = elapsedTime * 0.03 + mouseY * 0.3;
+                    // Gentle wave
+                    particlesMesh.position.y = Math.sin(elapsedTime * 0.5) * 0.1;
+                    
+                    bgRenderer.render(bgScene, bgCamera);
+                }
+                animateBg();
+                
+                window.addEventListener('resize', () => {
+                    bgCamera.aspect = window.innerWidth / window.innerHeight;
+                    bgCamera.updateProjectionMatrix();
+                    bgRenderer.setSize(window.innerWidth, window.innerHeight);
+                });
+            }
+
+            // 1. Live Spotlight CSS Mask (Removed per user request)
+
+            // 2. Symmetric 2.5D Tech Cylinder Orbit (Software Projection - Foolproof against CSS Flattening Bugs)
+            const marqueeContainer = document.querySelector('.marquee-container');
+            if(marqueeContainer) {
+                marqueeContainer.innerHTML = '';
+                marqueeContainer.style.height = '400px';
+                marqueeContainer.style.position = 'relative';
+                // Using hidden safely since we project to 2D
+                marqueeContainer.style.overflow = 'hidden'; 
+                marqueeContainer.style.borderRadius = '20px';
+                marqueeContainer.style.background = 'rgba(20,10,40,0.3)';
+                marqueeContainer.style.border = '1px solid rgba(139, 92, 246, 0.3)';
+                marqueeContainer.classList.remove('py-10');
+                marqueeContainer.style.padding = '0';
+                
+                const ringGroup = document.createElement('div');
+                ringGroup.style.position = 'absolute';
+                ringGroup.style.top = '50%';
+                ringGroup.style.left = '50%';
+                ringGroup.style.width = '0px';
+                ringGroup.style.height = '0px';
+                marqueeContainer.appendChild(ringGroup);
+
+                const icons = [
+                    'react/react-original.svg', 'nextjs/nextjs-original.svg', 'nodejs/nodejs-original.svg',
+                    'tailwindcss/tailwindcss-original.svg', 'mongodb/mongodb-original.svg', 'typescript/typescript-original.svg', 'figma/figma-original.svg',
+                    'python/python-original.svg', 'linux/linux-original.svg', 'git/git-original.svg',
+                    'html5/html5-original.svg', 'css3/css3-original.svg', 'javascript/javascript-original.svg', 'php/php-original.svg',
+                    'mysql/mysql-original.svg', 'c/c-original.svg', 'cplusplus/cplusplus-original.svg', 'rust/rust-original.svg',
+                    'go/go-original.svg', 'bash/bash-original.svg', 'angularjs/angularjs-original.svg', 'vuejs/vuejs-original.svg',
+                    'django/django-plain.svg', 'bootstrap/bootstrap-original.svg', 'redux/redux-original.svg', 'svelte/svelte-original.svg',
+                    'firebase/firebase-plain.svg', 'amazonwebservices/amazonwebservices-original-wordmark.svg', 'docker/docker-original.svg',
+                    'azure/azure-original.svg', 'ubuntu/ubuntu-plain.svg'
+                ];
+
+                const totalIcons = icons.length;
+                const topCount = Math.floor(totalIcons / 2);
+                const bottomCount = totalIcons - topCount;
+                
+                const R = window.innerWidth > 768 ? 350 : 200; // Radius
+
+                icons.forEach((icon, i) => {
+                    const el = document.createElement('img');
+                    el.src = `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${icon}`;
+                    el.style.position = 'absolute';
+                    
+                    const size = 65;
+                    el.style.width = `${size}px`;
+                    el.style.height = `${size}px`;
+                    el.style.maxWidth = 'none'; // CRITICAL: Bypass Tailwind CSS 100% max-width collapsing to 0px parent!
+                    el.style.margin = `-${size/2}px 0 0 -${size/2}px`; // center pivot
+                    
+                    if(icon.includes('nextjs')) { el.style.background = 'white'; el.style.borderRadius = '50%'; el.style.padding = '5px'; }
+                    el.style.boxShadow = '0 0 10px rgba(139, 92, 246, 0.4)';
+                    el.style.borderRadius = '10px';
+                    
+                    const isTop = i < topCount;
+                    const indexInRing = isTop ? i : (i - topCount);
+                    const ringSize = isTop ? topCount : bottomCount;
+                    
+                    const yOffset = isTop ? -45 : 45;
+                    const angleStep = (Math.PI * 2) / ringSize;
+                    const baseAngle = indexInRing * angleStep;
+                    
+                    el.dataset.angle = baseAngle.toString();
+                    el.dataset.yOffset = yOffset.toString();
+                    el.dataset.direction = isTop ? "1" : "-1";
+                    
+                    ringGroup.appendChild(el);
+                });
+
+                function animateSymmetricRing() {
+                    const time = Date.now() * 0.0005; 
+                    const els = ringGroup.children;
+                    for(let i=0; i<els.length; i++) {
+                        const el = els[i];
+                        const baseAngle = parseFloat(el.dataset.angle);
+                        const dir = parseInt(el.dataset.direction);
+                        const yOffset = parseFloat(el.dataset.yOffset);
+                        
+                        // Current angle in radians
+                        const currentAngle = baseAngle + (time * dir);
+                        
+                        // 2D Projection
+                        const x = Math.cos(currentAngle) * R;
+                        const z = Math.sin(currentAngle) * R; // -R (back) to +R (front)
+                        
+                        // Perspective scaling
+                        // When z = R (front), scale = 1.0
+                        // When z = -R (back), scale = 0.5
+                        const depthNormalized = (z + R) / (2 * R); // 0.0 to 1.0
+                        const scale = 0.5 + (depthNormalized * 0.5); 
+                        
+                        el.style.transform = `translate(${x}px, ${yOffset}px) scale(${scale})`;
+                        el.style.zIndex = Math.round(z + 1000);
+                        el.style.opacity = 0.3 + (depthNormalized * 0.7);
+                    }
+                    requestAnimationFrame(animateSymmetricRing);
+                }
+                animateSymmetricRing();
+            }
+
+
+            // Removed experimental Scroll Blur, Velocity Glitch, and Blast-door splitting per user request
+
+            // 9. ASMR Sonic Micro-Interactions
+            let audioCtx = null;
+            function playGlassTick() {
+                if(!audioCtx) { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+                if(audioCtx.state === 'suspended') audioCtx.resume();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.05);
+                gain.gain.setValueAtTime(0, audioCtx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.05, audioCtx.currentTime + 0.01);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.1);
+            }
+            document.querySelectorAll('.glass-card, .btn-futuristic, nav a').forEach(el => {
+                el.addEventListener('mouseenter', playGlassTick);
+            });
+
+            // 10. Cinematic "Curtain Reveal" Preloader
+            const preloaderTl = gsap.timeline();
+            preloaderTl.to('#preloader-bar', { width: '100%', duration: 1.5, ease: 'power2.inOut' })
+                       .to('.preloader-text', { opacity: 0, duration: 0.2 }, "-=0.2")
+                       .to('#preloader', { yPercent: -100, duration: 1.2, ease: 'expo.inOut' })
+                       .from('.hero-title-glow', { y: 50, opacity: 0, duration: 1.5, ease: 'elastic.out(1, 0.4)' }, "-=0.6")
+                       .from('#typewriter', { opacity: 0, duration: 1, ease: 'power2.out' }, "-=1");
+
+            // 11. Liquid Image Distortion (SVG <feTurbulence>)
+            const displacement = document.querySelector('#liquid-displacement');
+            document.querySelectorAll('.about-me-image, .glass-card img').forEach(img => {
+                img.classList.add('liquid-hover');
+                img.addEventListener('mouseenter', () => {
+                    gsap.to(displacement, { attr: { scale: 30 }, duration: 0.5, ease: 'power2.out' });
+                });
+                img.addEventListener('mouseleave', () => {
+                    gsap.to(displacement, { attr: { scale: 0 }, duration: 0.8, ease: 'elastic.out(1, 0.3)' });
+                });
+            });
+
+            // 12. Elastic Magnetic Header Links
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('mousemove', (e) => {
+                    const rect = link.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    gsap.to(link, { x: x * 0.4, y: y * 0.4, duration: 0.5, ease: 'power3.out' });
+                });
+                link.addEventListener('mouseleave', () => {
+                    gsap.to(link, { x: 0, y: 0, duration: 0.8, ease: 'elastic.out(1, 0.3)' });
+                });
+            });
+
+            // 13. Marquee removed by Matter.js logic above
+        }
     </script>
 </body>
 
