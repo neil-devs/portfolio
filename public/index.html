@@ -831,11 +831,11 @@
 
         /* --- MASSIVE AWWWARDS-STYLE UI OVERRIDE --- */
         
-        body { 
+        body:not(.light-theme) { 
             background: linear-gradient(to bottom, #030014, #10002b) !important; 
         }
 
-        .glass-card {
+        body:not(.light-theme) .glass-card {
             background: rgba(20, 10, 40, 0.4) !important;
             backdrop-filter: blur(8px) saturate(120%) !important;
             -webkit-backdrop-filter: blur(8px) saturate(120%) !important;
@@ -847,12 +847,12 @@
             will-change: transform;
         }
 
-        .glass-card:hover {
+        body:not(.light-theme) .glass-card:hover {
             box-shadow: 0 40px 80px rgba(138, 43, 226, 0.3), inset 0 0 30px rgba(255,255,255,0.05) !important;
             border-color: rgba(255,255,255,0.3) !important;
         }
 
-        .btn-futuristic {
+        body:not(.light-theme) .btn-futuristic {
             position: relative;
             overflow: hidden;
             background: rgba(138, 43, 226, 0.2) !important;
@@ -861,7 +861,7 @@
             transition: all 0.4s ease !important;
         }
 
-        .btn-futuristic::before {
+        body:not(.light-theme) .btn-futuristic::before {
             content: '';
             position: absolute;
             top: 0; left: -100%; width: 100%; height: 100%;
@@ -869,22 +869,100 @@
             transition: left 0.6s ease;
         }
 
-        .btn-futuristic:hover::before {
+        body:not(.light-theme) .btn-futuristic:hover::before {
             left: 100%;
         }
 
-        .btn-futuristic:hover {
+        body:not(.light-theme) .btn-futuristic:hover {
             background: rgba(138, 43, 226, 0.4) !important;
             box-shadow: 0 0 30px rgba(138, 43, 226, 0.5) !important;
         }
 
-        .text-gradient {
+        body:not(.light-theme) .text-gradient {
             background: linear-gradient(to right, #b48cf7, #f78cf0, #8cecf7) !important;
             -webkit-background-clip: text !important;
             background-clip: text !important;
             -webkit-text-fill-color: transparent !important;
             background-size: 200% auto !important;
             animation: text-gradient-shift 4s linear infinite !important;
+        }
+
+        /* --- AWWWARDS-STYLE LIGHT MODE OVERRIDE --- */
+        
+        body.light-theme {
+            background: linear-gradient(to bottom, #fdfbfb, #ebedee) !important;
+        }
+
+        body.light-theme .glass-card {
+            background: rgba(255, 255, 255, 0.45) !important;
+            backdrop-filter: blur(16px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.8) !important;
+            border-top: 1px solid rgba(255, 255, 255, 1) !important;
+            border-left: 1px solid rgba(255, 255, 255, 0.9) !important;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05), inset 0 0 20px rgba(255, 255, 255, 0.5) !important;
+            transition: box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease !important;
+        }
+
+        body.light-theme .glass-card:hover {
+            box-shadow: 0 40px 80px rgba(138, 43, 226, 0.15), inset 0 0 30px rgba(255, 255, 255, 0.8) !important;
+            border-color: rgba(138, 43, 226, 0.3) !important;
+        }
+
+        body.light-theme .btn-futuristic {
+            background: rgba(255, 255, 255, 0.7) !important;
+            border: 1px solid rgba(138, 43, 226, 0.2) !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
+            color: #1a202c !important; /* Elegant dark text */
+            font-weight: 700 !important;
+        }
+
+        body.light-theme .btn-futuristic::before {
+            background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.15), transparent);
+        }
+
+        body.light-theme .btn-futuristic:hover {
+            background: rgba(255, 255, 255, 0.95) !important;
+            box-shadow: 0 15px 40px rgba(138, 43, 226, 0.25) !important;
+            border-color: rgba(138, 43, 226, 0.5) !important;
+            color: #6a0dad !important;
+        }
+
+        body.light-theme .text-gradient {
+            background: linear-gradient(to right, #6a0dad, #d32f2f, #fc8822) !important;
+            -webkit-background-clip: text !important;
+            background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-size: 200% auto !important;
+            animation: text-gradient-shift 4s linear infinite !important;
+        }
+
+        /* Prevent Screen Blending from vanishing on white backgrounds */
+        body.light-theme #hero-canvas {
+            mix-blend-mode: multiply !important;
+            opacity: 0.8 !important;
+        }
+
+        /* --- Global Tailwind Utility Fallbacks for Light Mode --- */
+        body.light-theme .bg-gray-900\/50,
+        body.light-theme .bg-gray-800\/50,
+        body.light-theme .bg-gray-800,
+        body.light-theme .bg-gray-900 {
+            background-color: rgba(255, 255, 255, 0.7) !important;
+            color: #1f2937 !important; /* Tailwind gray-800 */
+        }
+        
+        body.light-theme .border-gray-700,
+        body.light-theme .border-gray-800,
+        body.light-theme .border-gray-600 {
+            border-color: rgba(0, 0, 0, 0.1) !important;
+        }
+
+        body.light-theme .text-slate-300,
+        body.light-theme .text-slate-400,
+        body.light-theme .text-gray-300,
+        body.light-theme .text-gray-400 {
+            color: #4b5563 !important; /* Tailwind gray-600 */
         }
 
         /* Custom GSAP Ring Cursor */
@@ -992,7 +1070,11 @@
             <div class="flex items-center space-x-4">
                 <button id="theme-toggle"
                     class="px-3 py-2 rounded-lg font-semibold transition-all duration-300 ease-in-out bg-gray-700 text-white hover:bg-gray-600 shadow-lg shadow-gray-500/20 btn-futuristic btn-secondary">
-                    <span id="toggle-icon">🌙</span> <!-- Moon for dark mode by default -->
+                    <span id="toggle-icon" class="flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-violet-400">
+                          <path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" clip-rule="evenodd" />
+                        </svg>
+                    </span>
                 </button>
                 <a href="#contact"
                     class="hidden md:block px-6 py-2 rounded-lg font-semibold transition-all duration-300 ease-in-out bg-violet-600 text-white hover:bg-violet-700 shadow-lg shadow-violet-500/30 btn-futuristic">Hire
@@ -1860,13 +1942,13 @@
                 if (theme === 'dark') {
                     body.classList.add('dark-theme'); // Add a class for dark theme specific styles
                     body.classList.remove('light-theme'); // Remove light theme class
-                    toggleIcon.textContent = '🌙'; // Moon icon for dark mode
+                    toggleIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-violet-400"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" clip-rule="evenodd" /></svg>`;
                     body.style.backgroundColor = 'var(--bg-color)'; // Apply initial bg color
                     body.style.color = 'var(--text-color)'; // Apply initial text color
                 } else {
                     body.classList.add('light-theme'); // Add a class for light theme specific styles
                     body.classList.remove('dark-theme'); // Remove dark theme class
-                    toggleIcon.textContent = '☀️'; // Sun icon for light mode
+                    toggleIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-orange-500"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" /></svg>`;
                     body.style.backgroundColor = 'var(--bg-color)'; // Apply initial bg color
                     body.style.color = 'var(--text-color)'; // Apply initial text color
                 }
@@ -2900,6 +2982,7 @@
                     opacity: 0.6,
                     blending: THREE.AdditiveBlending
                 });
+                window.particlesMaterial = particlesMaterial; // Export for Theme Observer
                 
                 const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
                 bgScene.add(particlesMesh);
@@ -3118,6 +3201,38 @@
             });
 
             // 13. Marquee removed by Matter.js logic above
+            
+            // 14. Global Light Mode Sync Observer
+            const themeObserver = new MutationObserver(() => {
+                const isLight = document.body.classList.contains('light-theme');
+                
+                // Update Cyber Dust Particles
+                if(window.particlesMaterial) {
+                    window.particlesMaterial.color.setHex(isLight ? 0x6a0dad : 0xb48cf7);
+                    window.particlesMaterial.blending = isLight ? THREE.NormalBlending : THREE.AdditiveBlending;
+                }
+                
+                // Update Tech Cylinder Background
+                const mContainer = document.querySelector('.marquee-container');
+                if(mContainer) {
+                    if(isLight) {
+                        mContainer.style.background = 'rgba(255, 255, 255, 0.6)';
+                        mContainer.style.border = '1px solid rgba(0, 0, 0, 0.1)';
+                    } else {
+                        mContainer.style.background = 'rgba(20,10,40,0.3)';
+                        mContainer.style.border = '1px solid rgba(139, 92, 246, 0.3)';
+                    }
+                }
+            });
+            themeObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+            
+            // Trigger immediately if page loaded in light mode
+            setTimeout(() => {
+                if(document.body.classList.contains('light-theme')) {
+                    document.body.classList.remove('light-theme');
+                    document.body.classList.add('light-theme');
+                }
+            }, 100);
         }
     </script>
 </body>
