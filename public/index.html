@@ -36,7 +36,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
     <script src="https://unpkg.com/split-type"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -148,10 +147,21 @@
         }
 
         /* Lenis Smooth Scroll */
-        html.lenis { height: auto; }
-        .lenis.lenis-smooth { scroll-behavior: auto; }
-        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-        .lenis.lenis-stopped { overflow: hidden; }
+        html.lenis {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
+        }
+
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
 
         body {
             font-family: 'Poppins', sans-serif;
@@ -830,9 +840,9 @@
         }
 
         /* --- MASSIVE AWWWARDS-STYLE UI OVERRIDE --- */
-        
-        body:not(.light-theme) { 
-            background: linear-gradient(to bottom, #030014, #10002b) !important; 
+
+        body:not(.light-theme) {
+            background: linear-gradient(to bottom, #030014, #10002b) !important;
         }
 
         body:not(.light-theme) .glass-card {
@@ -842,14 +852,14 @@
             border: 1px solid rgba(255, 255, 255, 0.08) !important;
             border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
             border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.02) !important;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.02) !important;
             transition: box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease !important;
             will-change: transform;
         }
 
         body:not(.light-theme) .glass-card:hover {
-            box-shadow: 0 40px 80px rgba(138, 43, 226, 0.3), inset 0 0 30px rgba(255,255,255,0.05) !important;
-            border-color: rgba(255,255,255,0.3) !important;
+            box-shadow: 0 40px 80px rgba(138, 43, 226, 0.3), inset 0 0 30px rgba(255, 255, 255, 0.05) !important;
+            border-color: rgba(255, 255, 255, 0.3) !important;
         }
 
         body:not(.light-theme) .btn-futuristic {
@@ -864,8 +874,11 @@
         body:not(.light-theme) .btn-futuristic::before {
             content: '';
             position: absolute;
-            top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             transition: left 0.6s ease;
         }
 
@@ -888,7 +901,7 @@
         }
 
         /* --- AWWWARDS-STYLE LIGHT MODE OVERRIDE --- */
-        
+
         body.light-theme {
             background: linear-gradient(to bottom, #fdfbfb, #ebedee) !important;
         }
@@ -912,8 +925,9 @@
         body.light-theme .btn-futuristic {
             background: rgba(255, 255, 255, 0.7) !important;
             border: 1px solid rgba(138, 43, 226, 0.2) !important;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
-            color: #1a202c !important; /* Elegant dark text */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+            color: #1a202c !important;
+            /* Elegant dark text */
             font-weight: 700 !important;
         }
 
@@ -949,9 +963,10 @@
         body.light-theme .bg-gray-800,
         body.light-theme .bg-gray-900 {
             background-color: rgba(255, 255, 255, 0.7) !important;
-            color: #1f2937 !important; /* Tailwind gray-800 */
+            color: #1f2937 !important;
+            /* Tailwind gray-800 */
         }
-        
+
         body.light-theme .border-gray-700,
         body.light-theme .border-gray-800,
         body.light-theme .border-gray-600 {
@@ -962,27 +977,39 @@
         body.light-theme .text-slate-400,
         body.light-theme .text-gray-300,
         body.light-theme .text-gray-400 {
-            color: #4b5563 !important; /* Tailwind gray-600 */
+            color: #4b5563 !important;
+            /* Tailwind gray-600 */
         }
 
         /* Custom GSAP Ring Cursor */
-        .custom-cursor-ring, .custom-cursor-dot {
+        .custom-cursor-ring,
+        .custom-cursor-dot {
             position: fixed;
-            top: 0; left: 0; pointer-events: none; z-index: 9999;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 9999;
             border-radius: 50%;
             mix-blend-mode: exclusion;
         }
+
         .custom-cursor-ring {
-            width: 40px; height: 40px;
+            width: 40px;
+            height: 40px;
             border: 1px solid rgba(255, 255, 255, 0.6);
             transform: translate(-50%, -50%);
         }
+
         .custom-cursor-dot {
-            width: 8px; height: 8px;
+            width: 8px;
+            height: 8px;
             background: white;
             transform: translate(-50%, -50%);
         }
-        body { cursor: none !important; }
+
+        body {
+            cursor: none !important;
+        }
 
         /* Hacker Glitch Glow */
         .glitch-hover:hover {
@@ -991,9 +1018,17 @@
         }
 
         @keyframes text-gradient-shift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         /* Split words styling */
@@ -1004,14 +1039,20 @@
 
         #hero-canvas {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-            opacity: 0.6; mix-blend-mode: screen;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.6;
+            mix-blend-mode: screen;
         }
+
         /* Curtain reveal */
         #preloader {
             transition: transform 1s cubic-bezier(0.85, 0, 0.15, 1);
         }
-        
+
         /* Magnetic Nav */
         nav a {
             display: inline-block;
@@ -1020,11 +1061,70 @@
         }
 
         /* Liquid Image Hover */
-        .about-me-image, .project-card img {
+        .about-me-image,
+        .project-card img {
             transition: filter 0.5s ease;
         }
+
         .liquid-hover:hover {
             filter: url(#liquid);
+        }
+
+        /* --- ABSOLUTE 3D UPGRADES --- */
+        /* Phase 1: Extruded Isometric Buttons */
+        .btn-futuristic {
+            transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            transform-style: preserve-3d;
+        }
+        body:not(.light-theme) .btn-futuristic {
+            box-shadow: 
+                -1px 1px 0 #581c87, -2px 2px 0 #581c87, -3px 3px 0 #581c87, -4px 4px 0 #581c87, -5px 5px 0 #4c1d95, -6px 6px 0 #4c1d95, 
+                0 25px 40px rgba(0,0,0,0.8), inset 0 0 15px rgba(145,94,255,0.1) !important;
+            transform: translate(6px, -6px);
+        }
+        body:not(.light-theme) .btn-futuristic:hover {
+            box-shadow: 
+                -1px 1px 0 #6d28d9, -2px 2px 0 #6d28d9, -3px 3px 0 #6d28d9, -4px 4px 0 #6d28d9, -5px 5px 0 #6d28d9, -6px 6px 0 #6d28d9, -7px 7px 0 #5b21b6, -8px 8px 0 #5b21b6,
+                0 30px 45px rgba(138,43,226,0.5), inset 0 0 25px rgba(145,94,255,0.3) !important;
+            transform: translate(8px, -8px);
+        }
+        body:not(.light-theme) .btn-futuristic:active {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.6) !important;
+            transform: translate(0px, 0px) !important;
+        }
+        
+        body.light-theme .btn-futuristic {
+            box-shadow: 
+                -1px 1px 0 #c084fc, -2px 2px 0 #c084fc, -3px 3px 0 #c084fc, -4px 4px 0 #c084fc, -5px 5px 0 #a855f7, -6px 6px 0 #a855f7, 
+                0 20px 30px rgba(0,0,0,0.15) !important;
+            transform: translate(6px, -6px);
+        }
+        body.light-theme .btn-futuristic:hover {
+            box-shadow: 
+                -1px 1px 0 #d8b4fe, -2px 2px 0 #d8b4fe, -3px 3px 0 #d8b4fe, -4px 4px 0 #d8b4fe, -5px 5px 0 #d8b4fe, -6px 6px 0 #d8b4fe, -7px 7px 0 #c084fc, -8px 8px 0 #c084fc,
+                0 25px 40px rgba(138,43,226,0.3) !important;
+            transform: translate(8px, -8px);
+        }
+        body.light-theme .btn-futuristic:active {
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1) !important;
+            transform: translate(0px, 0px) !important;
+        }
+
+        /* Phase 2: Volumetric Typography */
+        .hero-title-glow {
+            transition: text-shadow 0.2s ease;
+        }
+        body:not(.light-theme) .hero-title-glow {
+            text-shadow: 
+                -1px 1px 0px #581c87, -2px 2px 0px #581c87, -3px 3px 0px #581c87,
+                -4px 4px 0px #4c1d95, -5px 5px 0px #4c1d95, -6px 6px 0px #4c1d95,
+                -7px 7px 0px #3b0764, -8px 8px 15px rgba(0,0,0,0.8);
+        }
+        body.light-theme .hero-title-glow {
+            text-shadow: 
+                -1px 1px 0px #d8b4fe, -2px 2px 0px #d8b4fe, -3px 3px 0px #d8b4fe,
+                -4px 4px 0px #c084fc, -5px 5px 0px #c084fc, -6px 6px 0px #c084fc,
+                -7px 7px 0px #a855f7, -8px 8px 15px rgba(138,43,226,0.3);
         }
     </style>
 </head>
@@ -1032,7 +1132,8 @@
 <body class="antialiased">
 
     <!-- Cinematic Preloader -->
-    <div id="preloader" class="fixed top-0 left-0 w-full h-full bg-[#030014] z-[99999] flex flex-col justify-center items-center">
+    <div id="preloader"
+        class="fixed top-0 left-0 w-full h-full bg-[#030014] z-[99999] flex flex-col justify-center items-center">
         <div class="text-violet-400 font-mono text-xl mb-4 tracking-widest preloader-text">INITIALIZING...</div>
         <div class="w-64 h-1 bg-gray-800 rounded overflow-hidden">
             <div id="preloader-bar" class="w-0 h-full bg-violet-500 shadow-[0_0_15px_#8b5cf6]"></div>
@@ -1043,7 +1144,8 @@
     <svg style="display:none;">
         <filter id="liquid">
             <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" />
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" id="liquid-displacement"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G"
+                id="liquid-displacement" />
         </filter>
     </svg>
     <!-- WebGL Background Canvas -->
@@ -1060,19 +1162,27 @@
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#home" class="text-2xl font-bold"><span class="logo-neil">Soham</span><span
                     class="text-gradient">.dev</span></a>
-            <nav class="hidden lg:flex items-center space-x-8">
+            <nav class="hidden lg:flex items-center gap-x-4 text-sm font-medium">
                 <a href="#about" class="transition-colors hover:text-violet-500">About</a>
+                <a href="#education" class="transition-colors hover:text-violet-500">Education</a>
                 <a href="#process" class="transition-colors hover:text-violet-500">Process</a>
                 <a href="#services" class="transition-colors hover:text-violet-500">Services</a>
+                <a href="#tech" class="transition-colors hover:text-violet-500">Skills</a>
+                <a href="#experience" class="transition-colors hover:text-violet-500">Experience</a>
                 <a href="#portfolio" class="transition-colors hover:text-violet-500">Work</a>
+                <a href="#testimonials" class="transition-colors hover:text-violet-500">Reviews</a>
+                <a href="#social-platforms" class="transition-colors hover:text-violet-500">Socials</a>
                 <a href="#contact" class="transition-colors hover:text-violet-500">Contact</a>
             </nav>
             <div class="flex items-center space-x-4">
                 <button id="theme-toggle"
                     class="px-3 py-2 rounded-lg font-semibold transition-all duration-300 ease-in-out bg-gray-700 text-white hover:bg-gray-600 shadow-lg shadow-gray-500/20 btn-futuristic btn-secondary">
                     <span id="toggle-icon" class="flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-violet-400">
-                          <path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" clip-rule="evenodd" />
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            class="w-5 h-5 text-violet-400">
+                            <path fill-rule="evenodd"
+                                d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"
+                                clip-rule="evenodd" />
                         </svg>
                     </span>
                 </button>
@@ -1092,9 +1202,14 @@
         <div id="mobile-menu" class="hidden lg:hidden bg-black/80 backdrop-blur-sm">
             <nav class="flex flex-col items-center space-y-4 py-4">
                 <a href="#about" class="transition-colors hover:text-violet-500">About</a>
+                <a href="#education" class="transition-colors hover:text-violet-500">Education</a>
                 <a href="#process" class="transition-colors hover:text-violet-500">Process</a>
                 <a href="#services" class="transition-colors hover:text-violet-500">Services</a>
+                <a href="#tech" class="transition-colors hover:text-violet-500">Skills</a>
+                <a href="#experience" class="transition-colors hover:text-violet-500">Experience</a>
                 <a href="#portfolio" class="transition-colors hover:text-violet-500">Work</a>
+                <a href="#testimonials" class="transition-colors hover:text-violet-500">Reviews</a>
+                <a href="#social-platforms" class="transition-colors hover:text-violet-500">Socials</a>
                 <a href="#contact" class="transition-colors hover:text-violet-500">Contact</a>
 
                 <a href="#contact"
@@ -1984,33 +2099,33 @@
                 scene.add(shapeGroup);
                 window.heroShapeGroup = shapeGroup; // Export for GSAP logic
 
-                // Create a more complex shape (Icosahedron)
-                const geometry = new THREE.IcosahedronGeometry(1.5, 0);
-                
-                // Frosted Glass Material (Faked for transparent canvas)
+                // Phase 2: Dodecahedron Core + Outer Torus Knot
+                const geometry = new THREE.DodecahedronGeometry(1.2, 0);
                 const material = new THREE.MeshPhysicalMaterial({
-                    color: new THREE.Color(0xb48cf7), // base purple tint
-                    metalness: 0.6,
-                    roughness: 0.2,
-                    opacity: 0.15,
+                    color: new THREE.Color(0xb48cf7),
+                    metalness: 0.8,
+                    roughness: 0.1,
+                    opacity: 0.2, // Hollow glass core
                     transparent: true,
+                    transmission: 0.9,
+                    thickness: 1.0,
                     side: THREE.DoubleSide
                 });
                 shape = new THREE.Mesh(geometry, material);
                 shapeGroup.add(shape);
 
-                // Add wireframe for a cool effect
-                const wireframeGeo = new THREE.WireframeGeometry(geometry);
+                // Outer Wireframe Torus Knot (Index 0 for Theme Sync)
+                const torusGeo = new THREE.TorusKnotGeometry(1.6, 0.05, 100, 16);
                 const wireframeMat = new THREE.LineBasicMaterial({
                     color: new THREE.Color(parseInt(getComputedStyle(document.documentElement).getPropertyValue('--hero-shape-wireframe-color'), 16)),
                     transparent: true,
-                    opacity: 0.6,
-                    linewidth: 1
+                    opacity: 0.8,
+                    linewidth: 1.5
                 });
-                const wireframe = new THREE.LineSegments(wireframeGeo, wireframeMat);
+                const wireframe = new THREE.LineSegments(new THREE.WireframeGeometry(torusGeo), wireframeMat);
                 shape.add(wireframe);
 
-                // Add Solid Glowing Inner Core
+                // Inner Glowing Solid Core
                 const coreGeo = new THREE.IcosahedronGeometry(0.5, 0);
                 const coreMat = new THREE.MeshBasicMaterial({ color: 0x915EFF });
                 const core = new THREE.Mesh(coreGeo, coreMat);
@@ -2329,24 +2444,31 @@
                     modalLiveLink.href = card.dataset.liveLink; /* Corrected to liveLink */
                     modalGithubLink.href = card.dataset.githubLink; /* Corrected to githubLink */
 
+                    // Phase 5: 3D Vault Door Opens
                     projectModal.classList.remove('hidden');
-                    // Force reflow to ensure transition plays
-                    void projectModal.offsetWidth; // Trigger reflow
-                    projectModal.classList.add('opacity-100');
-                    modalContent.classList.remove('scale-95');
-                    modalContent.classList.add('scale-100');
-                    document.body.style.overflow = 'hidden'; // Prevent body scroll when modal is open
+                    gsap.set(projectModal, { perspective: 2000 });
+                    gsap.fromTo(projectModal, { opacity: 0 }, { opacity: 1, duration: 0.3 });
+                    gsap.fromTo(modalContent, 
+                         { rotationY: -90, z: -800, opacity: 0, transformOrigin: 'left center' },
+                         { rotationY: 0, z: 0, opacity: 1, duration: 1.2, ease: "elastic.out(1, 0.5)" }
+                    );
+                    document.body.style.overflow = 'hidden';
                 });
             });
 
             closeModalBtn.addEventListener('click', () => {
-                projectModal.classList.remove('opacity-100');
-                modalContent.classList.remove('scale-100');
-                modalContent.classList.add('scale-95');
-                setTimeout(() => {
-                    projectModal.classList.add('hidden');
-                    document.body.style.overflow = ''; // Restore body scroll
-                }, 300); // Match CSS transition duration
+                // Phase 5: 3D Vault Door Closes
+                 gsap.to(modalContent, {
+                      rotationY: 90, z: -800, opacity: 0, transformOrigin: 'right center',
+                      duration: 0.6, ease: "power3.in"
+                 });
+                 gsap.to(projectModal, {
+                      opacity: 0, duration: 0.6,
+                      onComplete: () => {
+                           projectModal.classList.add('hidden');
+                           document.body.style.overflow = '';
+                      }
+                 });
             });
 
             // Close modal if clicking outside the content
@@ -2566,11 +2688,14 @@
                         modalGithubLink.href = newCard.dataset.projectGithubLink;
                         modalGithubLink.style.display = newCard.dataset.projectGithubLink !== '#' ? 'inline-block' : 'none';
 
+                        // Phase 5: 3D Vault Door Opens (Dynamic)
                         projectModal.classList.remove('hidden');
-                        void projectModal.offsetWidth;
-                        projectModal.classList.add('opacity-100');
-                        modalContent.classList.remove('scale-95');
-                        modalContent.classList.add('scale-100');
+                        gsap.set(projectModal, { perspective: 2000 });
+                        gsap.fromTo(projectModal, { opacity: 0 }, { opacity: 1, duration: 0.3 });
+                        gsap.fromTo(modalContent, 
+                             { rotationY: -90, z: -800, opacity: 0, transformOrigin: 'left center' },
+                             { rotationY: 0, z: 0, opacity: 1, duration: 1.2, ease: "elastic.out(1, 0.5)" }
+                        );
                         document.body.style.overflow = 'hidden';
                     });
                 });
@@ -2794,8 +2919,8 @@
         // 1. Initialize Lenis Smooth Scrolling
         const lenis = new Lenis({
             duration: 1.5, // Ultra smooth 1.5s friction
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
-            direction: 'vertical', 
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
             gestureDirection: 'vertical',
             smooth: true,
             mouseMultiplier: 0.8, // Elegant drag weight
@@ -2804,54 +2929,97 @@
             infinite: false,
         });
 
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-
+        // Utilize GSAP's native hardware synchronization for 144hz+ displays
         if (typeof gsap !== 'undefined') {
             gsap.registerPlugin(ScrollTrigger);
             lenis.on('scroll', ScrollTrigger.update);
-            gsap.ticker.add((time)=>{ lenis.raf(time * 1000) });
+
+            // Bind Lenis exclusively to the GSAP Ticker to eliminate 60fps caps and physics stutters
+            gsap.ticker.add((time) => {
+                if (window.__siteInteractive) {
+                    lenis.raf(time * 1000);
+                }
+            });
+
+            // Prevent GSAP lag compensation from down-sampling high refresh rates
             gsap.ticker.lagSmoothing(0);
 
-            // 2. Magnetic Buttons for futuristic links
+            // WebAudio API HUD ASMR Sounds
+            let audioCtx = null;
+            function playAsmrHover() {
+                try {
+                    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    if (audioCtx.state === 'suspended') audioCtx.resume();
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.05);
+
+                    gain.gain.setValueAtTime(0, audioCtx.currentTime);
+                    gain.gain.linearRampToValueAtTime(0.05, audioCtx.currentTime + 0.01);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+                    
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.1);
+                } catch(e) {}
+            }
+
+            // Phase 1: Extruded Isometric Buttons for futuristic links
             const magneticElements = document.querySelectorAll('.btn-futuristic');
             magneticElements.forEach(btn => {
+                btn.addEventListener('mouseenter', () => playAsmrHover());
+                gsap.set(btn, { transformPerspective: 800, transformStyle: "preserve-3d" });
                 btn.addEventListener('mousemove', (e) => {
                     const rect = btn.getBoundingClientRect();
                     const x = e.clientX - rect.left - rect.width / 2;
                     const y = e.clientY - rect.top - rect.height / 2;
+                    const rotateX = (y / (rect.height / 2)) * -20;
+                    const rotateY = (x / (rect.width / 2)) * 20;
+
                     gsap.to(btn, {
-                        x: x * 0.3,
-                        y: y * 0.3,
-                        rotation: x * 0.05,
-                        duration: 0.5,
-                        ease: 'power3.out'
+                        x: x * 0.15,
+                        y: y * 0.15,
+                        rotationX: rotateX,
+                        rotationY: rotateY,
+                        z: 20, // isometric lift
+                        duration: 0.4,
+                        ease: 'power3.out',
+                        overwrite: 'auto'
                     });
                 });
-                
+
                 btn.addEventListener('mouseleave', () => {
-                    gsap.to(btn, {x: 0, y: 0, rotation: 0, duration: 0.8, ease: 'elastic.out(1, 0.3)'});
+                    gsap.to(btn, { x: 0, y: 0, rotationX: 0, rotationY: 0, z: 0, duration: 0.8, ease: 'elastic.out(1, 0.4)', overwrite: 'auto' });
+                });
+                
+                // Mechanical compression click
+                btn.addEventListener('mousedown', () => {
+                    gsap.to(btn, { z: -10, scale: 0.95, duration: 0.1, ease: 'power2.inOut', overwrite: 'auto' });
+                });
+                btn.addEventListener('mouseup', () => {
+                    gsap.to(btn, { z: 20, scale: 1, duration: 0.4, ease: 'elastic.out(1, 0.4)', overwrite: 'auto' });
                 });
             });
 
             // 3. Staggered reveal for section titles (Replaced with advanced SplitType)
             const splitTitles = new SplitType('.section-title', { types: 'chars,words' });
-            
+
             gsap.registerPlugin(ScrollTrigger);
-            
+
             document.querySelectorAll('.section-title').forEach((title) => {
                 const chars = title.querySelectorAll('.char');
-                gsap.fromTo(chars, 
-                    { y: '115%', opacity: 0, rotationX: -90, transformOrigin: '0% 50% -50' },
+                gsap.fromTo(chars,
+                    { y: '100%', opacity: 0, rotationX: -120, z: -400, transformOrigin: '50% 50% -100' },
                     {
-                        y: '0%', opacity: 1, rotationX: 0,
-                        duration: 1, stagger: 0.03, ease: 'power4.out',
+                        y: '0%', opacity: 1, rotationX: 0, z: 0,
+                        duration: 1.4, stagger: 0.04, ease: 'back.out(2.5)',
                         scrollTrigger: {
                             trigger: title,
-                            start: 'top 85%',
+                            start: 'top 90%',
                         }
                     }
                 );
@@ -2867,31 +3035,76 @@
                 );
             });
 
-            // 4. Parallax effect for cards
+            // 4. Phase 3 & 4: Cinematic Z-Axis Page Reveals & Spatial Holographic perspective cards
             document.querySelectorAll('.glass-card').forEach((card, index) => {
-                // Remove constant heavy yoyo floating, replacing with hover transform via GSAP ONLY
-                card.addEventListener('mouseenter', () => {
-                    gsap.to(card, { y: -15, scale: 1.02, duration: 0.5, ease: 'power3.out', overwrite: 'auto' });
-                });
-                card.addEventListener('mouseleave', () => {
-                    gsap.to(card, { y: 0, scale: 1, duration: 0.5, ease: 'power3.out', overwrite: 'auto' });
-                });
-
-                // Scroll parallax
-                gsap.fromTo(card, 
-                    { y: 30 },
+                // Phase 4: Z-Axis Depth Scrubbing
+                gsap.fromTo(card,
+                    { y: 150, z: -500, rotationX: 15, scale: 0.8, opacity: 0 },
                     {
                         scrollTrigger: {
                             trigger: card,
-                            start: 'top bottom',
-                            end: 'bottom top',
-                            scrub: 1
+                            start: 'top 95%',
+                            end: 'top 60%',
+                            scrub: 1.5
                         },
-                        y: -30,
-                        rotation: index % 2 === 0 ? 1 : -1,
-                        ease: 'none'
+                        y: 0, z: 0, rotationX: 0, scale: 1, opacity: 1,
+                        ease: 'power3.out'
                     }
                 );
+
+                // Phase 3: Spatial Hover Engine & Apple TV Deep Parallax
+                gsap.set(card, { transformPerspective: 1200, transformStyle: "preserve-3d" });
+                
+                const innerImg = card.querySelector('img');
+                const innerText = card.querySelectorAll('h3, p, a, span');
+                // Push text aggressively forward, push image backward for internal volume
+                if (innerText.length) gsap.set(innerText, { transformZ: 60 });
+                if (innerImg) gsap.set(innerImg, { transformZ: -80, scale: 1.15 });
+
+                card.addEventListener('mouseenter', () => {
+                    gsap.to(card, { scale: 1.02, duration: 0.5, ease: 'power3.out', overwrite: 'auto' });
+                });
+                card.addEventListener('mousemove', (e) => {
+                    if(!window.__siteInteractive) return;
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = ((y - centerY) / centerY) * -12; 
+                    const rotateY = ((x - centerX) / centerX) * 12;
+                    
+                    gsap.to(card, {
+                        rotationX: rotateX,
+                        rotationY: rotateY,
+                        z: 50, // Raise physically off screen z-plane
+                        duration: 0.6,
+                        ease: 'power3.out',
+                        overwrite: 'auto'
+                    });
+                    
+                    if (innerImg) {
+                        // Inverse parallax mapping 
+                        gsap.to(innerImg, {
+                            x: (x - centerX) * -0.15,
+                            y: (y - centerY) * -0.15,
+                            duration: 0.6,
+                            ease: 'power3.out',
+                            overwrite: 'auto'
+                        });
+                    }
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card, {
+                        rotationX: 0, rotationY: 0, z: 0, scale: 1,
+                        duration: 1, ease: 'elastic.out(1, 0.4)', overwrite: 'auto'
+                    });
+                    if (innerImg) {
+                        gsap.to(innerImg, { x: 0, y: 0, duration: 1, ease: 'elastic.out(1, 0.4)', overwrite: 'auto' });
+                    }
+                });
             });
 
             // Removed SplitType from hero text to fix background-clip gradient blurring and margin collapsing
@@ -2903,18 +3116,48 @@
             cursorDot.className = 'custom-cursor-dot';
             document.body.appendChild(cursorRing);
             document.body.appendChild(cursorDot);
-            
-            gsap.set('.custom-cursor-ring, .custom-cursor-dot', { xPercent: -50, yPercent: -50 });
+
+            // Phase 4: Floating HUD Navigation
+            const headerObj = document.querySelector('header');
+            if(headerObj) {
+                gsap.set(headerObj, { transformPerspective: 1000, transformStyle: "preserve-3d", transformOrigin: "top center", z: 100 });
+                window.addEventListener('mousemove', (e) => {
+                    const mappedX = (e.clientX / window.innerWidth) - 0.5;
+                    const mappedY = (e.clientY / window.innerHeight) - 0.5;
+                    gsap.to(headerObj, { rotationX: mappedY * -10, rotationY: mappedX * 10, duration: 1.5, ease: 'power3.out', overwrite: 'auto' });
+                });
+                headerObj.querySelectorAll('nav a').forEach(link => {
+                    link.addEventListener('mouseenter', () => { gsap.to(link, { z: 40, duration: 0.4, ease: 'power3.out' }); });
+                    link.addEventListener('mouseleave', () => { gsap.to(link, { z: 0,  duration: 0.6, ease: 'power3.out' }); });
+                });
+            }
+
+            // Phase 6: Spatial 3D Cursor Physics Map
+            gsap.set('.custom-cursor-ring, .custom-cursor-dot', { xPercent: -50, yPercent: -50, transformStyle: "preserve-3d" });
             let xTo = gsap.quickTo('.custom-cursor-ring', 'x', { duration: 0.4, ease: 'power3' }),
                 yTo = gsap.quickTo('.custom-cursor-ring', 'y', { duration: 0.4, ease: 'power3' }),
+                rotXTo = gsap.quickTo('.custom-cursor-ring', 'rotationX', { duration: 0.3, ease: 'power3' }),
+                rotYTo = gsap.quickTo('.custom-cursor-ring', 'rotationY', { duration: 0.3, ease: 'power3' }),
                 xDotTo = gsap.quickTo('.custom-cursor-dot', 'x', { duration: 0.1, ease: 'power3' }),
                 yDotTo = gsap.quickTo('.custom-cursor-dot', 'y', { duration: 0.1, ease: 'power3' });
-                
+
             window.addEventListener("mousemove", e => {
                 xTo(e.clientX); yTo(e.clientY);
                 xDotTo(e.clientX); yDotTo(e.clientY);
+                
+                const hoveredEl = document.elementFromPoint(e.clientX, e.clientY);
+                if(hoveredEl && (hoveredEl.closest('.glass-card') || hoveredEl.closest('.btn-futuristic'))) {
+                     const box = hoveredEl.closest('.glass-card') || hoveredEl.closest('.btn-futuristic');
+                     const rect = box.getBoundingClientRect();
+                     const x = e.clientX - rect.left - rect.width / 2;
+                     const y = e.clientY - rect.top - rect.height / 2;
+                     rotXTo((y / (rect.height / 2)) * -15);
+                     rotYTo((x / (rect.width / 2)) * 15);
+                } else {
+                     rotXTo(0); rotYTo(0);
+                }
             });
-            
+
             document.querySelectorAll('a, button, input, textarea, .cursor-pointer').forEach(el => {
                 el.addEventListener('mouseenter', () => {
                     gsap.to('.custom-cursor-ring', { scale: 1.5, backgroundColor: 'white', opacity: 0.2, border: 'none', duration: 0.3 });
@@ -2934,10 +3177,10 @@
                     clearInterval(el.interval);
                     el.interval = setInterval(() => {
                         e.target.innerText = e.target.innerText.split("").map((letter, index) => {
-                            if(index < iteration) return e.target.dataset.value[index];
+                            if (index < iteration) return e.target.dataset.value[index];
                             return letters[Math.floor(Math.random() * letters.length)];
                         }).join("");
-                        if(iteration >= e.target.dataset.value.length) clearInterval(el.interval);
+                        if (iteration >= e.target.dataset.value.length) clearInterval(el.interval);
                         iteration += 1 / 2;
                     }, 30);
                 });
@@ -2958,7 +3201,7 @@
 
             // 8. Cyber Dust WebGL Background
             const bgCanvas = document.getElementById('bg-canvas');
-            if(bgCanvas && typeof THREE !== 'undefined') {
+            if (bgCanvas && typeof THREE !== 'undefined') {
                 const bgScene = new THREE.Scene();
                 const bgCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
                 const bgRenderer = new THREE.WebGLRenderer({ canvas: bgCanvas, alpha: true, antialias: true });
@@ -2968,13 +3211,13 @@
                 const particlesGeometry = new THREE.BufferGeometry();
                 const particlesCount = 900;
                 const posArray = new Float32Array(particlesCount * 3);
-                
-                for(let i = 0; i < particlesCount * 3; i++) {
+
+                for (let i = 0; i < particlesCount * 3; i++) {
                     posArray[i] = (Math.random() - 0.5) * 12; // Spread
                 }
-                
+
                 particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-                
+
                 const particlesMaterial = new THREE.PointsMaterial({
                     size: 0.015,
                     color: 0xb48cf7,
@@ -2983,32 +3226,38 @@
                     blending: THREE.AdditiveBlending
                 });
                 window.particlesMaterial = particlesMaterial; // Export for Theme Observer
-                
+
                 const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
                 bgScene.add(particlesMesh);
-                
+
                 bgCamera.position.z = 3;
-                
+
                 let mouseX = 0; let mouseY = 0;
                 window.addEventListener('mousemove', (event) => {
                     mouseX = event.clientX / window.innerWidth - 0.5;
                     mouseY = event.clientY / window.innerHeight - 0.5;
-                    
-                    if(window.heroShapeGroup) {
-                        gsap.to(window.heroShapeGroup.rotation, { 
-                            x: mouseY * 0.8, 
-                            y: mouseX * 0.8, 
-                            duration: 1.5, 
-                            ease: 'power3.out' 
+
+                    if (window.heroShapeGroup) {
+                        gsap.to(window.heroShapeGroup.rotation, {
+                            x: mouseY * 0.8,
+                            y: mouseX * 0.8,
+                            duration: 1.5,
+                            ease: 'power3.out'
                         });
                     }
                 });
-                
+
                 let diamondYTo, diamondRTo;
+                let scrollVelocity = 0;
+                let accumulatedScroll = 0;
+
                 lenis.on('scroll', (e) => {
-                    if(window.heroShapeGroup) {
-                        // CRITICAL PERF FIX: Prevents 60 duplicate GSAP Tweens per second which causes memory leaks and full-page freezing!
-                        if(!diamondYTo) {
+                    scrollVelocity = e.velocity;
+                    accumulatedScroll += e.velocity * 0.002;
+                    
+                    if (window.heroShapeGroup) {
+                        // CRITICAL PERF FIX: Prevents 60 duplicate GSAP Tweens per second
+                        if (!diamondYTo) {
                             diamondYTo = gsap.quickTo(window.heroShapeGroup.position, "y", { duration: 0.8, ease: "power3.out" });
                             diamondRTo = gsap.quickTo(window.heroShapeGroup.rotation, "z", { duration: 0.8, ease: "power3.out" });
                         }
@@ -3018,20 +3267,27 @@
                 });
 
                 const clock = new THREE.Clock();
-                
+
                 function animateBg() {
                     requestAnimationFrame(animateBg);
+                    if (!window.__siteInteractive) return;
                     const elapsedTime = clock.getElapsedTime();
+
+                    particlesMesh.rotation.y = elapsedTime * 0.05 + mouseX * 0.3 + accumulatedScroll;
+                    particlesMesh.rotation.x = elapsedTime * 0.03 + mouseY * 0.3 + (accumulatedScroll * 0.5);
                     
-                    particlesMesh.rotation.y = elapsedTime * 0.05 + mouseX * 0.3;
-                    particlesMesh.rotation.x = elapsedTime * 0.03 + mouseY * 0.3;
+                    // Phase 1: Kinetic Z-Axis Warp Speed Engine
+                    let targetFov = 75 + Math.min(Math.abs(scrollVelocity * 0.4), 60); // Cap FOV zoom max
+                    bgCamera.fov += (targetFov - bgCamera.fov) * 0.1; // Smooth interpolate
+                    bgCamera.updateProjectionMatrix();
+
                     // Gentle wave
                     particlesMesh.position.y = Math.sin(elapsedTime * 0.5) * 0.1;
-                    
+
                     bgRenderer.render(bgScene, bgCamera);
                 }
                 animateBg();
-                
+
                 window.addEventListener('resize', () => {
                     bgCamera.aspect = window.innerWidth / window.innerHeight;
                     bgCamera.updateProjectionMatrix();
@@ -3043,18 +3299,18 @@
 
             // 2. Symmetric 2.5D Tech Cylinder Orbit (Software Projection - Foolproof against CSS Flattening Bugs)
             const marqueeContainer = document.querySelector('.marquee-container');
-            if(marqueeContainer) {
+            if (marqueeContainer) {
                 marqueeContainer.innerHTML = '';
                 marqueeContainer.style.height = '400px';
                 marqueeContainer.style.position = 'relative';
                 // Using hidden safely since we project to 2D
-                marqueeContainer.style.overflow = 'hidden'; 
+                marqueeContainer.style.overflow = 'hidden';
                 marqueeContainer.style.borderRadius = '20px';
                 marqueeContainer.style.background = 'rgba(20,10,40,0.3)';
                 marqueeContainer.style.border = '1px solid rgba(139, 92, 246, 0.3)';
                 marqueeContainer.classList.remove('py-10');
                 marqueeContainer.style.padding = '0';
-                
+
                 const ringGroup = document.createElement('div');
                 ringGroup.style.position = 'absolute';
                 ringGroup.style.top = '50%';
@@ -3078,66 +3334,67 @@
                 const totalIcons = icons.length;
                 const topCount = Math.floor(totalIcons / 2);
                 const bottomCount = totalIcons - topCount;
-                
+
                 const R = window.innerWidth > 768 ? 350 : 200; // Radius
 
                 icons.forEach((icon, i) => {
                     const el = document.createElement('img');
                     el.src = `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${icon}`;
                     el.style.position = 'absolute';
-                    
+
                     const size = 65;
                     el.style.width = `${size}px`;
                     el.style.height = `${size}px`;
                     el.style.maxWidth = 'none'; // CRITICAL: Bypass Tailwind CSS 100% max-width collapsing to 0px parent!
-                    el.style.margin = `-${size/2}px 0 0 -${size/2}px`; // center pivot
-                    
-                    if(icon.includes('nextjs')) { el.style.background = 'white'; el.style.borderRadius = '50%'; el.style.padding = '5px'; }
+                    el.style.margin = `-${size / 2}px 0 0 -${size / 2}px`; // center pivot
+
+                    if (icon.includes('nextjs')) { el.style.background = 'white'; el.style.borderRadius = '50%'; el.style.padding = '5px'; }
                     el.style.boxShadow = '0 0 10px rgba(139, 92, 246, 0.4)';
                     el.style.borderRadius = '10px';
-                    
+
                     const isTop = i < topCount;
                     const indexInRing = isTop ? i : (i - topCount);
                     const ringSize = isTop ? topCount : bottomCount;
-                    
+
                     const yOffset = isTop ? -45 : 45;
                     const angleStep = (Math.PI * 2) / ringSize;
                     const baseAngle = indexInRing * angleStep;
-                    
+
                     el.dataset.angle = baseAngle.toString();
                     el.dataset.yOffset = yOffset.toString();
                     el.dataset.direction = isTop ? "1" : "-1";
-                    
+
                     ringGroup.appendChild(el);
                 });
 
                 function animateSymmetricRing() {
-                    const time = Date.now() * 0.0005; 
+                    requestAnimationFrame(animateSymmetricRing);
+                    if (!window.__siteInteractive) return;
+                    const time = Date.now() * 0.0005;
                     const els = ringGroup.children;
-                    for(let i=0; i<els.length; i++) {
+                    for (let i = 0; i < els.length; i++) {
                         const el = els[i];
                         const baseAngle = parseFloat(el.dataset.angle);
                         const dir = parseInt(el.dataset.direction);
                         const yOffset = parseFloat(el.dataset.yOffset);
-                        
+
                         // Current angle in radians
                         const currentAngle = baseAngle + (time * dir);
-                        
+
                         // 2D Projection
                         const x = Math.cos(currentAngle) * R;
                         const z = Math.sin(currentAngle) * R; // -R (back) to +R (front)
-                        
+
                         // Perspective scaling
                         // When z = R (front), scale = 1.0
                         // When z = -R (back), scale = 0.5
                         const depthNormalized = (z + R) / (2 * R); // 0.0 to 1.0
-                        const scale = 0.5 + (depthNormalized * 0.5); 
-                        
+                        const scale = 0.5 + (depthNormalized * 0.5);
+
                         el.style.transform = `translate(${x}px, ${yOffset}px) scale(${scale})`;
                         el.style.zIndex = Math.round(z + 1000);
                         el.style.opacity = 0.3 + (depthNormalized * 0.7);
                     }
-                    requestAnimationFrame(animateSymmetricRing);
                 }
                 animateSymmetricRing();
             }
@@ -3145,48 +3402,18 @@
 
             // Removed experimental Scroll Blur, Velocity Glitch, and Blast-door splitting per user request
 
-            // 9. ASMR Sonic Micro-Interactions
-            let audioCtx = null;
-            function playGlassTick() {
-                if(!audioCtx) { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
-                if(audioCtx.state === 'suspended') audioCtx.resume();
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.05);
-                gain.gain.setValueAtTime(0, audioCtx.currentTime);
-                gain.gain.linearRampToValueAtTime(0.05, audioCtx.currentTime + 0.01);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.1);
-            }
-            document.querySelectorAll('.glass-card, .btn-futuristic, nav a').forEach(el => {
-                el.addEventListener('mouseenter', playGlassTick);
-            });
-
+            // ASMR Sonic Micro-Interactions removed to fix severe main-thread lag
             // 10. Cinematic "Curtain Reveal" Preloader
-            const preloaderTl = gsap.timeline();
-            preloaderTl.to('#preloader-bar', { width: '100%', duration: 1.5, ease: 'power2.inOut' })
-                       .to('.preloader-text', { opacity: 0, duration: 0.2 }, "-=0.2")
-                       .to('#preloader', { yPercent: -100, duration: 1.2, ease: 'expo.inOut' })
-                       .from('.hero-title-glow', { y: 50, opacity: 0, duration: 1.5, ease: 'elastic.out(1, 0.4)' }, "-=0.6")
-                       .from('#typewriter', { opacity: 0, duration: 1, ease: 'power2.out' }, "-=1");
-
-            // 11. Liquid Image Distortion (SVG <feTurbulence>)
-            const displacement = document.querySelector('#liquid-displacement');
-            document.querySelectorAll('.about-me-image, .glass-card img').forEach(img => {
-                img.classList.add('liquid-hover');
-                img.addEventListener('mouseenter', () => {
-                    gsap.to(displacement, { attr: { scale: 30 }, duration: 0.5, ease: 'power2.out' });
-                });
-                img.addEventListener('mouseleave', () => {
-                    gsap.to(displacement, { attr: { scale: 0 }, duration: 0.8, ease: 'elastic.out(1, 0.3)' });
-                });
+            const preloaderTl = gsap.timeline({
+                onComplete: () => { window.__siteInteractive = true; }
             });
+            preloaderTl.to('#preloader-bar', { width: '100%', duration: 1.5, ease: 'power2.inOut' })
+                .to('.preloader-text', { opacity: 0, duration: 0.2 }, "-=0.2")
+                .to('#preloader', { yPercent: -100, duration: 1.2, ease: 'expo.inOut' })
+                .from('.hero-title-glow', { y: 50, opacity: 0, duration: 1.5, ease: 'elastic.out(1, 0.4)' }, "-=0.6")
+                .from('#typewriter', { opacity: 0, duration: 1, ease: 'power2.out' }, "-=1");
 
+            // Liquid Image Distortion removed to fix critical GPU stall on hover
             // 12. Elastic Magnetic Header Links
             document.querySelectorAll('nav a').forEach(link => {
                 link.addEventListener('mousemove', (e) => {
@@ -3201,21 +3428,21 @@
             });
 
             // 13. Marquee removed by Matter.js logic above
-            
+
             // 14. Global Light Mode Sync Observer
             const themeObserver = new MutationObserver(() => {
                 const isLight = document.body.classList.contains('light-theme');
-                
+
                 // Update Cyber Dust Particles
-                if(window.particlesMaterial) {
+                if (window.particlesMaterial) {
                     window.particlesMaterial.color.setHex(isLight ? 0x6a0dad : 0xb48cf7);
                     window.particlesMaterial.blending = isLight ? THREE.NormalBlending : THREE.AdditiveBlending;
                 }
-                
+
                 // Update Tech Cylinder Background
                 const mContainer = document.querySelector('.marquee-container');
-                if(mContainer) {
-                    if(isLight) {
+                if (mContainer) {
+                    if (isLight) {
                         mContainer.style.background = 'rgba(255, 255, 255, 0.6)';
                         mContainer.style.border = '1px solid rgba(0, 0, 0, 0.1)';
                     } else {
@@ -3225,10 +3452,10 @@
                 }
             });
             themeObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-            
+
             // Trigger immediately if page loaded in light mode
             setTimeout(() => {
-                if(document.body.classList.contains('light-theme')) {
+                if (document.body.classList.contains('light-theme')) {
                     document.body.classList.remove('light-theme');
                     document.body.classList.add('light-theme');
                 }
