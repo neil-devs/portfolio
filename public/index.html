@@ -1126,17 +1126,68 @@
                 -4px 4px 0px #c084fc, -5px 5px 0px #c084fc, -6px 6px 0px #c084fc,
                 -7px 7px 0px #a855f7, -8px 8px 15px rgba(138,43,226,0.3);
         }
+        /* Holographic Data Card */
+        .holo-card {
+            background: rgba(145, 94, 255, 0.15);
+            border: 1px solid rgba(145, 94, 255, 0.5);
+            box-shadow: 0 0 15px rgba(145, 94, 255, 0.4), inset 0 0 10px rgba(145, 94, 255, 0.2);
+            backdrop-filter: blur(4px);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 10px;
+            font-weight: bold;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            text-shadow: 0 0 5px #fff;
+            white-space: nowrap;
+            text-transform: uppercase;
+        }
+        .holo-card.visible {
+            opacity: 1;
+        }
     </style>
+    
+    <!-- Three.js GLTFLoader Component for Custom 'Alive' Robot integration without watermarks -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/DigitalGlitch.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/GlitchPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/renderers/CSS2DRenderer.js"></script>
 </head>
 
 <body class="antialiased">
 
-    <!-- Cinematic Preloader -->
-    <div id="preloader"
-        class="fixed top-0 left-0 w-full h-full bg-[#030014] z-[99999] flex flex-col justify-center items-center">
-        <div class="text-violet-400 font-mono text-xl mb-4 tracking-widest preloader-text">INITIALIZING...</div>
-        <div class="w-64 h-1 bg-gray-800 rounded overflow-hidden">
-            <div id="preloader-bar" class="w-0 h-full bg-violet-500 shadow-[0_0_15px_#8b5cf6]"></div>
+    <!-- Hyper-Kinetic Cinematic Preloader -->
+    <div id="preloader" class="fixed inset-0 z-[99999] flex justify-center items-center pointer-events-none">
+        <!-- Mechanical Split-Door Background -->
+        <div id="preloader-bg-top" class="absolute top-0 left-0 w-full h-[50vh] bg-[#030014] origin-top border-b border-[#030014] pointer-events-auto"></div>
+        <div id="preloader-bg-bottom" class="absolute bottom-0 left-0 w-full h-[50vh] bg-[#030014] origin-bottom border-t border-[#030014] pointer-events-auto"></div>
+        
+        <div id="preloader-content" class="relative z-[100000] flex flex-col items-center">
+            <!-- Dual Glowing Orbital Rings -->
+            <div class="relative w-24 h-24 mb-6">
+                <div class="absolute inset-0 rounded-full border-t-2 border-r-2 border-violet-500 shadow-[0_0_20px_#8b5cf6] animate-spin"></div>
+                <div class="absolute inset-2 rounded-full border-b-2 border-l-2 border-fuchsia-400 shadow-[0_0_15px_#e879f9] animate-spin" style="animation-direction: reverse; animation-duration: 0.8s;"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <span class="text-white font-mono text-xs opacity-70 tracking-widest">BOOT</span>
+                </div>
+            </div>
+            
+            <!-- Dynamic Status Array Display -->
+            <div class="font-mono text-sm tracking-[0.3em] h-6 flex overflow-hidden">
+                <span id="loader-status" class="text-violet-300">INITIALIZING CORE...</span>
+            </div>
+            
+            <!-- Minimal Laser Progress Bar -->
+            <div class="w-48 h-[2px] mt-4 bg-gray-900 rounded-full overflow-hidden relative">
+                <div id="preloader-bar" class="absolute top-0 left-0 h-full w-0 bg-gradient-to-r from-violet-600 to-fuchsia-400 shadow-[0_0_15px_#8b5cf6]"></div>
+            </div>
         </div>
     </div>
 
@@ -1158,7 +1209,7 @@
     <!-- These divs will be dynamically populated by JavaScript -->
 
     <!-- Header -->
-    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <header id="header" class="fixed top-0 left-0 right-0 z-[9999] pointer-events-auto transform-gpu backdrop-blur-[1px] transition-all duration-300">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#home" class="text-2xl font-bold"><span class="logo-neil">Soham</span><span
                     class="text-gradient">.dev</span></a>
@@ -1232,10 +1283,12 @@
                 </h2>
                 <div class="flex justify-center space-x-4">
                     <a href="#contact"
+                        id="get-in-touch-btn"
                         class="px-8 py-3 rounded-lg font-semibold transition-all duration-300 ease-in-out bg-violet-600 text-white hover:bg-violet-700 shadow-lg shadow-violet-500/30 btn-futuristic">
                         Get in Touch
                     </a>
                 </div>
+
             </div>
         </div>
     </section>
@@ -1844,7 +1897,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
 
 
-                <a href="https://twitter.com/your-username" target="_blank"
+                <a href="https://x.com/neilvxrse" target="_blank"
                     class="platform-card glass-card p-4 rounded-xl flex items-center justify-between group transition-all duration-300">
                     <div class="flex items-center space-x-4">
                         <div
@@ -1905,7 +1958,7 @@
                 </a>
 
 
-                <a href="https://www.instagram.com/itx_neil_333/" target="_blank"
+                <a href="https://www.instagram.com/neilvxrse/" target="_blank"
                     class="platform-card glass-card p-4 rounded-xl flex items-center justify-between group transition-all duration-300">
                     <div class="flex items-center space-x-4">
                         <div
@@ -1975,7 +2028,12 @@
                     <div class="glass-card-inner p-0 w-full">
                         <h3 class="text-2xl font-bold text-white mb-2">Send a Message</h3>
                         <p class="text-slate-300 mb-8">Let's create something amazing together.</p>
-                        <form id="contact-form" class="space-y-6 w-full">
+                        <form action="https://formsubmit.co/sohamytofficial333@gmail.com" method="POST" id="contact-form" class="space-y-6 w-full">
+                            <!-- FormSubmit Configuration -->
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_template" value="box">
+                            <input type="hidden" name="_subject" value="New Portfolio Message!">
+
                             <input type="text" name="name" placeholder="Your Name"
                                 class="w-full p-3 rounded-lg bg-gray-800/50 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-violet-500"
                                 required>
@@ -2085,6 +2143,19 @@
 
             // --- 3D Hero Animation Setup ---
             let scene, camera, renderer, shape, particles = [];
+            let composer, glitchPass, css2dRenderer;
+            let cubeCamera, cubeRenderTarget;
+            let audioListener, sound, audioAnalyzer;
+            let interactiveSpotLight;
+            let raycaster = new THREE.Raycaster();
+            let mouse = new THREE.Vector2();
+            let isGlitching = false;
+            let glitchEndTime = 0;
+            window.robotExpression = 'Smile'; // Force happy smile by default!
+            // Global animation mixer for dynamic "alive" movements
+            let robotMixer; 
+            let robotClock = new THREE.Clock();
+
             const particleCount = 200; // More particles for a denser, futuristic feel
 
             function initThreeJS() {
@@ -2092,71 +2163,331 @@
                 if (!canvas) return;
 
                 scene = new THREE.Scene();
-                camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-                renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+                camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+                renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
 
                 renderer.setSize(window.innerWidth, window.innerHeight);
-                camera.position.z = 5;
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                // Enhanced tone mapping for photorealistic metallic robot materials
+                renderer.toneMapping = THREE.ACESFilmicToneMapping;
+                renderer.toneMappingExposure = 1.2;
+                
+                // Pull robot back and frame perfectly
+                camera.position.z = 8;
+                camera.position.y = 1;
 
-                // Create the shape group for scroll/mouse physics
+                // POST-PROCESSING: Composer & CSS2DRenderer Pipeline
+                composer = new THREE.EffectComposer(renderer);
+                const renderPass = new THREE.RenderPass(scene, camera);
+                composer.addPass(renderPass);
+                
+                glitchPass = new THREE.GlitchPass();
+                glitchPass.goWild = false;
+                glitchPass.enabled = false;
+                composer.addPass(glitchPass);
+
+                css2dRenderer = new THREE.CSS2DRenderer();
+                css2dRenderer.setSize(window.innerWidth, window.innerHeight);
+                css2dRenderer.domElement.style.position = 'absolute';
+                css2dRenderer.domElement.style.top = '0px';
+                css2dRenderer.domElement.style.pointerEvents = 'none';
+                css2dRenderer.domElement.style.zIndex = '10'; // Above Canvas but strictly underneath Navbar
+                document.getElementById('home').appendChild(css2dRenderer.domElement);
+
+                // CUBECAMERA: For Real-Time Reflections
+                cubeRenderTarget = new THREE.WebGLCubeRenderTarget(256, {
+                    generateMipmaps: true,
+                    minFilter: THREE.LinearMipmapLinearFilter
+                });
+                cubeCamera = new THREE.CubeCamera(0.1, 1000, cubeRenderTarget);
+                scene.add(cubeCamera);
+
+                // AUDIO: Synthesized Ambient Hum
+                audioListener = new THREE.AudioListener();
+                camera.add(audioListener);
+                sound = new THREE.Audio(audioListener);
+                
+                // Create custom synthetic audio node to use with THREE.AudioAnalyser
+                try {
+                    const audioCtx = THREE.AudioContext.getContext();
+                    const osc = audioCtx.createOscillator();
+                    osc.type = 'sawtooth';
+                    osc.frequency.value = 40;
+                    
+                    const gainNode = audioCtx.createGain();
+                    gainNode.gain.value = 0; // Muted initially
+                    osc.connect(gainNode);
+                    
+                    const dummyDest = audioCtx.createMediaStreamDestination();
+                    gainNode.connect(dummyDest);
+                    gainNode.connect(audioCtx.destination);
+                    osc.start();
+
+                    sound.hasPlaybackControl = true;
+                    sound.play = () => { if(audioCtx.state === 'suspended') audioCtx.resume(); gainNode.gain.value = 0.05; };
+                    
+                    // Attach our own AnalyserNode since we bypass sound buffer
+                    let analyserNode = audioCtx.createAnalyser();
+                    analyserNode.fftSize = 32;
+                    gainNode.connect(analyserNode);
+                    window.robotMicData = new Uint8Array(analyserNode.frequencyBinCount);
+                    window.robotAnalyser = analyserNode;
+                } catch(e) {}
+
+                // Create the master group for scroll/mouse physics
                 const shapeGroup = new THREE.Group();
                 scene.add(shapeGroup);
                 window.heroShapeGroup = shapeGroup; // Export for GSAP logic
+                
+                // Keep the 'shape' ref valid for the heartbeat loop and resize observers
+                shape = shapeGroup;
 
-                // Phase 2: Dodecahedron Core + Outer Torus Knot
-                const geometry = new THREE.DodecahedronGeometry(1.2, 0);
-                const material = new THREE.MeshPhysicalMaterial({
-                    color: new THREE.Color(0xb48cf7),
-                    metalness: 0.8,
-                    roughness: 0.1,
-                    opacity: 0.2, // Hollow glass core
-                    transparent: true,
-                    transmission: 0.9,
-                    thickness: 1.0,
-                    side: THREE.DoubleSide
+                // --- NATIVE GLTF PIPELINE ---
+                // We use a verified animated placeholder Robot. You will replace this with your exported GLTF file!
+                const loader = new THREE.GLTFLoader();
+                const robotModelUrl = 'https://modelviewer.dev/shared-assets/models/RobotExpressive.glb';
+
+                // Mouse coordinates for parallax tracking
+                let targetRotationX = 0;
+                let targetRotationY = 0;
+
+                document.addEventListener('mousemove', (e) => {
+                    targetRotationY = ((e.clientX / window.innerWidth) - 0.5) * 1.5; 
+                    targetRotationX = ((e.clientY / window.innerHeight) - 0.5) * 0.5; 
+                    mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+                    mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+                    
+                    // Update SpotLight Target Position
+                    if(interactiveSpotLight) {
+                        const vector = new THREE.Vector3(mouse.x, mouse.y, 0.5);
+                        vector.unproject(camera);
+                        const dir = vector.sub(camera.position).normalize();
+                        const distance = -camera.position.z / dir.z;
+                        const pos = camera.position.clone().add(dir.multiplyScalar(distance));
+                        interactiveSpotLight.target.position.copy(pos);
+                        interactiveSpotLight.target.updateMatrixWorld();
+                    }
                 });
-                shape = new THREE.Mesh(geometry, material);
-                shapeGroup.add(shape);
 
-                // Outer Wireframe Torus Knot (Index 0 for Theme Sync)
-                const torusGeo = new THREE.TorusKnotGeometry(1.6, 0.05, 100, 16);
-                const wireframeMat = new THREE.LineBasicMaterial({
-                    color: new THREE.Color(parseInt(getComputedStyle(document.documentElement).getPropertyValue('--hero-shape-wireframe-color'), 16)),
-                    transparent: true,
-                    opacity: 0.8,
-                    linewidth: 1.5
+                // "Click-to-Hack" Raycaster Interaction & Audio Start
+                document.addEventListener('click', (e) => {
+                    mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+                    mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+                    raycaster.setFromCamera(mouse, camera);
+                    
+                    // Activate Audio Context on first interaction
+                    if(sound && e.target.id !== 'get-in-touch-btn') {
+                        try { sound.play(); } catch(err) {}
+                    }
+                    
+                    if (window.gltfModel) {
+                        const intersects = raycaster.intersectObject(window.gltfModel, true);
+                        if (intersects.length > 0) {
+                            // HACK EFFECT TRIGGERED
+                            if (glitchPass) {
+                                glitchPass.enabled = true;
+                                isGlitching = true;
+                                glitchEndTime = Date.now() + 500; // 500ms duration
+                            }
+                            window.gltfModel.rotation.y += Math.PI * 2; // quick spin
+                            window.robotExpression = 'Surprised';
+                        }
+                    }
                 });
-                const wireframe = new THREE.LineSegments(new THREE.WireframeGeometry(torusGeo), wireframeMat);
-                shape.add(wireframe);
 
-                // Inner Glowing Solid Core
-                const coreGeo = new THREE.IcosahedronGeometry(0.5, 0);
-                const coreMat = new THREE.MeshBasicMaterial({ color: 0x915EFF });
-                const core = new THREE.Mesh(coreGeo, coreMat);
-                shape.add(core);
+                // Phase 2: Reactive Facial Expressions (UI Hook)
+                setTimeout(() => {
+                    const ctaButton = document.getElementById('get-in-touch-btn') || document.querySelector('.hero-title-glow, h1, .text-gradient');
+                    if (ctaButton) {
+                        ctaButton.addEventListener('mouseenter', () => window.robotExpression = 'Surprised');
+                        ctaButton.addEventListener('mouseleave', () => window.robotExpression = 'Smile');
+                    }
+                }, 1000); // Wait for DOM
 
-                // Lighting
+                loader.load(robotModelUrl, (gltf) => {
+                    const model = gltf.scene;
+                    
+                    // Center and Scale the Robot
+                    // Pushed extremely high so the head extends near the top and the chest aligns perfectly with the center text
+                    model.position.set(0, 3.2, 0); 
+                    model.scale.set(0.95, 0.95, 0.95);
+                    
+                    // Cinematic 3D Color Grading via PBR & Lighting!
+                    window.robotFaceMeshes = [];
+                    const wireframesToAdd = []; // Safe array to prevent traverse infinite loops
 
-                const pointLight = new THREE.PointLight(0xffffff, 1);
-                pointLight.position.set(5, 5, 5);
-                const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-                scene.add(pointLight, ambientLight);
+                    model.traverse((child) => {
+                        // Phase 1: Bone Tracking Hook (Find the head/neck bone)
+                        if (child.isBone && child.name.toLowerCase().includes('head')) {
+                            window.robotHeadBone = child;
+                        }
+                        
+                        if (child.isMesh && child.material) {
+                            
+                            // 1. Support multi-material meshes to preserve distinguishable body parts
+                            const materials = Array.isArray(child.material) ? child.material : [child.material];
+                            
+                            materials.forEach(mat => {
+                                // 2. Premium Finish: High-gloss metalness to accurately reflect purple/pink ambient lasers
+                                mat.metalness = 0.9;        
+                                mat.roughness = 0.1;       
+                                mat.skinning = !!child.isSkinnedMesh;        // Required for bones
+                                if (cubeRenderTarget) {
+                                    mat.envMap = cubeRenderTarget.texture; // Phase 4 Real-Time Reflection
+                                    // Remove the restriction on intensity to let the metal shine through completely
+                                    mat.envMapIntensity = 1.0; 
+                                }
+                                mat.needsUpdate = true;
+                            });
 
-                // Add particles for a futuristic background
+                            // Phase 5: Magnetic Data Card Holograms
+                            if (child.name.toLowerCase().includes('chest') || child.name.toLowerCase().includes('spine') || child.name.toLowerCase().includes('pelvis')) {
+                                // Prevent multiple cards on same bone segment
+                                if (!child.userData.hasHoloCard) {
+                                    const cardDiv = document.createElement('div');
+                                    cardDiv.className = 'holo-card visible';
+                                    cardDiv.innerHTML = 'STATUS: ONLINE<br>AI CORE: 100%';
+                                    const cssObject = new THREE.CSS2DObject(cardDiv);
+                                    cssObject.position.set(0, 0, 0); 
+                                    child.add(cssObject);
+                                    child.userData.hasHoloCard = true;
+                                }
+                            }
+                            // Add a Glowing Emoji Face to the Head
+                            if (child.isBone && child.name.toLowerCase().includes('head')) {
+                                if (!child.userData.hasFace) {
+                                    const faceDiv = document.createElement('div');
+                                    faceDiv.id = 'robot-neon-face';
+                                    faceDiv.style.color = '#fff';
+                                    faceDiv.style.textShadow = '0 0 10px #ff57b9, 0 0 20px #ff57b9';
+                                    faceDiv.style.fontSize = '40px';
+                                    faceDiv.style.fontFamily = 'monospace';
+                                    faceDiv.style.fontWeight = 'bold';
+                                    faceDiv.style.whiteSpace = 'nowrap';
+                                    faceDiv.style.pointerEvents = 'none';
+                                    faceDiv.innerHTML = '^ _ ^';
+                                    const faceObject = new THREE.CSS2DObject(faceDiv);
+                                    // Offset to sit in front of the head
+                                    faceObject.position.set(0, 0, 0.4); 
+                                    child.add(faceObject);
+                                    child.userData.hasFace = true;
+                                }
+                            }
+                            
+                            child.castShadow = true;
+                            child.receiveShadow = true;
+                            
+                            // Setup Phase 2: Capture Facial Morph Targets
+                            if (child.morphTargetDictionary && child.morphTargetInfluences) {
+                                window.robotFaceMeshes.push(child);
+                                // Default to Smile explicitly
+                                const smileIdx = Object.entries(child.morphTargetDictionary).find(([n]) => n.toLowerCase().includes('smile'));
+                                if (smileIdx) child.morphTargetInfluences[smileIdx[1]] = 1.0; 
+                            }
+                            
+                            // Phase 3: Anime Aura Outline (Smooth Volumetric Inverted-Hulls)
+                            // We generate 4 stacked inverted hulls to simulate a flawless smooth volumetric bloom
+                            const auraLayers = [
+                                { scale: 1.02, opacity: 0.4 },
+                                { scale: 1.05, opacity: 0.2 },
+                                { scale: 1.10, opacity: 0.1 },
+                                { scale: 1.15, opacity: 0.05 }
+                            ];
+                            
+                            auraLayers.forEach(layer => {
+                                const outlineMat = new THREE.MeshBasicMaterial({ 
+                                    color: 0x915EFF, // Violet Neon
+                                    transparent: true, 
+                                    opacity: layer.opacity, 
+                                    side: THREE.BackSide, // Inside-out rendering
+                                    blending: THREE.AdditiveBlending,
+                                    depthWrite: false, 
+                                    skinning: !!child.isSkinnedMesh 
+                                });
+                                let outlineMesh;
+                                if (child.isSkinnedMesh) {
+                                    outlineMesh = new THREE.SkinnedMesh(child.geometry, outlineMat);
+                                    outlineMesh.skeleton = child.skeleton;
+                                    outlineMesh.bind(child.skeleton, child.bindMatrix);
+                                    outlineMesh.scale.setScalar(layer.scale); 
+                                    outlineMesh.userData.baseOpacity = layer.opacity;
+                                    wireframesToAdd.push({ parent: child.parent, mesh: outlineMesh });
+                                } else {
+                                    outlineMesh = new THREE.Mesh(child.geometry, outlineMat);
+                                    outlineMesh.scale.setScalar(layer.scale);
+                                    outlineMesh.userData.baseOpacity = layer.opacity;
+                                    wireframesToAdd.push({ parent: child, mesh: outlineMesh });
+                                }
+                            });
+                        }
+                    });
+                    
+                    // Attach the calculated holographic aura shells
+                    window.robotAuraHulls = [];
+                    wireframesToAdd.forEach(obj => {
+                        obj.parent.add(obj.mesh);
+                        window.robotAuraHulls.push(obj.mesh);
+                    });
+                    
+                    const auraLight = new THREE.PointLight(0x915EFF, 4, 10);
+                    auraLight.position.set(0, 0, 1);
+                    model.add(auraLight);
+
+                    // Attach model to the main interactive group
+                    shapeGroup.add(model);
+                    window.gltfModel = model; // Expose for animate loop floating effects
+                    window.targetRotationX = targetRotationX;
+                    window.targetRotationY = targetRotationY;
+                    
+                    // Make the robot "Alive" using its internal skeletal animations
+                    robotMixer = new THREE.AnimationMixer(model);
+                    
+                    // Try to play 'Wave' or 'Idle' or generic first animation
+                    if(gltf.animations && gltf.animations.length > 0) {
+                        const targetAnim = gltf.animations.find(a => a.name.toLowerCase().includes('wave')) 
+                                        || gltf.animations.find(a => a.name.toLowerCase().includes('hi'))
+                                        || gltf.animations.find(a => a.name.toLowerCase().includes('dance')) 
+                                        || gltf.animations[0];
+                        const action = robotMixer.clipAction(targetAnim);
+                        // Make animation slightly faster and highly energetic
+                        action.setEffectiveTimeScale(1.2); 
+                        action.play();
+                    }
+                });
+
+                // --- ADVANCED LIGHTING FOR HOLOGRAPHIC MATERIALS ---
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); // Drop base visibility for cinematic feel
+                scene.add(ambientLight);
+                
+                // Cinematic Flashlight Action!
+                interactiveSpotLight = new THREE.SpotLight(0xffffff, 15);
+                interactiveSpotLight.angle = Math.PI / 6;
+                interactiveSpotLight.penumbra = 0.8;
+                interactiveSpotLight.position.set(0, 0, 8);
+                scene.add(interactiveSpotLight);
+                scene.add(interactiveSpotLight.target);
+                
+                const directionalLight = new THREE.DirectionalLight(0xffffff, 4);
+                directionalLight.position.set(5, 10, 7);
+                scene.add(directionalLight);
+                
+                const rimLight = new THREE.PointLight(0xff57b9, 8); // Intense Hot Pink rim lighting
+                rimLight.position.set(-5, 5, -5);
+                scene.add(rimLight);
+                
+                const frontGlow = new THREE.PointLight(0x915eff, 6); // Core purple front spotlight
+                frontGlow.position.set(0, 2, 5);
+                scene.add(frontGlow);
+
+                // Add background particles for a futuristic void
                 const particleGeometry = new THREE.BufferGeometry();
                 const positions = [];
                 const colors = [];
-                const color1 = new THREE.Color(0x915EFF);
-                const color2 = new THREE.Color(0xFF57B9);
+                const color1 = new THREE.Color(0x915EFF); // Violet
+                const color2 = new THREE.Color(0xFF57B9); // Pink
 
                 for (let i = 0; i < particleCount; i++) {
-                    // Random position within a larger cube
-                    positions.push(
-                        (Math.random() - 0.5) * 20,
-                        (Math.random() - 0.5) * 20,
-                        (Math.random() - 0.5) * 20
-                    );
-                    // Assign a random color between the two gradient colors
+                    positions.push((Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20);
                     const mixedColor = new THREE.Color().lerpColors(color1, color2, Math.random());
                     colors.push(mixedColor.r, mixedColor.g, mixedColor.b);
                 }
@@ -2164,12 +2495,11 @@
                 particleGeometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
 
                 const particleMaterial = new THREE.PointsMaterial({
-                    size: 0.1,
-                    vertexColors: true, // Use vertex colors
+                    size: 0.15,
+                    vertexColors: true,
                     transparent: true,
-                    opacity: 0.8,
-                    blending: THREE.AdditiveBlending, // For glowing effect
-                    sizeAttenuation: true
+                    opacity: 0.6,
+                    blending: THREE.AdditiveBlending
                 });
                 particles = new THREE.Points(particleGeometry, particleMaterial);
                 scene.add(particles);
@@ -2180,64 +2510,128 @@
             function animate() {
                 requestAnimationFrame(animate);
 
-                // Slower, more ominous speed for the heartbeat
                 const time = Date.now() * 0.002;
-
-                if (shape) {
-                    shape.rotation.x += 0.001;
-                    shape.rotation.y += 0.002;
-
-                    // "CYBER HEARTBEAT" LOGIC
-                    // We stick strictly to Purple (0.75 hue) and shift slightly
-                    // No rainbows. Just cool, dark tech colors.
-
-                    // 1. Color Shift: Pulse between Deep Purple and Blue
-                    const hue = 0.75 + Math.sin(time * 0.5) * 0.05;
-
-                    // 2. Brightness Pulse: machine "breathing" effect
-                    const lightness = 0.5 + Math.sin(time * 2) * 0.1;
-
-                    // Apply the dark neon color
-                    shape.material.color.setHSL(hue, 1.0, lightness);
-
-                    // Make the wireframe glow slightly brighter
-                    if (shape.children[0]) {
-                        shape.children[0].material.color.setHSL(hue, 1.0, 0.8);
+                
+                // Process Hack Glitch Timer
+                if (isGlitching && Date.now() > glitchEndTime && glitchPass) {
+                    glitchPass.enabled = false;
+                    isGlitching = false;
+                    window.robotExpression = 'Smile'; // Reset back to happy!
+                }
+                
+                // Audio Reactivity 
+                if (window.robotAnalyser) {
+                    window.robotAnalyser.getByteFrequencyData(window.robotMicData);
+                    let avg = window.robotMicData.reduce((a,b)=>a+b, 0) / window.robotMicData.length; // 0-255
+                    // Overclock: Thump the anime aura based on avg freq
+                    if (window.robotAuraHulls && avg > 0) {
+                        window.robotAuraHulls.forEach(hull => {
+                             hull.material.opacity = hull.userData.baseOpacity * (1.0 + (avg/255) * 2.0); // Brighten dynamically
+                        });
                     }
                 }
+                
+                // Tick the robot's alive skeletal animation
+                if (robotMixer) {
+                    robotMixer.update(robotClock.getDelta());
+                }
 
+                // Dynamic Native-Robot Physics Calculations
+                if (window.gltfModel) {
+                    // 1. Continuous sine wave floating
+                    window.gltfModel.position.y = -0.8 + Math.sin(time) * 0.15;
+                    
+                    // Phase 1: Interactive Eye-Tracking
+                    if (window.robotHeadBone && typeof targetRotationY !== 'undefined') {
+                        // Instead of turning the whole body, we pivot the head specifically to track the cursor!
+                        window.robotHeadBone.rotation.y += (targetRotationY - window.robotHeadBone.rotation.y) * 0.1;
+                        window.robotHeadBone.rotation.x += (targetRotationX - window.robotHeadBone.rotation.x) * 0.1;
+                        // Give the main body a tiny residual rotation for weight
+                        window.gltfModel.rotation.y += (targetRotationY * 0.2 - window.gltfModel.rotation.y) * 0.05;
+                    } else if (typeof targetRotationY !== 'undefined') {
+                        // Fallback if skeleton fails
+                        window.gltfModel.rotation.y += (targetRotationY - window.gltfModel.rotation.y) * 0.05;
+                        window.gltfModel.rotation.x += (targetRotationX - window.gltfModel.rotation.x) * 0.05;
+                    }
+                    
+                    // Phase 2: Neural Facial Expressions System (Tick loop)
+                    if (window.robotFaceMeshes) {
+                        window.robotFaceMeshes.forEach(mesh => {
+                            const dict = mesh.morphTargetDictionary;
+                            if(!dict) return;
+                            
+                            // Fetch target channel index mapping
+                            const smileIdx = (Object.entries(dict).find(([n]) => n.toLowerCase().includes('smile')) || [])[1];
+                            const surprisedIdx = (Object.entries(dict).find(([n]) => n.toLowerCase().includes('surprised')) || [])[1];
+                            
+                            // Smoothly lerp towards appropriate expression
+                            const targetSmile = window.robotExpression === 'Surprised' ? 0 : 1;
+                            const targetSurprised = window.robotExpression === 'Surprised' ? 1.0 : 0; // Max 1.0 influence
+                            
+                            if(smileIdx !== undefined) mesh.morphTargetInfluences[smileIdx] += (targetSmile - mesh.morphTargetInfluences[smileIdx]) * 0.2;
+                            if(surprisedIdx !== undefined) mesh.morphTargetInfluences[surprisedIdx] += (targetSurprised - mesh.morphTargetInfluences[surprisedIdx]) * 0.2;
+                        });
+                    }
+                    
+                    // Update the Glowing Neon Face Display
+                    const neonFace = document.getElementById('robot-neon-face');
+                    if (neonFace) {
+                        neonFace.innerHTML = window.robotExpression === 'Surprised' ? 'O _ O' : '^ _ ^';
+                    }
+                    
+                    // Aura continuous smooth pulse animation
+                    if (window.robotAuraHulls) {
+                        if (!window.robotAnalyser || window.robotMicData.reduce((a,b)=>a+b, 0) === 0) {
+                             window.robotAuraHulls.forEach(hull => {
+                                 hull.material.opacity = hull.userData.baseOpacity * (1.0 + Math.sin(time * 3) * 0.4);
+                             });
+                        }
+                    }
+                }
+                
                 if (particles) {
                     particles.rotation.x += 0.0005;
                     particles.rotation.y += 0.001;
                 }
 
-                renderer.render(scene, camera);
+                // CUBECAMERA ENVIRONMENT REFLECTIONS (Render 1 frame of env without robot)
+                if(window.gltfModel && cubeCamera) {
+                    window.gltfModel.visible = false;
+                    cubeCamera.position.copy(window.gltfModel.position);
+                    cubeCamera.position.y += 1.5; // Offset from ground
+                    cubeCamera.update(renderer, scene);
+                    window.gltfModel.visible = true;
+                }
+
+                if (composer) {
+                    composer.render();
+                } else {
+                    renderer.render(scene, camera);
+                }
+                if (css2dRenderer) {
+                    css2dRenderer.render(scene, camera);
+                }
             }
 
             function onWindowResize() {
                 camera.aspect = window.innerWidth / window.innerHeight;
                 camera.updateProjectionMatrix();
                 renderer.setSize(window.innerWidth, window.innerHeight);
+                if(composer) composer.setSize(window.innerWidth, window.innerHeight);
+                if(css2dRenderer) css2dRenderer.setSize(window.innerWidth, window.innerHeight);
             }
             window.addEventListener('resize', onWindowResize, false);
 
-            // This function will now be responsible for updating the Three.js shape's color
+            // This function handles theme updates
             function updateThreeJsShapeColor() {
                 if (shape) {
-                    const rootStyles = getComputedStyle(document.documentElement);
-                    const shapeColorHex = rootStyles.getPropertyValue('--hero-shape-color').trim();
-                    const wireframeColorHex = rootStyles.getPropertyValue('--hero-shape-wireframe-color').trim();
-
-                    // Convert hex string (e.g., "0xADD8E6") to a number for THREE.Color
-                    shape.material.color.setHex(parseInt(shapeColorHex, 16));
-                    // Update wireframe color if it exists
-                    if (shape.children.length > 0 && shape.children[0] instanceof THREE.LineSegments) {
-                        shape.children[0].material.color.setHex(parseInt(wireframeColorHex, 16));
-                    }
+                    // Deprecated: GLTF robot retains its own materials instead of being forced into neon colors.
+                    // If you want the robot to turn white in light mode, logic goes here!
                 }
             }
 
             initThreeJS();
+            
             // Call it initially to set the correct color based on initial theme
             updateThreeJsShapeColor();
 
@@ -2317,15 +2711,20 @@
 
 
             // --- Glowing Card Effect & 3D Tilt ---
-            document.querySelectorAll('.glass-card').forEach(card => {
-                card.addEventListener('mousemove', e => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    card.style.setProperty('--x', `${x}px`);
-                    card.style.setProperty('--y', `${y}px`);
+            window.bindGlowingCardEffect = function(elements) {
+                elements.forEach(card => {
+                    if (card.dataset.glowBound === "true") return;
+                    card.dataset.glowBound = "true";
+                    card.addEventListener('mousemove', e => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        card.style.setProperty('--x', `${x}px`);
+                        card.style.setProperty('--y', `${y}px`);
+                    });
                 });
-            });
+            };
+            window.bindGlowingCardEffect(document.querySelectorAll('.glass-card'));
 
             // --- Mobile Menu Toggle ---
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -2366,66 +2765,7 @@
 
             revealElements.forEach(el => observer.observe(el));
 
-            // --- Contact Form Handling (UPDATED) ---
-            const contactForm = document.getElementById('contact-form');
-            const formStatus = document.getElementById('form-status');
-
-            // NOTE: We added 'async' here to allow waiting for the backend response
-            contactForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-
-                // 1. Update UI to show "Sending..."
-                const submitBtn = contactForm.querySelector('button[type="submit"]');
-                const originalBtnText = submitBtn.innerText;
-
-                submitBtn.innerText = 'Sending...';
-                submitBtn.disabled = true;
-                formStatus.textContent = 'Sending...';
-                formStatus.style.color = 'white';
-
-                // 2. Collect the data from the HTML inputs
-                const formData = {
-                    name: contactForm.name.value,
-                    email: contactForm.email.value,
-                    message: contactForm.message.value
-                };
-
-                try {
-                    // 3. Send the data to your Node.js backend
-                    const response = await fetch(`${API_BASE_URL}/api/contact`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(formData)
-                    });
-
-                    const result = await response.json();
-
-                    // 4. Handle Success or Failure
-                    if (response.ok) {
-                        formStatus.textContent = 'Message sent successfully!';
-                        formStatus.style.color = '#34D399'; // Green
-                        contactForm.reset(); // Clear the form inputs
-                    } else {
-                        throw new Error(result.message || 'Failed to send message');
-                    }
-
-                } catch (error) {
-                    console.error('Error:', error);
-                    formStatus.textContent = 'Server error. Is the backend running?';
-                    formStatus.style.color = '#EF4444'; // Red
-                } finally {
-                    // 5. Reset button state
-                    submitBtn.innerText = originalBtnText;
-                    submitBtn.disabled = false;
-
-                    // Clear status message after 3 seconds
-                    setTimeout(() => {
-                        formStatus.textContent = '';
-                    }, 3000);
-                }
-            });
+            // --- Contact Form Handling (Native FormSubmit used) ---
 
             // --- Project Details Modals ---
             const filterableCards = document.querySelectorAll('.glass-card[data-project-id]');
@@ -2604,9 +2944,34 @@
             async function fetchProjects() {
                 const container = document.getElementById('projects-container');
                 try {
-                    const response = await fetch(`${API_BASE_URL}/api/projects`);
-                    if (!response.ok) throw new Error('Failed to fetch projects');
-                    const projects = await response.json();
+                    // The two specific GitHub repositories required by the user
+                    const repos = ['neil-devs/zen-pdf', 'neil-devs/des3-ciphersuite'];
+                    
+                    const projectPromises = repos.map(async (repo) => {
+                        const res = await fetch(`https://api.github.com/repos/${repo}`);
+                        if (!res.ok) throw new Error(`GitHub API failure for ${repo}`);
+                        const data = await res.json();
+                        
+                        // Map GitHub topics or primary language to the tech stack array
+                        let techStackArr = data.topics || [];
+                        if (techStackArr.length === 0 && data.language) {
+                            techStackArr.push(data.language);
+                        }
+
+                        // Return mapped object matching the original DB schema
+                        return {
+                            id: data.id,
+                            title: data.name.toUpperCase().replace('-', ' '),
+                            category: data.name.includes('pdf') ? 'web ops' : 'red team',
+                            image_url: 'https://placehold.co/600x400/151030/915EFF?text=' + data.name.toUpperCase(),
+                            description: data.description || 'Secure communication and file protocol handlers.',
+                            tech_stack: techStackArr.join(', ') || 'React, Node.js, WebGL',
+                            live_link: data.homepage || data.html_url,
+                            github_link: data.html_url
+                        };
+                    });
+
+                    const projects = await Promise.all(projectPromises);
 
                     if (projects.length === 0) {
                         container.innerHTML = '<p class="text-slate-400 text-center w-full col-span-3">No mission logs currently available.</p>';
@@ -2614,34 +2979,37 @@
                     }
 
                     container.innerHTML = projects.map((project, index) => {
-                        // Alternate border colors based on index or category if desired. using modulo for variety
                         const colors = ['violet', 'pink', 'green', 'blue'];
                         const color = colors[index % colors.length];
 
                         return `
-                            <div class="project-card rounded-lg overflow-hidden group glass-card cursor-pointer border-l-4 border-${color}-500"
+                            <div class="project-card relative glass-card p-8 rounded-2xl cursor-pointer border-t border-r border-b border-gray-700/50 border-l-4 border-l-${color}-500 group"
                                 data-category="${project.category.toLowerCase()}" data-aos="fade-up" data-aos-delay="${(index % 3) * 100}" data-project-id="project${project.id}"
                                 data-project-title="${project.title}"
-                                data-project-image="${project.image_url || 'https://placehold.co/600x400/151030/915EFF?text=Project'}"
+                                data-project-image="${project.image_url}"
                                 data-project-description="${project.description.replace(/"/g, '&quot;')}"
-                                data-project-tech="${project.tech_stack}" data-project-live-link="${project.live_link || '#'}" data-project-github-link="${project.github_link || '#'}">
+                                data-project-tech="${project.tech_stack}" data-project-live-link="${project.live_link}" data-project-github-link="${project.github_link}">
 
-                                <div class="glass-card-inner p-6 items-start text-left h-full flex flex-col justify-between">
-                                    <div>
-                                        <div class="stamp mb-4" style="border-color: var(--${color}-500); color: var(--${color}-500);">DECRYPTED</div>
-                                        <h3 class="text-xl font-bold text-white mb-1 font-mono">${project.title}</h3>
-                                        <p class="text-xs text-slate-500 mb-4 font-mono">ID: #SYS-${project.id}</p>
-
-                                        <p class="text-slate-300 mb-4 text-sm line-clamp-3">
-                                            ${project.description}
-                                        </p>
+                                <div class="glass-card-inner items-start text-left p-0 w-full h-full flex flex-col justify-between">
+                                    <div class="w-full">
+                                        <div class="flex flex-col md:flex-row md:items-center justify-between w-full mb-4">
+                                            <div>
+                                                <h3 class="text-2xl font-bold text-white group-hover:text-${color}-400 transition-colors">${project.title}</h3>
+                                                <h4 class="text-lg text-${color}-400 font-semibold mt-1">Open Source Protocol</h4>
+                                            </div>
+                                        </div>
+                                        
+                                        <ul class="space-y-3 text-slate-300 leading-relaxed list-none pl-0 mb-6 mt-4">
+                                            <li class="flex items-start"><span class="text-${color}-500 mr-3 hidden sm:inline">▹</span>
+                                                <p>${project.description}</p>
+                                            </li>
+                                        </ul>
                                     </div>
 
-                                    <div class="w-full">
-                                        <div class="w-full h-[1px] bg-gray-700 my-4"></div>
+                                    <div class="w-full mt-4">
                                         <div class="flex flex-wrap gap-2">
                                             ${project.tech_stack.split(',').map(tech =>
-                            `<span class="text-xs text-${color}-300 bg-${color}-900/30 px-2 py-1 rounded font-mono">${tech.trim()}</span>`
+                            `<span class="text-slate-300 font-semibold font-mono bg-${color}-900/20 px-3 py-1.5 rounded-lg border border-${color}-500/30 whitespace-nowrap text-xs shadow-md">${tech.trim()}</span>`
                         ).join('')}
                                         </div>
                                     </div>
@@ -2654,10 +3022,20 @@
                     initProjectModals();
                     // Re-initialize portfolio filtering
                     initPortfolioFiltering();
+                    // Inject newly loaded cards to the Phase 3 GSAP 3D Hover engine
+                    if (window.bind3DParallax) {
+                        window.bind3DParallax(container.querySelectorAll('.glass-card'));
+                    }
+                    if (window.bindIridescentBorders) {
+                        window.bindIridescentBorders(container.querySelectorAll('.glass-card'));
+                    }
+                    if (window.bindGlowingCardEffect) {
+                        window.bindGlowingCardEffect(container.querySelectorAll('.glass-card'));
+                    }
 
                 } catch (error) {
-                    console.error('Error loading projects:', error);
-                    container.innerHTML = '<p class="text-red-500 text-center w-full col-span-3">Failed to load mission logs. System Error.</p>';
+                    console.error('Error loading GitHub projects:', error);
+                    container.innerHTML = '<p class="text-red-500 text-center w-full col-span-3">Failed to load github mission logs. System Error.</p>';
                 }
             }
 
@@ -3040,76 +3418,85 @@
             });
 
             // 4. Phase 3 & 4: Cinematic Z-Axis Page Reveals & Spatial Holographic perspective cards
-            document.querySelectorAll('.glass-card').forEach((card, index) => {
-                // Phase 4: Z-Axis Depth Scrubbing
-                gsap.fromTo(card,
-                    { y: 150, z: -500, rotationX: 15, scale: 0.8, opacity: 0 },
-                    {
-                        scrollTrigger: {
-                            trigger: card,
-                            start: 'top 95%',
-                            end: 'top 60%',
-                            scrub: 1.5
-                        },
-                        y: 0, z: 0, rotationX: 0, scale: 1, opacity: 1,
-                        ease: 'power3.out'
-                    }
-                );
+            window.bind3DParallax = function(elements) {
+                elements.forEach((card, index) => {
+                    // Phase 4: Z-Axis Depth Scrubbing
+                    gsap.fromTo(card,
+                        { y: 150, z: -500, rotationX: 15, scale: 0.8, opacity: 0 },
+                        {
+                            scrollTrigger: {
+                                trigger: card,
+                                start: 'top 95%',
+                                end: 'top 60%',
+                                scrub: 1.5
+                            },
+                            y: 0, z: 0, rotationX: 0, scale: 1, opacity: 1,
+                            ease: 'power3.out'
+                        }
+                    );
 
-                // Phase 3: Spatial Hover Engine & Apple TV Deep Parallax
-                gsap.set(card, { transformPerspective: 1200, transformStyle: "preserve-3d" });
-                
-                const innerImg = card.querySelector('img');
-                const innerText = card.querySelectorAll('h3, p, a, span');
-                // Push text aggressively forward, push image backward for internal volume
-                if (innerText.length) gsap.set(innerText, { transformZ: 60 });
-                if (innerImg) gsap.set(innerImg, { transformZ: -80, scale: 1.15 });
+                    // Skip Phase 3 logic if card has already been bound (prevents duplicate mouse tracking hooks on hover)
+                    if (card.dataset.parallaxBound === "true") return;
+                    card.dataset.parallaxBound = "true";
 
-                card.addEventListener('mouseenter', () => {
-                    gsap.to(card, { scale: 1.02, duration: 0.5, ease: 'power3.out', overwrite: 'auto' });
-                });
-                card.addEventListener('mousemove', (e) => {
-                    if(!window.__siteInteractive) return;
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
+                    // Phase 3: Spatial Hover Engine & Apple TV Deep Parallax
+                    gsap.set(card, { transformPerspective: 1200, transformStyle: "preserve-3d" });
                     
-                    const rotateX = ((y - centerY) / centerY) * -12; 
-                    const rotateY = ((x - centerX) / centerX) * 12;
-                    
-                    gsap.to(card, {
-                        rotationX: rotateX,
-                        rotationY: rotateY,
-                        z: 50, // Raise physically off screen z-plane
-                        duration: 0.6,
-                        ease: 'power3.out',
-                        overwrite: 'auto'
+                    const innerImg = card.querySelector('img');
+                    const innerText = card.querySelectorAll('h3, p, a, span');
+                    // Push text aggressively forward, push image backward for internal volume
+                    if (innerText.length) gsap.set(innerText, { transformZ: 60 });
+                    if (innerImg) gsap.set(innerImg, { transformZ: -80, scale: 1.15 });
+
+                    card.addEventListener('mouseenter', () => {
+                        gsap.to(card, { scale: 1.02, duration: 0.5, ease: 'power3.out', overwrite: 'auto' });
                     });
-                    
-                    if (innerImg) {
-                        // Inverse parallax mapping 
-                        gsap.to(innerImg, {
-                            x: (x - centerX) * -0.15,
-                            y: (y - centerY) * -0.15,
+                    card.addEventListener('mousemove', (e) => {
+                        if(!window.__siteInteractive) return;
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+                        
+                        const rotateX = ((y - centerY) / centerY) * -12; 
+                        const rotateY = ((x - centerX) / centerX) * 12;
+                        
+                        gsap.to(card, {
+                            rotationX: rotateX,
+                            rotationY: rotateY,
+                            z: 50, // Raise physically off screen z-plane
                             duration: 0.6,
                             ease: 'power3.out',
                             overwrite: 'auto'
                         });
-                    }
-                });
-                
-                card.addEventListener('mouseleave', () => {
-                    gsap.to(card, {
-                        rotationX: 0, rotationY: 0, z: 0, scale: 1,
-                        duration: 1, ease: 'elastic.out(1, 0.4)', overwrite: 'auto'
+                        
+                        if (innerImg) {
+                            // Inverse parallax mapping 
+                            gsap.to(innerImg, {
+                                x: (x - centerX) * -0.15,
+                                y: (y - centerY) * -0.15,
+                                duration: 0.6,
+                                ease: 'power3.out',
+                                overwrite: 'auto'
+                            });
+                        }
                     });
-                    if (innerImg) {
-                        gsap.to(innerImg, { x: 0, y: 0, duration: 1, ease: 'elastic.out(1, 0.4)', overwrite: 'auto' });
-                    }
+                    
+                    card.addEventListener('mouseleave', () => {
+                        gsap.to(card, {
+                            rotationX: 0, rotationY: 0, z: 0, scale: 1,
+                            duration: 1, ease: 'elastic.out(1, 0.4)', overwrite: 'auto'
+                        });
+                        if (innerImg) {
+                            gsap.to(innerImg, { x: 0, y: 0, duration: 1, ease: 'elastic.out(1, 0.4)', overwrite: 'auto' });
+                        }
+                    });
                 });
-            });
+            };
+
+            // Instantiate bindings for pre-rendering DOM cards
+            window.bind3DParallax(document.querySelectorAll('.glass-card'));
 
             // Removed SplitType from hero text to fix background-clip gradient blurring and margin collapsing
 
@@ -3191,17 +3578,24 @@
             });
 
             // 7. Dynamic Iridescent Border Tracking on Glass Cards
-            document.querySelectorAll('.glass-card').forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    card.style.background = `radial-gradient(1000px circle at ${x}px ${y}px, rgba(255,255,255,0.06), transparent 40%), rgba(20, 10, 40, 0.4)`;
+            window.bindIridescentBorders = function(elements) {
+                elements.forEach(card => {
+                    // Prevent duplicate event listener binding on same cards
+                    if (card.dataset.iridescentBound === "true") return;
+                    card.dataset.iridescentBound = "true";
+
+                    card.addEventListener('mousemove', (e) => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        card.style.background = `radial-gradient(1000px circle at ${x}px ${y}px, rgba(255,255,255,0.06), transparent 40%), rgba(20, 10, 40, 0.4)`;
+                    });
+                    card.addEventListener('mouseleave', () => {
+                        gsap.to(card, { background: 'rgba(20, 10, 40, 0.4)', duration: 0.5 });
+                    });
                 });
-                card.addEventListener('mouseleave', () => {
-                    gsap.to(card, { background: 'rgba(20, 10, 40, 0.4)', duration: 0.5 });
-                });
-            });
+            };
+            window.bindIridescentBorders(document.querySelectorAll('.glass-card'));
 
             // 8. Cyber Dust WebGL Background
             const bgCanvas = document.getElementById('bg-canvas');
@@ -3406,16 +3800,34 @@
 
             // Removed experimental Scroll Blur, Velocity Glitch, and Blast-door splitting per user request
 
-            // ASMR Sonic Micro-Interactions removed to fix severe main-thread lag
-            // 10. Cinematic "Curtain Reveal" Preloader
+            // 10. Cybernetic "Split-Door Reveal" Preloader
+            const statuses = ["INITIALIZING CORE...", "DECRYPTING ASSET...", "COMPILING SHADER...", "BOOT SEQUENCE OK.", "SYSTEM ONLINE"];
+            let statusIndex = 0;
+            const statusInterval = setInterval(() => {
+                statusIndex++;
+                if (statusIndex < statuses.length) {
+                    const statusEl = document.getElementById('loader-status');
+                    if(statusEl) statusEl.innerText = statuses[statusIndex];
+                } else {
+                    clearInterval(statusInterval);
+                }
+            }, 300);
+
             const preloaderTl = gsap.timeline({
-                onComplete: () => { window.__siteInteractive = true; }
+                onComplete: () => { 
+                    window.__siteInteractive = true; 
+                    const pLoader = document.getElementById('preloader');
+                    if(pLoader) pLoader.style.pointerEvents = 'none';
+                    if(pLoader) pLoader.style.display = 'none'; // Force fully remove
+                }
             });
-            preloaderTl.to('#preloader-bar', { width: '100%', duration: 1.5, ease: 'power2.inOut' })
-                .to('.preloader-text', { opacity: 0, duration: 0.2 }, "-=0.2")
-                .to('#preloader', { yPercent: -100, duration: 1.2, ease: 'expo.inOut' })
-                .from('.hero-title-glow', { y: 50, opacity: 0, duration: 1.5, ease: 'elastic.out(1, 0.4)' }, "-=0.6")
-                .from('#typewriter', { opacity: 0, duration: 1, ease: 'power2.out' }, "-=1");
+
+            preloaderTl.to('#preloader-bar', { width: '100%', duration: 1.5, ease: 'power3.inOut' })
+                .to('#preloader-content', { scale: 1.2, opacity: 0, duration: 0.3, ease: 'power2.in' }) // Implode loader visually
+                .to('#preloader-bg-top', { yPercent: -100, duration: 1.2, ease: 'power4.inOut' }, "+=0.1")
+                .to('#preloader-bg-bottom', { yPercent: 100, duration: 1.2, ease: 'power4.inOut' }, "<")
+                .from('.hero-title-glow', { y: 60, opacity: 0, duration: 1.6, ease: 'expo.out' }, "-=1.0")
+                .from('#typewriter', { opacity: 0, duration: 1, ease: 'power2.out' }, "-=1.2");
 
             // Liquid Image Distortion removed to fix critical GPU stall on hover
             // 12. Elastic Magnetic Header Links
