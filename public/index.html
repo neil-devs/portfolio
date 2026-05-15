@@ -2247,38 +2247,6 @@
                 cubeCamera = new THREE.CubeCamera(0.1, 1000, cubeRenderTarget);
                 scene.add(cubeCamera);
 
-                // AUDIO: Synthesized Ambient Hum
-                audioListener = new THREE.AudioListener();
-                camera.add(audioListener);
-                sound = new THREE.Audio(audioListener);
-                
-                // Create custom synthetic audio node to use with THREE.AudioAnalyser
-                try {
-                    const audioCtx = THREE.AudioContext.getContext();
-                    const osc = audioCtx.createOscillator();
-                    osc.type = 'sawtooth';
-                    osc.frequency.value = 40;
-                    
-                    const gainNode = audioCtx.createGain();
-                    gainNode.gain.value = 0; // Muted initially
-                    osc.connect(gainNode);
-                    
-                    const dummyDest = audioCtx.createMediaStreamDestination();
-                    gainNode.connect(dummyDest);
-                    gainNode.connect(audioCtx.destination);
-                    osc.start();
-
-                    sound.hasPlaybackControl = true;
-                    sound.play = () => { if(audioCtx.state === 'suspended') audioCtx.resume(); gainNode.gain.value = 0.05; };
-                    
-                    // Attach our own AnalyserNode since we bypass sound buffer
-                    let analyserNode = audioCtx.createAnalyser();
-                    analyserNode.fftSize = 32;
-                    gainNode.connect(analyserNode);
-                    window.robotMicData = new Uint8Array(analyserNode.frequencyBinCount);
-                    window.robotAnalyser = analyserNode;
-                } catch(e) {}
-
                 // Create the master group for scroll/mouse physics
                 const shapeGroup = new THREE.Group();
                 scene.add(shapeGroup);
@@ -2319,11 +2287,6 @@
                     mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
                     mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
                     raycaster.setFromCamera(mouse, camera);
-                    
-                    // Activate Audio Context on first interaction
-                    if(sound && e.target.id !== 'get-in-touch-btn') {
-                        try { sound.play(); } catch(err) {}
-                    }
                     
                     if (window.gltfModel) {
                         const intersects = raycaster.intersectObject(window.gltfModel, true);
@@ -3371,34 +3334,9 @@
             // Prevent GSAP lag compensation from down-sampling high refresh rates
             gsap.ticker.lagSmoothing(0);
 
-            // WebAudio API HUD ASMR Sounds
-            let audioCtx = null;
-            function playAsmrHover() {
-                try {
-                    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                    if (audioCtx.state === 'suspended') audioCtx.resume();
-                    const osc = audioCtx.createOscillator();
-                    const gain = audioCtx.createGain();
-                    
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-                    osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.05);
-
-                    gain.gain.setValueAtTime(0, audioCtx.currentTime);
-                    gain.gain.linearRampToValueAtTime(0.05, audioCtx.currentTime + 0.01);
-                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
-                    
-                    osc.connect(gain);
-                    gain.connect(audioCtx.destination);
-                    osc.start();
-                    osc.stop(audioCtx.currentTime + 0.1);
-                } catch(e) {}
-            }
-
             // Phase 1: Extruded Isometric Buttons for futuristic links
             const magneticElements = document.querySelectorAll('.btn-futuristic');
             magneticElements.forEach(btn => {
-                btn.addEventListener('mouseenter', () => playAsmrHover());
                 gsap.set(btn, { transformPerspective: 800, transformStyle: "preserve-3d" });
                 btn.addEventListener('mousemove', (e) => {
                     const rect = btn.getBoundingClientRect();
@@ -3921,6 +3859,32 @@
                     document.body.classList.add('light-theme');
                 }
             }, 100);
+
+            // 15. Lenis Ultra-Smooth Scrolling Initialization
+            if (typeof Lenis !== 'undefined') {
+                const lenis = new Lenis({
+                    duration: 1.2,
+                    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                    direction: 'vertical',
+                    gestureDirection: 'vertical',
+                    smooth: true,
+                    mouseMultiplier: 1,
+                    smoothTouch: false,
+                    touchMultiplier: 2,
+                    infinite: false,
+                });
+
+                // Sync Lenis with GSAP ScrollTrigger
+                if (typeof ScrollTrigger !== 'undefined') {
+                    lenis.on('scroll', ScrollTrigger.update);
+                }
+
+                gsap.ticker.add((time) => {
+                    lenis.raf(time * 1000);
+                });
+
+                gsap.ticker.lagSmoothing(0);
+            }
         }
     </script>
 </body>
